@@ -6,7 +6,7 @@
 /*   By: aptive <aptive@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 14:46:14 by aptive            #+#    #+#             */
-/*   Updated: 2022/08/12 14:47:30 by aptive           ###   ########.fr       */
+/*   Updated: 2022/08/12 15:11:12 by aptive           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,19 @@ int	msg_error(char *str)
 	return (1);
 }
 
+int	verif_open_map(char *path_map)
+{
+	int	fd_map;
+
+	if (!path_map)
+		return (1);
+	fd_map = open(path_map, O_RDONLY);
+	if (!fd_map)
+		return (1);
+	close (fd_map);
+	return (0);
+}
+
 int	verif_arg(int argc, char **argv)
 {
 	(void)argv;
@@ -26,5 +39,7 @@ int	verif_arg(int argc, char **argv)
 		return (msg_error("too few arguments"));
 	else if (argc > 2)
 		return (msg_error("too much arguments"));
+	else if (verif_open_map(argv[1]))
+		return (msg_error("can't open map file"));
 	return (0);
 }
