@@ -6,7 +6,7 @@
 #    By: aptive <aptive@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/02/22 23:12:10 by pbondoer          #+#    #+#              #
-#    Updated: 2022/08/12 14:52:41 by aptive           ###   ########.fr        #
+#    Updated: 2022/08/12 16:01:55 by aptive           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ PARSEDIR	=	obj/parsing
 # src / obj files
 SRC		=	main.c\
 			parsing/verif_arg.c\
+			parsing/parse_map.c\
 
 
 OBJ		= $(addprefix $(OBJDIR)/,$(SRC:.c=.o))
@@ -29,7 +30,7 @@ OBJ		= $(addprefix $(OBJDIR)/,$(SRC:.c=.o))
 # compiler
 CC		= gcc
 CFLAGS	= -Wall -Wextra -Werror -g
-#-fsanitize=address
+# -fsanitize=address
 
 
 # mlx library
