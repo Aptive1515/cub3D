@@ -6,7 +6,7 @@
 /*   By: aptive <aptive@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 16:02:53 by aptive            #+#    #+#             */
-/*   Updated: 2022/08/17 16:03:51 by aptive           ###   ########.fr       */
+/*   Updated: 2022/08/17 19:53:04 by aptive           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,12 @@ void	do_circle(t_data *data, int r, int x_centre, int y_centre, int color)
 		}
 	}
 }
+int ft_absolu(int nb)
+{
+	if (nb < 0)
+		nb =-nb;
+	return (nb);
+}
 
 void full_circle(t_data *data, int r, int x_centre, int y_centre, int color)
 {
@@ -116,4 +122,294 @@ void full_circle(t_data *data, int r, int x_centre, int y_centre, int color)
 		do_circle(data, r, x_centre, y_centre, color);
 		r--;
 	}
+}
+
+// void draw_lign(t_data *data, int x1, int y1, int x2, int y2, int color)
+// {
+// 	int	ex;
+// 	int ey;
+
+// 	int	dx;
+// 	int	dy;
+
+// 	int	d_x;
+// 	int d_y;
+
+// 	int x_incr;
+// 	int y_incr;
+
+// 	int i;
+
+
+// 	ex = x2 - x1;
+// 	ey = y2 - y1;
+
+// 	dx = ex * 2;
+// 	dy = ey * 2;
+
+// 	d_x = ex;
+// 	d_y = ey;
+
+
+// 	x_incr = 1;
+// 	y_incr = 1;
+
+// 	i = 0;
+
+// 	if (x1 > x2)
+// 		x_incr = -1;
+// 	if (y1 > y2)
+// 		x_incr = -1;
+
+// 	if (d_x > d_y)
+// 	{
+// 		while (i <= d_x)
+// 		{
+// 			my_mlx_pixel_put(data, x1 , y1, color);
+// 			i++;
+// 			x1 += x_incr;
+// 			ex -= dy;
+// 			if (ex < 0)
+// 			{
+// 				y1 += y_incr;
+// 				ex += dx;
+// 			}
+// 		}
+// 	}
+// 	if (d_x < d_y)
+// 	{
+// 		while (i <= d_y)
+// 		{
+// 			my_mlx_pixel_put(data, x1 , y1, color);
+// 			i++;
+// 			y1 += y_incr;
+// 			ey -= dx;
+// 			if (ey < 0)
+// 			{
+// 				x1 += x_incr;
+// 				ey += dy;
+// 			}
+// 		}
+// 	}
+// 	printf("herer\n");
+// }
+
+
+
+void draw_lign(t_data *data, int x1, int y1, int x2, int y2, int color)
+{
+	int	dx;
+	int	dy;
+	int e;
+
+	dx = x2 - x1;
+	dy = y2 - y1;
+	if (dx != 0)
+	{
+		if (dx > 0)
+		{
+			if (dy != 0)
+			{
+				if (dy > 0)
+				{
+					if (dx >= dy)
+					{
+						e = dx * 2;
+						dx = e;
+						dy = dy *2;
+						while (x1 <= x2)
+						{
+							my_mlx_pixel_put(data, x1 , y1, color);
+							x1++;
+							e += -dy;
+							if (e < 0)
+							{
+								y1++ ;  // déplacement diagonal
+								e += + dx ;
+							}
+						}
+					}
+					else
+					{
+						dx = dx * 2;
+						e = dy *2;
+						dy = e;
+						while (y1 != y2)
+						{
+							my_mlx_pixel_put(data, x1 , y1, color);
+							y1++;
+							e += dx;
+							if (e < 0)
+							{
+								x1++;
+								e += dy ;
+							}
+						}
+					}
+				}
+				else
+				{
+					if (dx >= -dy)
+					{
+						dx = (e = dx) * 2 ;
+						dy = dy * 2 ;
+						while (x1 != x2)
+						{
+							my_mlx_pixel_put(data, x1 , y1, color);
+							x1++;
+							e += dy;
+							if (e < 0)
+							{
+								y1--;
+								e += dx ;
+							}
+						}
+					}
+					else  // vecteur oblique proche de la verticale, dans le 7e octant
+					{
+						dy = (e = dy) * 2 ;
+						dx = dx * 2 ;
+						while (y1 == y2)
+						{
+							my_mlx_pixel_put(data, x1 , y1, color);
+							y1--;
+							e += dx;
+							if (e > 0)
+							{
+								x1++ ;  // déplacement diagonal
+								e += dy ;
+							}
+
+						}
+					}
+				}
+			}
+			else  // dy = 0 (et dx > 0)
+			{
+				// vecteur horizontal vers la droite
+				while (x1 != x2)
+				{
+					my_mlx_pixel_put(data, x1 , y1, color);
+					x1++;
+				}
+			}
+		}
+		else  // dx < 0
+		{
+			dy = y2 - y1;
+			if (dy != 0 )
+			{
+				if (dy > 0)
+				{
+				// vecteur oblique dans le 2d cadran
+
+					if (-dx >= dy)
+					{
+						// vecteur diagonal ou oblique proche de l’horizontale, dans le 4e octant
+						dx = (e = dx) * 2 ;
+						dy = dy * 2 ;  // e est négatif
+						while (x1 != x2)  // déplacements horizontaux
+						{
+							my_mlx_pixel_put(data, x1 , y1, color);
+							x1--;
+							e += dy;
+							if (e >= 0)
+							{
+								y1++ ;  // déplacement diagonal
+								e += dx ;
+							}
+						}
+					}
+					else
+					{
+
+						// vecteur oblique proche de la verticale, dans le 3e octant
+
+						dy = (e = dy) * 2 ; dx = dx * 2 ;  // e est poiftif
+						while (y1 != y2)  // déplacements verticaux
+						{
+							my_mlx_pixel_put(data, x1 , y1, color);
+							y1++;
+							e += dx;
+							if (e <= 0)
+							{
+								x1-- ;  // déplacement diagonal
+								e += dy ;
+							}
+						}
+					}
+				}
+				else  // dy < 0 (et dx < 0)
+				// vecteur oblique dans le 3e cadran
+				{
+					if (dx <= dy)
+					{
+						// vecteur diagonal ou oblique proche de l’horizontale, dans le 5e octant
+						dx = (e = dx) * 2 ;
+						dy = dy * 2 ;  // e est négatif
+						while (x1 != x2)  // déplacements horizontaux
+						{
+							my_mlx_pixel_put(data, x1 , y1, color);
+							x1--;
+							e -= dy;
+							if (e >= 0)
+							{
+								y1-- ;
+								e += dx ;
+							}
+						}
+					}
+					else  // vecteur oblique proche de la verticale, dans le 6e octant
+					{
+						dy = (e = dy) * 2 ;
+						dx = dx * 2 ;  // e est négatif
+						while (y1 != y2)
+						{
+							my_mlx_pixel_put(data, x1 , y1, color);
+							y1--;
+							e -= dx;
+							if (dx >= 0)
+							{
+								x1--;
+								e += dy;
+							}
+						}
+					}
+				}
+			}
+			else  // dy = 0 (et dx < 0)
+			{
+				while (x1 != x2)
+				{
+					my_mlx_pixel_put(data, x1 , y1, color);
+					x1--;
+				}
+			}
+		}
+	}
+	else  // dx = 0
+	{
+		dy = y2 - y1;
+		if (dy != 0 )
+		{
+			if (dy > 0)
+			{
+				// vecteur vertical croissant
+				while (y1 != y2)
+				{
+					my_mlx_pixel_put(data, x1 , y1, color);
+					y1++;
+				}
+			}
+			else  // dy < 0 (et dx = 0)
+			{
+				while (y1 != y2)
+				{
+					my_mlx_pixel_put(data, x1 , y1, color);
+					y1--;
+				}
+			}
+		}
+	}
+	// le pixel final (x2, y2) n’est pas tracé.
 }

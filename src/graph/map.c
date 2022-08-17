@@ -6,7 +6,7 @@
 /*   By: aptive <aptive@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 13:47:09 by aptive            #+#    #+#             */
-/*   Updated: 2022/08/17 16:03:46 by aptive           ###   ########.fr       */
+/*   Updated: 2022/08/17 17:21:14 by aptive           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,13 @@ void	ft_affiche_map(t_data *data)
 		{
 			if (data->map[y][x] == '1')
 				ft_full(data, (x * SQUARE), (y * SQUARE), GREEN);
-			if (data->map[y][x] == '0')
-				ft_full(data, (x * SQUARE), (y * SQUARE), WHITE);
-			if (data->map[y][x] == 'N')
-			{
-				ft_full(data, (x * SQUARE), (y * SQUARE), WHITE);
-				full_circle(data, SQUARE/3, (x * SQUARE) + SQUARE/2, (y * SQUARE) + SQUARE/2, BLUE);
-			}
+			// if (data->map[y][x] == '0')
+			// 	ft_full(data, (x * SQUARE), (y * SQUARE), WHITE);
+			// if (data->map[y][x] == 'N')
+			// {
+			// 	ft_full(data, (x * SQUARE), (y * SQUARE), WHITE);
+			// 	// full_circle(data, SQUARE/3, (x * SQUARE) + SQUARE/2, (y * SQUARE) + SQUARE/2, BLUE);
+			// }
 				// ft_affichage_wall(vars, y, x);
 			// if (vars->map[y][x] == '0' || vars->map[y][x] == 'P'
 			// 	|| vars->map[y][x] == 'E' || vars->map[y][x] == 'C')
@@ -47,5 +47,6 @@ void	ft_affiche_map(t_data *data)
 		y++;
 	}
 	ft_grille(data);
+	affichage_player(data);
 	mlx_put_image_to_window(data->mlx, data->mlx_win, data->img, 0, 0);
 }

@@ -6,7 +6,7 @@
 /*   By: aptive <aptive@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 14:30:39 by aptive            #+#    #+#             */
-/*   Updated: 2022/08/17 16:05:08 by aptive           ###   ########.fr       */
+/*   Updated: 2022/08/17 17:15:18 by aptive           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,12 @@ typedef struct s_path {
 
 }	t_path;
 
+typedef struct s_player {
+	int	x;
+	int	y;
+	int	direction;
+}	t_player;
+
 typedef struct s_data {
 	void	*mlx;
 	void	*mlx_win;
@@ -54,6 +60,7 @@ typedef struct s_data {
 
 
 	t_path	*path;
+	t_player	*player;
 	char	**floor_rgb;
 	char	**ceiling_rbg;
 	char	**map;
@@ -85,7 +92,9 @@ GRAPH/FIRGURE_C-----------------------------------------------------------------
 */
 
 void	do_circle(t_data *data, int r, int x_centre, int y_centre, int color);
-void full_circle(t_data *data, int r, int x_centre, int y_centre, int color);
+void	full_circle(t_data *data, int r, int x_centre, int y_centre, int color);
+void	draw_lign(t_data *data, int x1, int y1, int x2, int y2, int color);
+
 /*
 GRAPH/GRAPH_UTILS_C--------------------------------------------------------------
 */
@@ -101,5 +110,12 @@ GRAPH/MAP_C---------------------------------------------------------------------
 */
 void	ft_affiche_map(t_data *data);
 
+/*
+PLAYER/PLAYER_C------------------------------------------------------------------
+*/
+void	find_player_orientation(t_data *data);
+void	find_player_position(t_data *data);
+void	init_player(t_data *data);
+void	affichage_player(t_data *data);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: aptive <aptive@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 14:32:44 by aptive            #+#    #+#             */
-/*   Updated: 2022/08/17 16:06:11 by aptive           ###   ########.fr       */
+/*   Updated: 2022/08/17 16:31:38 by aptive           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,15 @@ void affichage_data(t_data	*data)
 		printf ("ln %i	: %s\n", i, data->ceiling_rbg[i]);
 	for (int i = 0; data->map[i]; i++)
 		printf ("ln %i	: %s\n", i, data->map[i]);
+
+	printf("map height : %i\n", data->map_h);
+	printf("map weight : %i\n", data->map_w);
+
+	printf("data->player->direction : %i\n", data->player->direction);
+	printf("data->player->x : %i\n", data->player->x);
+	printf("data->player->y : %i\n", data->player->y);
+
+
 }
 
 int	main(int argc, char **argv)
@@ -39,7 +48,9 @@ int	main(int argc, char **argv)
 		return (1);
 	data = init_data(data, argv[1]);
 	parsing_map(data);
-	affichage_data(data);
+	init_player(data);
+
+	// affichage_data(data);
 
 	data->mlx = mlx_init();
 	data->mlx_win = mlx_new_window(data->mlx, data->map_w * SQUARE, data->map_h * SQUARE, "Cub3D");

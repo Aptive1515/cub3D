@@ -6,7 +6,7 @@
 /*   By: aptive <aptive@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 15:41:23 by aptive            #+#    #+#             */
-/*   Updated: 2022/08/17 14:02:09 by aptive           ###   ########.fr       */
+/*   Updated: 2022/08/17 16:31:32 by aptive           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,4 @@ void	parsing_map(t_data *data)
 
 	data->map_h = ft_doubletab_len(data->map);
 	data->map_w = ft_strlen(data->map[0]);
-
-	printf("map height : %i\n", data->map_h);
-	printf("map weight : %i\n", data->map_w);
 }
