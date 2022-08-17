@@ -6,7 +6,7 @@
 /*   By: aptive <aptive@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 14:30:39 by aptive            #+#    #+#             */
-/*   Updated: 2022/08/12 17:11:18 by aptive           ###   ########.fr       */
+/*   Updated: 2022/08/17 16:05:08 by aptive           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,14 @@
 # include "../libft/libft.h"
 # include "../miniLibX_X11/mlx.h"
 
+# define WIDTH	1980
+# define HEIGHT	1200
+# define SQUARE	32
+# define RED	0xCF2500
+# define WHITE	create_trgb(0, 255, 255, 255)
+# define BLUE	create_trgb(0, 54, 60, 2450)
+# define GREEN	create_trgb(0, 55, 255, 0)
+
 typedef struct s_path {
 	char	*path_map;
 
@@ -27,9 +35,6 @@ typedef struct s_path {
 	char	*path_SO;
 	char	*path_WE;
 	char	*path_EA;
-
-
-
 
 	void	*texture_NO;
 	void	*texture_SO;
@@ -39,10 +44,22 @@ typedef struct s_path {
 }	t_path;
 
 typedef struct s_data {
+	void	*mlx;
+	void	*mlx_win;
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+
+
 	t_path	*path;
 	char	**floor_rgb;
 	char	**ceiling_rbg;
 	char	**map;
+
+	int		map_h;
+	int		map_w;
 }	t_data;
 
 /*
@@ -62,5 +79,27 @@ PARSING/VERIF_ARG_C-------------------------------------------------------------
 int		msg_error(char *str);
 int		verif_open_map(char *path_map);
 int		verif_arg(int argc, char **argv);
+
+/*
+GRAPH/FIRGURE_C------------------------------------------------------------------
+*/
+
+void	do_circle(t_data *data, int r, int x_centre, int y_centre, int color);
+void full_circle(t_data *data, int r, int x_centre, int y_centre, int color);
+/*
+GRAPH/GRAPH_UTILS_C--------------------------------------------------------------
+*/
+void	ft_lign_vertical(t_data *data, int x, int y, int y_end, int color);
+void	ft_lign_horizontal(t_data *data, int x, int x_end, int y,int color);
+void	ft_grille(t_data *data);
+void	ft_full(t_data *data, int x_beg, int y_beg, int color);
+void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
+int		create_trgb(int t, int r, int g, int b);
+
+/*
+GRAPH/MAP_C----------------------------------------------------------------------
+*/
+void	ft_affiche_map(t_data *data);
+
 
 #endif

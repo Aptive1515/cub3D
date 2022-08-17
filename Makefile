@@ -6,7 +6,7 @@
 #    By: aptive <aptive@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/02/22 23:12:10 by pbondoer          #+#    #+#              #
-#    Updated: 2022/08/12 16:01:55 by aptive           ###   ########.fr        #
+#    Updated: 2022/08/17 16:05:47 by aptive           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,9 @@ PARSEDIR	=	obj/parsing
 SRC		=	main.c\
 			parsing/verif_arg.c\
 			parsing/parse_map.c\
+			graph/figure.c\
+			graph/graph_utils.c\
+			graph/map.c\
 
 
 OBJ		= $(addprefix $(OBJDIR)/,$(SRC:.c=.o))
@@ -30,7 +33,7 @@ OBJ		= $(addprefix $(OBJDIR)/,$(SRC:.c=.o))
 # compiler
 CC		= gcc
 CFLAGS	= -Wall -Wextra -Werror -g
-# -fsanitize=address
+#-fsanitize=address
 
 
 # mlx library
@@ -56,6 +59,7 @@ all: obj $(FT_LIB) $(MLX_LIB) $(NAME)
 obj:
 	mkdir -p $(OBJDIR)
 	mkdir -p $(OBJDIR)/parsing
+	mkdir -p $(OBJDIR)/graph
 
 $(OBJDIR)/%.o:$(SRCDIR)/%.c
 	$(CC) $(CFLAGS) $(MLX_INC) $(FT_INC) -I $(INCDIR) -o $@ -c $<
