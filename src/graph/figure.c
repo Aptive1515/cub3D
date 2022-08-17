@@ -6,7 +6,7 @@
 /*   By: aptive <aptive@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 16:02:53 by aptive            #+#    #+#             */
-/*   Updated: 2022/08/17 19:53:04 by aptive           ###   ########.fr       */
+/*   Updated: 2022/08/18 00:00:09 by aptive           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,8 +194,6 @@ void full_circle(t_data *data, int r, int x_centre, int y_centre, int color)
 // 	printf("herer\n");
 // }
 
-
-
 void draw_lign(t_data *data, int x1, int y1, int x2, int y2, int color)
 {
 	int	dx;
@@ -203,29 +201,28 @@ void draw_lign(t_data *data, int x1, int y1, int x2, int y2, int color)
 	int e;
 
 	dx = x2 - x1;
-	dy = y2 - y1;
 	if (dx != 0)
 	{
 		if (dx > 0)
 		{
+			dy = y2 - y1;
 			if (dy != 0)
 			{
 				if (dy > 0)
 				{
 					if (dx >= dy)
 					{
-						e = dx * 2;
-						dx = e;
+						dx = (e = dx) * 2;
 						dy = dy *2;
-						while (x1 <= x2)
+						while (x1 != x2)
 						{
 							my_mlx_pixel_put(data, x1 , y1, color);
 							x1++;
-							e += -dy;
+							e -= dy;
 							if (e < 0)
 							{
-								y1++ ;  // déplacement diagonal
-								e += + dx ;
+								y1++ ; // déplacement diagonal
+								e += dx ;
 							}
 						}
 					}
@@ -238,7 +235,7 @@ void draw_lign(t_data *data, int x1, int y1, int x2, int y2, int color)
 						{
 							my_mlx_pixel_put(data, x1 , y1, color);
 							y1++;
-							e += dx;
+							e -= dx;
 							if (e < 0)
 							{
 								x1++;
@@ -267,9 +264,10 @@ void draw_lign(t_data *data, int x1, int y1, int x2, int y2, int color)
 					}
 					else  // vecteur oblique proche de la verticale, dans le 7e octant
 					{
-						dy = (e = dy) * 2 ;
+						e = dy;
+						dy = e * 2;
 						dx = dx * 2 ;
-						while (y1 == y2)
+						while (y1 != y2)
 						{
 							my_mlx_pixel_put(data, x1 , y1, color);
 							y1--;
@@ -279,7 +277,6 @@ void draw_lign(t_data *data, int x1, int y1, int x2, int y2, int color)
 								x1++ ;  // déplacement diagonal
 								e += dy ;
 							}
-
 						}
 					}
 				}
@@ -325,7 +322,9 @@ void draw_lign(t_data *data, int x1, int y1, int x2, int y2, int color)
 
 						// vecteur oblique proche de la verticale, dans le 3e octant
 
-						dy = (e = dy) * 2 ; dx = dx * 2 ;  // e est poiftif
+						e = dy * 2 ;
+						dy = e;
+						dx = dx * 2 ;  // e est poiftif
 						while (y1 != y2)  // déplacements verticaux
 						{
 							my_mlx_pixel_put(data, x1 , y1, color);
@@ -361,16 +360,17 @@ void draw_lign(t_data *data, int x1, int y1, int x2, int y2, int color)
 					}
 					else  // vecteur oblique proche de la verticale, dans le 6e octant
 					{
-						dy = (e = dy) * 2 ;
-						dx = dx * 2 ;  // e est négatif
+						e = dy;
+						dy = e * 2;
+						dx = dx * 2;
 						while (y1 != y2)
 						{
 							my_mlx_pixel_put(data, x1 , y1, color);
-							y1--;
+							y1 = y1 - 1;
 							e -= dx;
-							if (dx >= 0)
+							if (e >= 0)
 							{
-								x1--;
+								--x1;
 								e += dy;
 							}
 						}
@@ -390,7 +390,7 @@ void draw_lign(t_data *data, int x1, int y1, int x2, int y2, int color)
 	else  // dx = 0
 	{
 		dy = y2 - y1;
-		if (dy != 0 )
+		if (dy != 0)
 		{
 			if (dy > 0)
 			{

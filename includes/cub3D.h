@@ -6,7 +6,7 @@
 /*   By: aptive <aptive@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 14:30:39 by aptive            #+#    #+#             */
-/*   Updated: 2022/08/17 17:15:18 by aptive           ###   ########.fr       */
+/*   Updated: 2022/08/18 00:20:34 by aptive           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <string.h>
 # include <stdio.h>
 # include <fcntl.h>
+# include <math.h>
 # include "../libft/libft.h"
 # include "../miniLibX_X11/mlx.h"
 

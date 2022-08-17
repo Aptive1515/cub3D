@@ -6,7 +6,7 @@
 /*   By: aptive <aptive@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 13:47:09 by aptive            #+#    #+#             */
-/*   Updated: 2022/08/17 17:21:14 by aptive           ###   ########.fr       */
+/*   Updated: 2022/08/18 00:41:05 by aptive           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	ft_affiche_map(t_data *data)
 		while (x < data->map_w)
 		{
 			if (data->map[y][x] == '1')
-				ft_full(data, (x * SQUARE), (y * SQUARE), GREEN);
+				ft_full(data, (x * SQUARE), (y * SQUARE), BLUE);
 			// if (data->map[y][x] == '0')
 			// 	ft_full(data, (x * SQUARE), (y * SQUARE), WHITE);
 			// if (data->map[y][x] == 'N')
