@@ -6,7 +6,7 @@
 /*   By: aptive <aptive@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 14:30:39 by aptive            #+#    #+#             */
-/*   Updated: 2022/08/18 00:20:34 by aptive           ###   ########.fr       */
+/*   Updated: 2022/08/18 12:09:59 by aptive           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ void	ft_lign_vertical(t_data *data, int x, int y, int y_end, int color);
 void	ft_lign_horizontal(t_data *data, int x, int x_end, int y,int color);
 void	ft_grille(t_data *data);
 void	ft_full(t_data *data, int x_beg, int y_beg, int color);
+void	my_mlx_pixel_put_limit(t_data *data, int x, int y, int color);
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 int		create_trgb(int t, int r, int g, int b);
 
@@ -118,5 +119,12 @@ void	find_player_orientation(t_data *data);
 void	find_player_position(t_data *data);
 void	init_player(t_data *data);
 void	affichage_player(t_data *data);
+void	ft_move_fov(t_data *data, char c);
+
+/*
+HOOK/HOOK_C----------------------------------------------------------------------
+*/
+int		key_hook(int keycode, t_data *data);
+int		ft_close(t_data *data);
 
 #endif

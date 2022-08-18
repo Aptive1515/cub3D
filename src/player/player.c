@@ -6,7 +6,7 @@
 /*   By: aptive <aptive@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 16:11:23 by aptive            #+#    #+#             */
-/*   Updated: 2022/08/18 01:12:08 by aptive           ###   ########.fr       */
+/*   Updated: 2022/08/18 12:21:28 by aptive           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,35 +94,25 @@ void	affichage_direction(t_data *data)
 
 	x = 0;
 	y = 0;
-
 	x = find_x(data->player->direction, 1000, data->player->x);
 	y = find_y(data->player->direction, 1000, data->player->y);
-	printf("direction : %i\n", data->player->direction);
-	printf("vecteur x : %i\n", x);
-	printf("vecteur y : %i\n", y);
-
-	printf("x1/y1 : (%i , %i)\n", data->player->x, data->player->y);
-	printf("x2/y2 : (%i , %i)\n", data->player->x + x, data->player->y + y);
-	printf("test\n");
-
-	printf("limite x: %i\n", SQUARE * data->map_w);
-	printf("limite y : %i\n", SQUARE * data->map_h);
-
-	if (x >= SQUARE * data->map_w)
-		x = data->map_w * SQUARE - 1;
-	else if (x < 0)
-		x = 0;
-
-	if (y >= SQUARE * (data->map_h - 1))
-		y = (data->map_h) * SQUARE;
-	else if (y < 0)
-		y = 0;
 
 
-	printf("x1/y1 : (%i , %i)\n", data->player->x, data->player->y);
-	printf("x2/y2 : (%i , %i)\n", data->player->x + x, data->player->y + y);
+
+	printf("direction	:	%i\n", data->player->direction);
+	printf("vec x vec y	:	%i	/	%i\n", x, y);
+	// printf("vec y	:	%i\n", y);
+
+	printf("x1/y1	:	%i	/	%i\n", data->player->x, data->player->y);
+	printf("x2/y2	:	%i	/	%i\n", data->player->x + x, data->player->y + y);
+	printf("***************************************\n");
+
+	printf("lx/ly	:	%i	/	%i\n", SQUARE * data->map_w, SQUARE * data->map_h);
+	printf("x2/y2	:	%i	/	%i\n", data->player->x + x, data->player->y + y);
+
+
+
 	draw_lign(data, data->player->x, data->player->y, x, y, WHITE);
-	printf("end\n");
 
 
 
@@ -131,6 +121,25 @@ void	affichage_direction(t_data *data)
 
 void	affichage_player(t_data *data)
 {
-	full_circle(data, SQUARE/3, data->player->x, data->player->y, GREEN);
+	full_circle(data, SQUARE / 3, data->player->x, data->player->y, GREEN);
 	affichage_direction(data);
+	mlx_put_image_to_window(data->mlx, data->mlx_win, data->img, 0, 0);
+
+}
+
+void	ft_move_fov(t_data *data, char c)
+{
+	if (c == 'r')
+	{
+		data->player->direction--;
+	}
+	if (c == 'g')
+	{
+		data->player->direction++;
+	}
+	if (data->player->direction >= 360)
+		data->player->direction = 0;
+	else if (data->player->direction < 0)
+		data->player->direction = 359;
+	ft_affiche_map(data);
 }

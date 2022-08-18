@@ -6,7 +6,7 @@
 /*   By: aptive <aptive@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 13:47:09 by aptive            #+#    #+#             */
-/*   Updated: 2022/08/18 00:41:05 by aptive           ###   ########.fr       */
+/*   Updated: 2022/08/18 12:18:28 by aptive           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,9 @@ void	ft_affiche_map(t_data *data)
 {
 	int		y;
 	int		x;
-
+	// mlx_destroy_display(data->mlx);
+	// mlx_destroy_image(data->mlx, data->mlx_win);
+	mlx_clear_window(data->mlx, data->mlx_win);
 	y = 0;
 	while (y < data->map_h)
 	{
@@ -48,5 +50,5 @@ void	ft_affiche_map(t_data *data)
 	}
 	ft_grille(data);
 	affichage_player(data);
-	mlx_put_image_to_window(data->mlx, data->mlx_win, data->img, 0, 0);
+	// mlx_put_image_to_window(data->mlx, data->mlx_win, data->img, 0, 0);
 }

@@ -6,11 +6,18 @@
 /*   By: aptive <aptive@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 13:45:13 by aptive            #+#    #+#             */
-/*   Updated: 2022/08/17 14:37:48 by aptive           ###   ########.fr       */
+/*   Updated: 2022/08/18 12:09:08 by aptive           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3D.h"
+
+void	my_mlx_pixel_put_limit(t_data *data, int x, int y, int color)
+{
+	if (x > data->map_w * SQUARE || x < 0 || y > data->map_h * SQUARE || y < 0)
+		return;
+	my_mlx_pixel_put(data, x, y, color);
+}
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
