@@ -6,7 +6,7 @@
 /*   By: aptive <aptive@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 14:30:39 by aptive            #+#    #+#             */
-/*   Updated: 2022/08/18 12:09:59 by aptive           ###   ########.fr       */
+/*   Updated: 2022/08/18 13:08:21 by aptive           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 # define WHITE	create_trgb(0, 255, 255, 255)
 # define BLUE	create_trgb(0, 54, 60, 2450)
 # define GREEN	create_trgb(0, 55, 255, 0)
+# define BLACK	create_trgb(0, 0, 0, 0)
 
 typedef struct s_path {
 	char	*path_map;
