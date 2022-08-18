@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aptive <aptive@student.42.fr>              +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 15:41:23 by aptive            #+#    #+#             */
-/*   Updated: 2022/08/17 16:31:32 by aptive           ###   ########.fr       */
+/*   Updated: 2022/08/18 15:25:32 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 t_data	*init_data(t_data *data, char *path_map)
 {
-	data = ft_calloc(sizeof(data), 1);
+	data = malloc(sizeof(t_data));
 	if (!data)
 	{
 		msg_error("Error : data init problems");
 		return (NULL);
 	}
-	data->path = ft_calloc(sizeof(t_path), 1);
+	data->path = malloc(sizeof(t_path));
 	if (!data->path)
 	{
 		msg_error("Error : data init problems");
@@ -104,7 +104,7 @@ void	copy_map(t_data *data, char **tab_gnl)
 	//exit a rajouter
 	while (tab_gnl[++i + 6])
 		data->map[i] = tab_gnl[i + 6];
-	data->map[i] = NULL;
+	// data->map[i] = NULL;
 }
 
 void	parsing_map(t_data *data)
