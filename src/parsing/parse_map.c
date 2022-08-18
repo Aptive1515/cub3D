@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 15:41:23 by aptive            #+#    #+#             */
-/*   Updated: 2022/08/18 15:25:32 by root             ###   ########.fr       */
+/*   Updated: 2022/08/18 17:20:56 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,13 @@ char	*ft_map_read(char *path_map)
 		free(tmp_map);
 	}
 	return (map_line);
+}
+
+void	add_blank(char *tmp, size_t *max)
+{
+	size_t	len;
+
+	len = ft_strlen(tmp);
 }
 
 void	parsing_path_texture(t_data *data, char **tab_gnl)
@@ -110,8 +117,11 @@ void	copy_map(t_data *data, char **tab_gnl)
 void	parsing_map(t_data *data)
 {
 	char	**tab_gnl;
+	char	**to_trim;
 
-	tab_gnl = ft_split(ft_map_read(data->path->path_map), '\n');
+	to_trim = ft_map_read(data->path->path_map);
+	tab_gnl = ft_split(to_trim, '\n');
+	ft_free_doubletab(to_trim);
 	parsing_path_texture(data, tab_gnl);
 	parsing_rgb_fc(data, tab_gnl);
 	copy_map(data, tab_gnl);
