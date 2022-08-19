@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 15:41:23 by aptive            #+#    #+#             */
-/*   Updated: 2022/08/18 17:20:56 by root             ###   ########.fr       */
+/*   Updated: 2022/08/19 20:26:18 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,35 +30,26 @@ t_data	*init_data(t_data *data, char *path_map)
 	return (data);
 }
 
-char	*ft_map_read(char *path_map)
+char	*ft_map_read(int fd, int max)
 {
-	int		fd_map;
 	char	*tmp_map;
 	char	*map_line;
+	int		ln;
 
-	fd_map = open(path_map, O_RDONLY);
-	if (!fd_map)
-		msg_error("Map don't exist");
-	map_line = malloc(sizeof(char));
+	ln = 0;
+	map_line = ft_calloc(sizeof(char), 1);
 	if (!map_line)
 		return (NULL);
-	map_line[0] = '\0';
-	while (1)
+	while (ln != max)
 	{
-		tmp_map = get_next_line(fd_map);
+		tmp_map = get_next_line(fd);
 		if (!tmp_map)
 			break ;
+		ln++;
 		map_line = ft_strjoin_gnl(map_line, tmp_map);
 		free(tmp_map);
 	}
 	return (map_line);
-}
-
-void	add_blank(char *tmp, size_t *max)
-{
-	size_t	len;
-
-	len = ft_strlen(tmp);
 }
 
 void	parsing_path_texture(t_data *data, char **tab_gnl)
@@ -100,32 +91,82 @@ void	parsing_rgb_fc(t_data *data, char **tab_gnl)
 	}
 }
 
-void	copy_map(t_data *data, char **tab_gnl)
-{
-	int	i;
-
-	i = -1;
-	data->map = ft_calloc(sizeof(data->map), ft_doubletab_len(tab_gnl) - 6);
-	if(!data->map)
-		return;
-	//exit a rajouter
-	while (tab_gnl[++i + 6])
-		data->map[i] = tab_gnl[i + 6];
-	// data->map[i] = NULL;
-}
-
 void	parsing_map(t_data *data)
 {
-	char	**tab_gnl;
-	char	**to_trim;
+	char	**texture;
+	char	**map;
+	char	*str;
+	int		fd;
 
-	to_trim = ft_map_read(data->path->path_map);
-	tab_gnl = ft_split(to_trim, '\n');
-	ft_free_doubletab(to_trim);
-	parsing_path_texture(data, tab_gnl);
-	parsing_rgb_fc(data, tab_gnl);
-	copy_map(data, tab_gnl);
+	fd = open(data->path->path_map, O_RDONLY);
+	if (!fd)
+		msg_error("Map don't exist");
+	str = ft_map_read(fd, 7);
+	// printf("|%s|\n", str);
+	texture = ft_split(str, '\n');
+	free(str);
+	parsing_path_texture(data, texture);
+	parsing_rgb_fc(data, texture);
+	str = ft_map_read(fd, -1);
+	// printf("|%s|\n", str);
+	map = ft_split(str, '\n');
+	free(str);
+	copy_map(data, map);
+	ft_free_doubletab(map);
+	for (int i = 0; data->map[i]; i++)
+		printf("|%s|\n", data->map[i]);
+}
 
-	data->map_h = ft_doubletab_len(data->map);
-	data->map_w = ft_strlen(data->map[0]);
+void	get_max(t_data *data, char **map, int *max)
+{
+	int	i;
+	int	len;
+
+	*max = 0;
+	i = 0;
+	while (map[i])
+	{
+		len = ft_strlen(map[i++]);
+		if (len > *max)
+			*max = len;
+	}
+	data->map_h = i;
+	data->map_w = len;
+	data->map = ft_calloc(sizeof(data->map), i + 1);
+	if(!data->map)
+		return;
+}
+
+void	copy_map(t_data *data, char **map)
+{
+	int		i;
+	int		max;
+	char	*str_sp;
+	char	*new_line;
+	int		len;
+
+	get_max(data, map, &max);
+	i = 0;
+	while (map[i])
+	{
+		len = ft_strlen(map[i]);
+		if (len < max)
+		{
+			str_sp = malloc(sizeof(char) * ((max - len) + 1));
+			if (!str_sp)
+				return ; //erreur a faire
+			str_sp[max - len] = '\0';
+			ft_memset(str_sp, ' ', max - len);
+			new_line = ft_strdup(map[i]);
+			data->map[i] = ft_strjoin_gnl(new_line, str_sp);
+			// printf("|%s|\n", data->map[i]);
+			free(str_sp);
+		}
+		else
+			data->map[i] = ft_strdup(map[i]);
+			// printf("|%s|\n", data->map[i]);
+		i++;
+	}
+	// for (int i = 0; data->map[i]; i++)
+	// 	printf("|%s|", data->map[i]);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aptive <aptive@student.42.fr>              +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 14:30:39 by aptive            #+#    #+#             */
-/*   Updated: 2022/08/18 13:08:21 by aptive           ###   ########.fr       */
+/*   Updated: 2022/08/19 20:03:08 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,16 +75,11 @@ typedef struct s_data {
 MAIN_C---------------------------------------------------------------------------
 */
 
-/*
-PARSING/PARSE_MAP_C--------------------------------------------------------------
-*/
+/*	Parsing */
 t_data	*init_data(t_data *data, char *path_map);
-char	*ft_map_read(char *path_map);
+char	*ft_map_read(int fd, int max);
 void	parsing_map(t_data *data);
-
-/*
-PARSING/VERIF_ARG_C--------------------------------------------------------------
-*/
+void	copy_map(t_data *data, char **map);
 int		msg_error(char *str);
 int		verif_open_map(char *path_map);
 int		verif_arg(int argc, char **argv);

@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 14:32:44 by aptive            #+#    #+#             */
-/*   Updated: 2022/08/18 16:11:35 by root             ###   ########.fr       */
+/*   Updated: 2022/08/19 19:17:22 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ int	main(int argc, char **argv)
 		return (1);
 	data = init_data(data, argv[1]);
 	parsing_map(data);
-	init_player(data);
+	return (0);
+	// init_player(data);
 
 	// affichage_data(data);
 
