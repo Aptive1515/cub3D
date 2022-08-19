@@ -6,7 +6,7 @@
 /*   By: aptive <aptive@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 16:02:53 by aptive            #+#    #+#             */
-/*   Updated: 2022/08/18 12:19:32 by aptive           ###   ########.fr       */
+/*   Updated: 2022/08/19 18:21:07 by aptive           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,14 @@ void	ft_lign_vertical(t_data *data, int x, int y, int y_end, int color)
 	// mlx_put_image_to_window(data->mlx, data->mlx_win, data->img, 0, 0);
 }
 
+void	ft_lign_horizontal_3d(t_data *data, int x, int x_end, int y,int color)
+{
+	while (x < x_end)
+	{
+		my_mlx_pixel_put_limit(data, x, y, color);
+		x++;
+	}
+}
 
 void	ft_lign_horizontal(t_data *data, int x, int x_end, int y,int color)
 {
@@ -216,7 +224,9 @@ void draw_lign(t_data *data, int x1, int y1, int x2, int y2, int color)
 						dy = dy *2;
 						while (x1 != x2)
 						{
-							my_mlx_pixel_put_limit(data, x1 , y1, color);
+							my_mlx_pixel_put_limit_wall(data, x1 , y1, color);
+							if (verif_wall(data, x1 , y1))
+								break;
 							x1++;
 							e -= dy;
 							if (e < 0)
@@ -233,7 +243,9 @@ void draw_lign(t_data *data, int x1, int y1, int x2, int y2, int color)
 						dy = e;
 						while (y1 != y2)
 						{
-							my_mlx_pixel_put_limit(data, x1 , y1, color);
+							my_mlx_pixel_put_limit_wall(data, x1 , y1, color);
+							if (verif_wall(data, x1 , y1))
+								break;
 							y1++;
 							e -= dx;
 							if (e < 0)
@@ -252,7 +264,9 @@ void draw_lign(t_data *data, int x1, int y1, int x2, int y2, int color)
 						dy = dy * 2 ;
 						while (x1 != x2)
 						{
-							my_mlx_pixel_put_limit(data, x1 , y1, color);
+							my_mlx_pixel_put_limit_wall(data, x1 , y1, color);
+							if (verif_wall(data, x1 , y1))
+								break;
 							x1++;
 							e += dy;
 							if (e < 0)
@@ -269,7 +283,9 @@ void draw_lign(t_data *data, int x1, int y1, int x2, int y2, int color)
 						dx = dx * 2 ;
 						while (y1 != y2)
 						{
-							my_mlx_pixel_put_limit(data, x1 , y1, color);
+							my_mlx_pixel_put_limit_wall(data, x1 , y1, color);
+							if (verif_wall(data, x1 , y1))
+								break;
 							y1--;
 							e += dx;
 							if (e > 0)
@@ -286,7 +302,9 @@ void draw_lign(t_data *data, int x1, int y1, int x2, int y2, int color)
 				// vecteur horizontal vers la droite
 				while (x1 != x2)
 				{
-					my_mlx_pixel_put_limit(data, x1 , y1, color);
+					my_mlx_pixel_put_limit_wall(data, x1 , y1, color);
+					if (verif_wall(data, x1 , y1))
+						break;
 					x1++;
 				}
 			}
@@ -307,7 +325,9 @@ void draw_lign(t_data *data, int x1, int y1, int x2, int y2, int color)
 						dy = dy * 2 ;  // e est négatif
 						while (x1 != x2)  // déplacements horizontaux
 						{
-							my_mlx_pixel_put_limit(data, x1 , y1, color);
+							my_mlx_pixel_put_limit_wall(data, x1 , y1, color);
+							if (verif_wall(data, x1 , y1))
+								break;
 							x1--;
 							e += dy;
 							if (e >= 0)
@@ -327,7 +347,9 @@ void draw_lign(t_data *data, int x1, int y1, int x2, int y2, int color)
 						dx = dx * 2 ;  // e est poiftif
 						while (y1 != y2)  // déplacements verticaux
 						{
-							my_mlx_pixel_put_limit(data, x1 , y1, color);
+							my_mlx_pixel_put_limit_wall(data, x1 , y1, color);
+							if (verif_wall(data, x1 , y1))
+								break;
 							y1++;
 							e += dx;
 							if (e <= 0)
@@ -348,7 +370,9 @@ void draw_lign(t_data *data, int x1, int y1, int x2, int y2, int color)
 						dy = dy * 2 ;  // e est négatif
 						while (x1 != x2)  // déplacements horizontaux
 						{
-							my_mlx_pixel_put_limit(data, x1 , y1, color);
+							my_mlx_pixel_put_limit_wall(data, x1 , y1, color);
+							if (verif_wall(data, x1 , y1))
+								break;
 							x1--;
 							e -= dy;
 							if (e >= 0)
@@ -365,7 +389,9 @@ void draw_lign(t_data *data, int x1, int y1, int x2, int y2, int color)
 						dx = dx * 2;
 						while (y1 != y2)
 						{
-							my_mlx_pixel_put_limit(data, x1 , y1, color);
+							my_mlx_pixel_put_limit_wall(data, x1 , y1, color);
+							if (verif_wall(data, x1 , y1))
+								break;
 							y1 = y1 - 1;
 							e -= dx;
 							if (e >= 0)
@@ -381,7 +407,9 @@ void draw_lign(t_data *data, int x1, int y1, int x2, int y2, int color)
 			{
 				while (x1 != x2)
 				{
-					my_mlx_pixel_put_limit(data, x1 , y1, color);
+					my_mlx_pixel_put_limit_wall(data, x1 , y1, color);
+					if (verif_wall(data, x1 , y1))
+						break;
 					x1--;
 				}
 			}
@@ -397,7 +425,9 @@ void draw_lign(t_data *data, int x1, int y1, int x2, int y2, int color)
 				// vecteur vertical croissant
 				while (y1 != y2)
 				{
-					my_mlx_pixel_put_limit(data, x1 , y1, color);
+					my_mlx_pixel_put_limit_wall(data, x1 , y1, color);
+					if (verif_wall(data, x1 , y1))
+						break;
 					y1++;
 				}
 			}
@@ -405,7 +435,9 @@ void draw_lign(t_data *data, int x1, int y1, int x2, int y2, int color)
 			{
 				while (y1 != y2)
 				{
-					my_mlx_pixel_put_limit(data, x1 , y1, color);
+					my_mlx_pixel_put_limit_wall(data, x1 , y1, color);
+					if (verif_wall(data, x1 , y1))
+						break;
 					y1--;
 				}
 			}

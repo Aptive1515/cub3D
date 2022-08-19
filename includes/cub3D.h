@@ -6,7 +6,7 @@
 /*   By: aptive <aptive@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 14:30:39 by aptive            #+#    #+#             */
-/*   Updated: 2022/08/18 13:08:21 by aptive           ###   ########.fr       */
+/*   Updated: 2022/08/19 18:22:37 by aptive           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@
 # include "../libft/libft.h"
 # include "../miniLibX_X11/mlx.h"
 
-# define WIDTH	1980
-# define HEIGHT	1200
+# define WIDTH	800
+# define HEIGHT	600
 # define SQUARE	32
 # define RED	0xCF2500
 # define WHITE	create_trgb(0, 255, 255, 255)
@@ -59,6 +59,17 @@ typedef struct s_data {
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
+
+
+	void	*mlx_3d;
+	void	*mlx_win_3d;
+	void	*img_3d;
+	char	*addr_3d;
+	int		bits_per_pixel_3d;
+	int		line_length_3d;
+	int		endian_3d;
+
+
 
 
 	t_path	*path;
@@ -100,6 +111,8 @@ void	draw_lign(t_data *data, int x1, int y1, int x2, int y2, int color);
 /*
 GRAPH/GRAPH_UTILS_C--------------------------------------------------------------
 */
+int	verif_wall(t_data *data, int x, int y);
+void	my_mlx_pixel_put_limit_wall(t_data *data, int x, int y, int color);
 void	ft_lign_vertical(t_data *data, int x, int y, int y_end, int color);
 void	ft_lign_horizontal(t_data *data, int x, int x_end, int y,int color);
 void	ft_grille(t_data *data);
@@ -107,6 +120,7 @@ void	ft_full(t_data *data, int x_beg, int y_beg, int color);
 void	my_mlx_pixel_put_limit(t_data *data, int x, int y, int color);
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 int		create_trgb(int t, int r, int g, int b);
+void	my_mlx_pixel_put_3d(t_data *data, int x, int y, int color);
 
 /*
 GRAPH/MAP_C----------------------------------------------------------------------
@@ -121,6 +135,7 @@ void	find_player_position(t_data *data);
 void	init_player(t_data *data);
 void	affichage_player(t_data *data);
 void	ft_move_fov(t_data *data, char c);
+void	ft_move_player(t_data *data, char c);
 
 /*
 HOOK/HOOK_C----------------------------------------------------------------------

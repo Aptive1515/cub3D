@@ -6,11 +6,47 @@
 /*   By: aptive <aptive@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 13:47:09 by aptive            #+#    #+#             */
-/*   Updated: 2022/08/18 13:08:55 by aptive           ###   ########.fr       */
+/*   Updated: 2022/08/19 18:29:48 by aptive           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3D.h"
+
+void affiche_celling(t_data *data)
+{
+	int	x;
+	int	y;
+
+	y = 0;
+	while (y <= HEIGHT / 2)
+	{
+		x = 0;
+		while (x < WIDTH)
+		{
+			my_mlx_pixel_put_3d(data, x, y, create_trgb(0, ft_atoi(data->ceiling_rbg[0]), ft_atoi(data->ceiling_rbg[1]), ft_atoi(data->ceiling_rbg[2])));
+			x++;
+		}
+		y++;
+	}
+}
+
+void affiche_floor(t_data *data)
+{
+	int	x;
+	int	y;
+
+	y = HEIGHT / 2;
+	while (y <= HEIGHT)
+	{
+		x = 0;
+		while (x < WIDTH)
+		{
+			my_mlx_pixel_put_3d(data, x, y, create_trgb(0, ft_atoi(data->floor_rgb[0]), ft_atoi(data->floor_rgb[1]), ft_atoi(data->floor_rgb[2])));
+			x++;
+		}
+		y++;
+	}
+}
 
 void	ft_affiche_map(t_data *data)
 {
@@ -18,17 +54,25 @@ void	ft_affiche_map(t_data *data)
 	int		x;
 	// mlx_destroy_display(data->mlx);
 	// mlx_destroy_image(data->mlx, data->mlx_win);
-	mlx_clear_window(data->mlx, data->mlx_win);
+	// mlx_clear_window(data->mlx, data->mlx_win);
+
+	affiche_celling(data);
+	affiche_floor(data);
+
 	y = 0;
 	while (y < data->map_h)
 	{
 		x = 0;
 		while (x < data->map_w)
 		{
-			if (data->map[y][x] == '1')
-				ft_full(data, (x * SQUARE), (y * SQUARE), BLUE);
-			if (data->map[y][x] != '1')
-				ft_full(data, (x * SQUARE), (y * SQUARE), BLACK);
+			if (x < (int)ft_strlen(data->map[y]))
+			{
+				if (data->map[y][x] == '1')
+					ft_full(data, (x * SQUARE), (y * SQUARE), BLUE);
+				if (data->map[y][x] != '1')
+					ft_full(data, (x * SQUARE), (y * SQUARE), BLACK);
+			}
+				x++;
 			// if (data->map[y][x] == 'N')
 			// // {
 			// 	ft_full(data, (x * SQUARE), (y * SQUARE), WHITE);
@@ -44,11 +88,11 @@ void	ft_affiche_map(t_data *data)
 			// 	ft_affichage_item(vars, y, x);
 			// if (vars->map[y][x] == 'E')
 			// 	ft_affichage_door(vars, y, x);
-			x++;
 		}
 		y++;
 	}
 	ft_grille(data);
 	affichage_player(data);
 	// mlx_put_image_to_window(data->mlx, data->mlx_win, data->img, 0, 0);
+	mlx_put_image_to_window(data->mlx_3d, data->mlx_win_3d, data->img_3d, 0, 0);
 }
