@@ -6,7 +6,7 @@
 /*   By: aptive <aptive@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 14:30:39 by aptive            #+#    #+#             */
-/*   Updated: 2022/08/19 18:22:37 by aptive           ###   ########.fr       */
+/*   Updated: 2022/08/24 18:53:25 by aptive           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@
 # define BLUE	create_trgb(0, 54, 60, 2450)
 # define GREEN	create_trgb(0, 55, 255, 0)
 # define BLACK	create_trgb(0, 0, 0, 0)
+# define HORIZON	300
+# define WALL_H		WIDTH
 
 typedef struct s_path {
 	char	*path_map;
@@ -80,6 +82,11 @@ typedef struct s_data {
 
 	int		map_h;
 	int		map_w;
+
+	int	ray_x;
+	int	ray_y;
+
+
 }	t_data;
 
 /*
@@ -136,11 +143,19 @@ void	init_player(t_data *data);
 void	affichage_player(t_data *data);
 void	ft_move_fov(t_data *data, char c);
 void	ft_move_player(t_data *data, char c);
+int find_x(int angle, int distance, int origin_x);
+int find_y(int angle, int distance, int origin_y);
 
 /*
 HOOK/HOOK_C----------------------------------------------------------------------
 */
 int		key_hook(int keycode, t_data *data);
 int		ft_close(t_data *data);
+
+/*
+RAY/RAY_TRAICING_C---------------------------------------------------------------
+*/
+void	ray_traicing(t_data *data);
+void	ray_way(t_data *data, int x1, int y1, int x2, int y2);
 
 #endif

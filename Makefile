@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: root <root@student.42.fr>                  +#+  +:+       +#+         #
+#    By: aptive <aptive@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/02/22 23:12:10 by pbondoer          #+#    #+#              #
-#    Updated: 2022/08/18 14:40:26 by root             ###   ########.fr        #
+#    Updated: 2022/08/24 16:40:04 by aptive           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,7 @@ SRC		=	main.c\
 			graph/map.c\
 			player/player.c\
 			hook/hook_1.c\
+			ray/ray_traicing.c\
 
 
 OBJ		= $(addprefix $(OBJDIR)/,$(SRC:.c=.o))
@@ -63,6 +64,7 @@ obj:
 	mkdir -p $(OBJDIR)/graph
 	mkdir -p $(OBJDIR)/player
 	mkdir -p $(OBJDIR)/hook
+	mkdir -p $(OBJDIR)/ray
 
 $(OBJDIR)/%.o:$(SRCDIR)/%.c
 	$(CC) $(CFLAGS) $(MLX_INC) $(FT_INC) -I $(INCDIR) -o $@ -c $<
