@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 14:30:39 by aptive            #+#    #+#             */
-/*   Updated: 2022/08/19 20:03:08 by root             ###   ########.fr       */
+/*   Updated: 2022/08/24 18:36:08 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,23 +52,23 @@ typedef struct s_player {
 }	t_player;
 
 typedef struct s_data {
-	void	*mlx;
-	void	*mlx_win;
-	void	*img;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
+	void		*mlx;
+	void		*mlx_win;
+	void		*img;
+	char		*addr;
+	int			bits_per_pixel;
+	int			line_length;
+	int			endian;
 
 
-	t_path	*path;
+	t_path		*path;
 	t_player	*player;
-	char	**floor_rgb;
-	char	**ceiling_rbg;
-	char	**map;
+	char		**floor_rgb;
+	char		**ceiling_rbg;
+	char		**map;
 
-	int		map_h;
-	int		map_w;
+	int			map_h;
+	int			map_w;
 }	t_data;
 
 /*
@@ -83,7 +83,9 @@ void	copy_map(t_data *data, char **map);
 int		msg_error(char *str);
 int		verif_open_map(char *path_map);
 int		verif_arg(int argc, char **argv);
-
+int		parsing_rgb_fc(t_data *data, char **tab_gnl);
+int		parsing_path_texture(t_data *data, char **tab_gnl);
+int		config_err(void);
 /*
 GRAPH/FIRGURE_C------------------------------------------------------------------
 */

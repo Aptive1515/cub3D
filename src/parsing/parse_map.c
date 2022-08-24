@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 15:41:23 by aptive            #+#    #+#             */
-/*   Updated: 2022/08/19 20:26:18 by root             ###   ########.fr       */
+/*   Updated: 2022/08/24 18:36:42 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,10 @@ t_data	*init_data(t_data *data, char *path_map)
 		return (NULL);
 	}
 	data->path->path_map = path_map;
+	data->path->texture_NO = NULL;
+	data->path->texture_SO = NULL;
+	data->path->texture_WE = NULL;
+	data->path->texture_EA = NULL;
 	return (data);
 }
 
@@ -52,7 +56,7 @@ char	*ft_map_read(int fd, int max)
 	return (map_line);
 }
 
-void	parsing_path_texture(t_data *data, char **tab_gnl)
+int	parsing_path_texture(t_data *data, char **tab_gnl)
 {
 	char **tmp_tab;
 	int	i;
@@ -62,19 +66,40 @@ void	parsing_path_texture(t_data *data, char **tab_gnl)
 	{
 		tmp_tab = ft_split(tab_gnl[i], ' ');
 		if (i == 0)
-			data->path->path_NO = tmp_tab[1];
+		{
+			if (!ft_strcmp("NO", tmp_tab[0]))
+				data->path->path_NO = tmp_tab[1];
+			else
+				return (config_err());
+		}
 		else if (i == 1)
-			data->path->path_SO = tmp_tab[1];
+		{
+			if (!ft_strcmp("SO", tmp_tab[0]))
+				data->path->path_SO = tmp_tab[1];
+			else
+				return (config_err());
+		}
 		else if (i == 2)
-			data->path->path_WE = tmp_tab[1];
+		{
+			if (!ft_strcmp("WE", tmp_tab[0]))
+				data->path->path_WE = tmp_tab[1];
+			else
+				return (config_err());
+		}
 		else if (i == 3)
-			data->path->path_EA = tmp_tab[1];
+		{
+			if (!ft_strcmp("EA", tmp_tab[0]))
+				data->path->path_EA = tmp_tab[1];
+			else
+				return (config_err());
+		}
 		free(tmp_tab[0]);
 		free(tmp_tab);
 	}
+	return (1);
 }
 
-void	parsing_rgb_fc(t_data *data, char **tab_gnl)
+int	parsing_rgb_fc(t_data *data, char **tab_gnl)
 {
 	char	**tmp_tab;
 	int		i;
@@ -82,13 +107,24 @@ void	parsing_rgb_fc(t_data *data, char **tab_gnl)
 	i = -1;
 	while (++i <= 1)
 	{
-		tmp_tab = ft_split(tab_gnl[i + 4], ' ');
+		tmp_tab = ft_split(tab_gnl[i], ' ');
 		if (i == 0)
-			data->floor_rgb = ft_split(tmp_tab[1], ',');
+		{
+			if (tmp_tab[0][0] == 'F')
+				data->floor_rgb = ft_split(tmp_tab[1], ',');
+			else
+				return (config_err());
+		}
 		else if (i == 1)
-			data->ceiling_rbg = ft_split(tmp_tab[1], ',');
+		{
+			if (tmp_tab[0][0] == 'C')
+				data->ceiling_rbg = ft_split(tmp_tab[1], ',');
+			else
+				return (config_err());
+		}
 		ft_free_doubletab(tmp_tab);
 	}
+	return (1);
 }
 
 void	parsing_map(t_data *data)
@@ -101,20 +137,25 @@ void	parsing_map(t_data *data)
 	fd = open(data->path->path_map, O_RDONLY);
 	if (!fd)
 		msg_error("Map don't exist");
-	str = ft_map_read(fd, 7);
+	str = ft_map_read(fd, 5);
 	// printf("|%s|\n", str);
 	texture = ft_split(str, '\n');
 	free(str);
 	parsing_path_texture(data, texture);
+	ft_free_doubletab(texture);
+	str = ft_map_read(fd, 2);
+	// printf("|%s|\n", str);
+	texture = ft_split(str, '\n');
 	parsing_rgb_fc(data, texture);
+	ft_free_doubletab(texture);
 	str = ft_map_read(fd, -1);
 	// printf("|%s|\n", str);
 	map = ft_split(str, '\n');
 	free(str);
 	copy_map(data, map);
 	ft_free_doubletab(map);
-	for (int i = 0; data->map[i]; i++)
-		printf("|%s|\n", data->map[i]);
+	// for (int i = 0; data->map[i]; i++)
+	// 	printf("|%s|\n", data->map[i]);
 }
 
 void	get_max(t_data *data, char **map, int *max)
@@ -169,4 +210,10 @@ void	copy_map(t_data *data, char **map)
 	}
 	// for (int i = 0; data->map[i]; i++)
 	// 	printf("|%s|", data->map[i]);
+}
+
+int	config_err(void)
+{
+	printf("Error\n");
+	return (0);
 }
