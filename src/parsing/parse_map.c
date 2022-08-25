@@ -6,7 +6,7 @@
 /*   By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 15:41:23 by aptive            #+#    #+#             */
-/*   Updated: 2022/08/25 16:10:03 by chaidel          ###   ########.fr       */
+/*   Updated: 2022/08/25 16:30:38 by chaidel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,22 +39,20 @@ t_data	*init_data(t_data *data, char *path_map)
 	return (data);
 }
 
-char	*ft_map_read(int fd, int max)
+char	*ft_map_read(int fd)
 {
 	char	*tmp_map;
 	char	*map_line;
 	int		ln;
 
-	ln = 0;
 	map_line = ft_calloc(sizeof(char), 1);
 	if (!map_line)
 		return (NULL);
-	while (ln != max)
+	while (1)
 	{
 		tmp_map = get_next_line(fd);
 		if (!tmp_map)
 			break ;
-		ln++;
 		map_line = ft_strjoin_gnl(map_line, tmp_map);
 		free(tmp_map);
 	}
