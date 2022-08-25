@@ -6,7 +6,7 @@
 /*   By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 14:32:44 by aptive            #+#    #+#             */
-/*   Updated: 2022/08/25 14:12:05 by chaidel          ###   ########.fr       */
+/*   Updated: 2022/08/25 14:55:42 by chaidel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ int	main(int argc, char **argv)
 	data = init_data(data, argv[1]);
 	parsing_map(data);
 	init_player(data);
-	printf("done\n");
 	free_struct(data);
 	return (0);
 
@@ -67,5 +66,4 @@ int	main(int argc, char **argv)
 	mlx_key_hook(data->mlx_win, key_hook, data);
 	mlx_loop(data->mlx);
 
-	return (0);
 }

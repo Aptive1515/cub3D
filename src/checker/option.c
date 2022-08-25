@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   option.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 17:32:52 by root              #+#    #+#             */
-/*   Updated: 2022/08/24 18:59:53 by root             ###   ########.fr       */
+/*   Updated: 2022/08/25 15:26:01 by chaidel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int	check_texture_path(t_data *pth)
 
 int	xpm_err(t_data *pth)
 {
+	printf("text err\n");
 	if (pth->path->texture_NO)
 		mlx_destroy_image(pth->mlx, pth->path->texture_NO);
 	if (pth->path->texture_SO)
@@ -40,17 +41,33 @@ int	xpm_err(t_data *pth)
 		mlx_destroy_image(pth->mlx, pth->path->texture_WE);
 	if (pth->path->texture_EA)
 		mlx_destroy_image(pth->mlx, pth->path->texture_EA);
-	return (config_err());
+	return (0);
 }
 
-// int	check_rgb(t_data *rgb)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (i < 3)
-// 	{
-		
-// 		i++;
-// 	}
-// }
+int	check_rgb(t_data *data)
+{
+	int	i;
+	int	value;
+	
+	printf("inside\n");
+	i = 0;
+	if (ft_doubletab_len(data->floor_rgb) != 3
+		|| ft_doubletab_len(data->ceiling_rgb) != 3)
+		return (0);
+	while (i < 3)
+	{
+		value = ft_atoi(data->floor_rgb[i]);
+		if (value < 0 || value > 255)
+			return (0);
+		i++;
+	}
+	i = 0;
+	while (i < 3)
+	{
+		value = ft_atoi(data->ceiling_rgb[i]);
+		if (value < 0 || value > 255)
+			return (0);
+		i++;
+	}
+	return (1);
+}

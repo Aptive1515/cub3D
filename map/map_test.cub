@@ -3,7 +3,7 @@ SO ../img/south_texture
 WE ../img/west_texture
 EA ../img/east_texture
 
-F 200,200,200
+F 255,200,200
 C 100,100,100
 
         1111111111111111111111111

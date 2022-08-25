@@ -6,7 +6,7 @@
 /*   By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 14:30:39 by aptive            #+#    #+#             */
-/*   Updated: 2022/08/25 13:52:37 by chaidel          ###   ########.fr       */
+/*   Updated: 2022/08/25 15:21:49 by chaidel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,13 @@ int		config_err(void);
 /*	Utils */
 void    free_struct(t_data *data);
 void    free_struct_config(t_data *data);
-void	ft_free_doubletab(char **tab);
+int		ft_free_doubletab(char **tab);
+
+/*	Option */
+int		check_texture_path(t_data *pth);
+int		check_rgb(t_data *data);
+int		xpm_err(t_data *pth);
+
 /*
 GRAPH/FIRGURE_C------------------------------------------------------------------
 */

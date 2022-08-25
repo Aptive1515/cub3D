@@ -6,7 +6,7 @@
 /*   By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 15:41:23 by aptive            #+#    #+#             */
-/*   Updated: 2022/08/25 14:22:10 by chaidel          ###   ########.fr       */
+/*   Updated: 2022/08/25 16:10:03 by chaidel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,45 +70,35 @@ int	parsing_path_texture(t_data *data, char **tab_gnl)
 	while (++i <= 3)
 	{
 		tmp_tab = ft_split(tab_gnl[i], ' ');
+		if (ft_doubletab_len(tmp_tab) > 2)
+			return (ft_free_doubletab(tmp_tab));
 		if (i == 0)
 		{
 			if (!ft_strcmp("NO", tmp_tab[0]))
 				data->path->path_NO = ft_strdup(tmp_tab[1]);
 			else
-			{
-				ft_free_doubletab(tmp_tab);
-				return (config_err());
-			}
+				return (ft_free_doubletab(tmp_tab));
 		}
 		else if (i == 1)
 		{
 			if (!ft_strcmp("SO", tmp_tab[0]))
 				data->path->path_SO = ft_strdup(tmp_tab[1]);
 			else
-			{
-				ft_free_doubletab(tmp_tab);
-				return (config_err());
-			}
+				return (ft_free_doubletab(tmp_tab));
 		}
 		else if (i == 2)
 		{
 			if (!ft_strcmp("WE", tmp_tab[0]))
 				data->path->path_WE = ft_strdup(tmp_tab[1]);
 			else
-			{
-				ft_free_doubletab(tmp_tab);
-				return (config_err());
-			}
+				return (ft_free_doubletab(tmp_tab));
 		}
 		else if (i == 3)
 		{
 			if (!ft_strcmp("EA", tmp_tab[0]))
 				data->path->path_EA = ft_strdup(tmp_tab[1]);
 			else
-			{
-				ft_free_doubletab(tmp_tab);
-				return (config_err());
-			}
+				return (ft_free_doubletab(tmp_tab));
 		}
 		ft_free_doubletab(tmp_tab);
 	}
@@ -124,19 +114,21 @@ int	parsing_rgb_fc(t_data *data, char **tab_gnl)
 	while (++i <= 1)
 	{
 		tmp_tab = ft_split(tab_gnl[i], ' ');
+		if (ft_doubletab_len(tmp_tab) > 2)
+			return (ft_free_doubletab(tmp_tab));
 		if (i == 0)
 		{
 			if (tmp_tab[0][0] == 'F')
 				data->floor_rgb = ft_split(tmp_tab[1], ',');
 			else
-				return (config_err());
+				return (ft_free_doubletab(tmp_tab));
 		}
 		else if (i == 1)
 		{
 			if (tmp_tab[0][0] == 'C')
 				data->ceiling_rgb = ft_split(tmp_tab[1], ',');
 			else
-				return (config_err());
+				return (ft_free_doubletab(tmp_tab));
 		}
 		ft_free_doubletab(tmp_tab);
 	}
@@ -157,7 +149,7 @@ void	parsing_map(t_data *data)
 	// printf("|%s|\n", str);
 	texture = ft_split(str, '\n');
 	free(str);
-	if (!parsing_path_texture(data, texture))
+	if (!parsing_path_texture(data, texture)/* || !check_texture_path(data)*/)
 	{
 		ft_free_doubletab(texture);
 		free_struct_config(data);
@@ -167,7 +159,7 @@ void	parsing_map(t_data *data)
 	// printf("|%s|\n", str);
 	texture = ft_split(str, '\n');
 	free(str);
-	if (!parsing_rgb_fc(data, texture))
+	if (!parsing_rgb_fc(data, texture) || !check_rgb(data))
 	{
 		ft_free_doubletab(texture);
 		free_struct_config(data);	

@@ -6,7 +6,7 @@
 /*   By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 12:51:41 by chaidel           #+#    #+#             */
-/*   Updated: 2022/08/25 14:12:08 by chaidel          ###   ########.fr       */
+/*   Updated: 2022/08/25 15:22:10 by chaidel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void    free_struct_config(t_data *data)
 		mlx_destroy_image(data->mlx, data->path->texture_WE);
 	if (data->path->texture_EA)
 		mlx_destroy_image(data->mlx, data->path->texture_EA);
+	config_err();
 	exit(EXIT_FAILURE);
 }
 
@@ -72,7 +73,7 @@ void    free_struct(t_data *data)
 	exit(EXIT_FAILURE);
 }
 
-void	ft_free_doubletab(char **tab)
+int	ft_free_doubletab(char **tab)
 {
 	int	i;
 
@@ -85,4 +86,5 @@ void	ft_free_doubletab(char **tab)
 		i--;
 	}
 	free(tab);
+	return (0);
 }
