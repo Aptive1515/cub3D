@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 14:32:44 by aptive            #+#    #+#             */
-/*   Updated: 2022/08/24 18:16:46 by root             ###   ########.fr       */
+/*   Updated: 2022/08/25 14:12:05 by chaidel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ void affichage_data(t_data	*data)
 	for (int i = 0; data->floor_rgb[i]; i++)
 		printf ("ln %i	: %s\n", i, data->floor_rgb[i]);
 	printf("Ceeling RGB\n");
-	for (int i = 0; data->ceiling_rbg[i]; i++)
-		printf ("ln %i	: %s\n", i, data->ceiling_rbg[i]);
+	for (int i = 0; data->ceiling_rgb[i]; i++)
+		printf ("ln %i	: %s\n", i, data->ceiling_rgb[i]);
 	for (int i = 0; data->map[i]; i++)
 		printf ("ln %i	: %s\n", i, data->map[i]);
 
@@ -45,10 +45,15 @@ int	main(int argc, char **argv)
 
 	data = NULL;
 	if (verif_arg(argc, argv))
+	{
+		printf("there\n");
 		return (1);
+	}
 	data = init_data(data, argv[1]);
 	parsing_map(data);
-	// init_player(data);
+	init_player(data);
+	printf("done\n");
+	free_struct(data);
 	return (0);
 
 	// affichage_data(data);

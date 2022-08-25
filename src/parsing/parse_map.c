@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 15:41:23 by aptive            #+#    #+#             */
-/*   Updated: 2022/08/24 18:36:42 by root             ###   ########.fr       */
+/*   Updated: 2022/08/25 14:22:10 by chaidel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,22 @@ t_data	*init_data(t_data *data, char *path_map)
 {
 	data = malloc(sizeof(t_data));
 	if (!data)
-	{
-		msg_error("Error : data init problems");
 		return (NULL);
-	}
+	data->floor_rgb = NULL;
+	data->ceiling_rgb = NULL;
+	data->map = NULL;
+	data->player = malloc(sizeof(t_player));
+	if (!data->player)
+		return (NULL);
 	data->path = malloc(sizeof(t_path));
 	if (!data->path)
-	{
-		msg_error("Error : data init problems");
 		return (NULL);
-	}
 	data->path->path_map = path_map;
+	data->path->path_NO = NULL;
+	data->path->path_SO = NULL;
+	data->path->path_WE = NULL;
+	data->path->path_EA = NULL;
+	
 	data->path->texture_NO = NULL;
 	data->path->texture_SO = NULL;
 	data->path->texture_WE = NULL;
@@ -68,33 +73,44 @@ int	parsing_path_texture(t_data *data, char **tab_gnl)
 		if (i == 0)
 		{
 			if (!ft_strcmp("NO", tmp_tab[0]))
-				data->path->path_NO = tmp_tab[1];
+				data->path->path_NO = ft_strdup(tmp_tab[1]);
 			else
+			{
+				ft_free_doubletab(tmp_tab);
 				return (config_err());
+			}
 		}
 		else if (i == 1)
 		{
 			if (!ft_strcmp("SO", tmp_tab[0]))
-				data->path->path_SO = tmp_tab[1];
+				data->path->path_SO = ft_strdup(tmp_tab[1]);
 			else
+			{
+				ft_free_doubletab(tmp_tab);
 				return (config_err());
+			}
 		}
 		else if (i == 2)
 		{
 			if (!ft_strcmp("WE", tmp_tab[0]))
-				data->path->path_WE = tmp_tab[1];
+				data->path->path_WE = ft_strdup(tmp_tab[1]);
 			else
+			{
+				ft_free_doubletab(tmp_tab);
 				return (config_err());
+			}
 		}
 		else if (i == 3)
 		{
 			if (!ft_strcmp("EA", tmp_tab[0]))
-				data->path->path_EA = tmp_tab[1];
+				data->path->path_EA = ft_strdup(tmp_tab[1]);
 			else
+			{
+				ft_free_doubletab(tmp_tab);
 				return (config_err());
+			}
 		}
-		free(tmp_tab[0]);
-		free(tmp_tab);
+		ft_free_doubletab(tmp_tab);
 	}
 	return (1);
 }
@@ -118,7 +134,7 @@ int	parsing_rgb_fc(t_data *data, char **tab_gnl)
 		else if (i == 1)
 		{
 			if (tmp_tab[0][0] == 'C')
-				data->ceiling_rbg = ft_split(tmp_tab[1], ',');
+				data->ceiling_rgb = ft_split(tmp_tab[1], ',');
 			else
 				return (config_err());
 		}
@@ -141,12 +157,21 @@ void	parsing_map(t_data *data)
 	// printf("|%s|\n", str);
 	texture = ft_split(str, '\n');
 	free(str);
-	parsing_path_texture(data, texture);
+	if (!parsing_path_texture(data, texture))
+	{
+		ft_free_doubletab(texture);
+		free_struct_config(data);
+	}
 	ft_free_doubletab(texture);
 	str = ft_map_read(fd, 2);
 	// printf("|%s|\n", str);
 	texture = ft_split(str, '\n');
-	parsing_rgb_fc(data, texture);
+	free(str);
+	if (!parsing_rgb_fc(data, texture))
+	{
+		ft_free_doubletab(texture);
+		free_struct_config(data);	
+	}
 	ft_free_doubletab(texture);
 	str = ft_map_read(fd, -1);
 	// printf("|%s|\n", str);

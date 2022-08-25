@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 14:30:39 by aptive            #+#    #+#             */
-/*   Updated: 2022/08/24 18:36:08 by root             ###   ########.fr       */
+/*   Updated: 2022/08/25 13:52:37 by chaidel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stdlib.h>
 # include <string.h>
 # include <stdio.h>
+# include <errno.h>
 # include <fcntl.h>
 # include <math.h>
 # include "../libft/libft.h"
@@ -60,11 +61,10 @@ typedef struct s_data {
 	int			line_length;
 	int			endian;
 
-
 	t_path		*path;
 	t_player	*player;
 	char		**floor_rgb;
-	char		**ceiling_rbg;
+	char		**ceiling_rgb;
 	char		**map;
 
 	int			map_h;
@@ -86,6 +86,11 @@ int		verif_arg(int argc, char **argv);
 int		parsing_rgb_fc(t_data *data, char **tab_gnl);
 int		parsing_path_texture(t_data *data, char **tab_gnl);
 int		config_err(void);
+
+/*	Utils */
+void    free_struct(t_data *data);
+void    free_struct_config(t_data *data);
+void	ft_free_doubletab(char **tab);
 /*
 GRAPH/FIRGURE_C------------------------------------------------------------------
 */

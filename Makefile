@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: root <root@student.42.fr>                  +#+  +:+       +#+         #
+#    By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/02/22 23:12:10 by pbondoer          #+#    #+#              #
-#    Updated: 2022/08/19 20:16:07 by root             ###   ########.fr        #
+#    Updated: 2022/08/25 14:20:17 by chaidel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,6 @@ OS		= $(shell uname)
 SRCDIR		=	./src
 INCDIR		=	./includes
 OBJDIR		=	./obj
-PARSEDIR	=	obj/parsing
 
 # src / obj files
 SRC		=	main.c\
@@ -28,13 +27,15 @@ SRC		=	main.c\
 			graph/map.c\
 			player/player.c\
 			hook/hook_1.c\
+			utils/utils.c\
+			checker/option.c\
 
 
 OBJ		= $(addprefix $(OBJDIR)/,$(SRC:.c=.o))
 
 # compiler
 CC		= gcc
-CFLAGS	= -Wall -Wextra -g -fsanitize=address
+CFLAGS	= -Wall -Wextra -g -fsanitize=address #-Werror
 
 
 # mlx library
@@ -63,8 +64,10 @@ obj:
 	mkdir -p $(OBJDIR)/graph
 	mkdir -p $(OBJDIR)/player
 	mkdir -p $(OBJDIR)/hook
+	mkdir -p $(OBJDIR)/utils
+	mkdir -p $(OBJDIR)/checker
 
-$(OBJDIR)/%.o:$(SRCDIR)/%.c
+$(OBJDIR)/%.o:	$(SRCDIR)/%.c
 	$(CC) $(CFLAGS) $(MLX_INC) $(FT_INC) -I $(INCDIR) -o $@ -c $<
 
 $(FT_LIB):

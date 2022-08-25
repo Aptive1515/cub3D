@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 16:11:23 by aptive            #+#    #+#             */
-/*   Updated: 2022/08/18 16:20:13 by root             ###   ########.fr       */
+/*   Updated: 2022/08/25 13:54:49 by chaidel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,6 @@ void find_player_position(t_data *data)
 
 void	init_player(t_data *data)
 {
-	data->player = ft_calloc(sizeof(data->player), 1);
-	if (!data->player)
-		return;
 	find_player_orientation(data);
 	find_player_position(data);
 }
