@@ -6,7 +6,7 @@
 /*   By: aptive <aptive@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 13:45:13 by aptive            #+#    #+#             */
-/*   Updated: 2022/08/19 18:21:52 by aptive           ###   ########.fr       */
+/*   Updated: 2022/08/25 01:04:46 by aptive           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,9 @@ void	my_mlx_pixel_put_limit(t_data *data, int x, int y, int color)
 void	my_mlx_pixel_put_3d(t_data *data, int x, int y, int color)
 {
 	char	*dst;
+
+	if (x > WIDTH || x < 0 || y > HEIGHT || y < 0)
+		return;
 
 	dst = data->addr_3d + (y * data->line_length_3d + x * (data->bits_per_pixel_3d / 8));
 	*(unsigned int*)dst = color;

@@ -6,7 +6,7 @@
 /*   By: aptive <aptive@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 16:11:23 by aptive            #+#    #+#             */
-/*   Updated: 2022/08/19 18:01:56 by aptive           ###   ########.fr       */
+/*   Updated: 2022/08/25 01:03:20 by aptive           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,32 +85,32 @@ int find_x(int angle, int distance, int origin_x)
 	return (vecteur_x + origin_x);
 }
 
-int find_y_float(int angle, int distance, int origin_y)
-{
-	int vecteur_y;
-	float vecteur_y_float;
+// int find_y_float(int angle, int distance, int origin_y)
+// {
+// 	int vecteur_y;
+// 	float vecteur_y_float;
 
-	// printf("cos x : %f\n", cos(angle * 3.14/180));
-	vecteur_y_float = (cos(angle * 3.14/180) * distance);
-	vecteur_y = (int)(cos(angle * 3.14/180) * distance);
-	printf("vecteur_y_float %f\n", vecteur_y_float);
+// 	// printf("cos x : %f\n", cos(angle * 3.14/180));
+// 	vecteur_y_float = (cos(angle * 3.14/180) * distance);
+// 	vecteur_y = (int)(cos(angle * 3.14/180) * distance);
+// 	printf("vecteur_y_float %f\n", vecteur_y_float);
 
-	return (vecteur_y + origin_y);
-}
+// 	return (vecteur_y + origin_y);
+// }
 
-int find_x_float(int angle, int distance, int origin_x)
-{
-	int vecteur_x;
-	float vecteur_x_float;
+// int find_x_float(int angle, int distance, int origin_x)
+// {
+// 	int vecteur_x;
+// 	float vecteur_x_float;
 
-	vecteur_x = (int)(sin(angle * 3.14/180) * distance);
+// 	vecteur_x = (int)(sin(angle * 3.14/180) * distance);
 
-	vecteur_x_float = (sin(angle * 3.14/180) * distance);
-	printf("vecteur_x_float %f\n", vecteur_x_float);
+// 	vecteur_x_float = (sin(angle * 3.14/180) * distance);
+// 	printf("vecteur_x_float %f\n", vecteur_x_float);
 
 
-	return (vecteur_x + origin_x);
-}
+// 	return (vecteur_x + origin_x);
+// }
 
 void	affichage_direction(t_data *data)
 {

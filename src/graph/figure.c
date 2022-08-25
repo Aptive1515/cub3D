@@ -6,7 +6,7 @@
 /*   By: aptive <aptive@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 16:02:53 by aptive            #+#    #+#             */
-/*   Updated: 2022/08/24 17:53:03 by aptive           ###   ########.fr       */
+/*   Updated: 2022/08/25 00:21:54 by aptive           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,7 +164,7 @@ void draw_lign(t_data *data, int x1, int y1, int x2, int y2, int color)
 						dy = dy *2;
 						while (x1 != x2)
 						{
-							my_mlx_pixel_put_limit_wall(data, x1 , y1, color);
+							my_mlx_pixel_put_limit_wall(data, x1 , y1, BLUE);
 							if (verif_wall(data, x1 , y1))
 								break;
 							x1++;

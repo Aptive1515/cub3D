@@ -6,13 +6,20 @@
 /*   By: aptive <aptive@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 16:26:50 by aptive            #+#    #+#             */
-/*   Updated: 2022/08/24 18:53:38 by aptive           ###   ########.fr       */
+/*   Updated: 2022/08/25 03:22:09 by aptive           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3D.h"
 
 int	absolu(int nb)
+{
+	if (nb < 0)
+		nb = -nb;
+	return (nb);
+}
+
+float	absolu_float(float nb)
 {
 	if (nb < 0)
 		nb = -nb;
@@ -38,10 +45,10 @@ int	calcul_ray_distance(int	x, int y, int x2, int y2)
 	dis_x = calcul_distance_square(x, x2);
 	dis_y = calcul_distance_square(y, y2);
 
-	printf("*******************************\n");
-	printf("x / y : %i / %i\n", x, y);
-	printf("x2 / y2 : %i / %i\n", x2, y2);
-	printf("sqrt(dis_x + dis_y): %f\n", sqrt(dis_x + dis_y));
+	// printf("*******************************\n");
+	// printf("x / y : %i / %i\n", x, y);
+	// printf("x2 / y2 : %i / %i\n", x2, y2);
+	// printf("sqrt(dis_x + dis_y): %f\n", sqrt(dis_x + dis_y));
 
 	return(sqrt(dis_x + dis_y));
 }
@@ -51,15 +58,15 @@ int	wall_height_apparence(int	distance_ray)
 	float	tan_alpha;
 	float	wall_height_apparence;
 
-	tan_alpha = (float)WALL_H / (float)HORIZON;
-	wall_height_apparence = ((float)HORIZON - (float)distance_ray) / tan_alpha;
+	tan_alpha = (float)WALL_H/2 / (float)HORIZON;
+	wall_height_apparence = ((float)HORIZON - (float)distance_ray) * tan_alpha;
 
 	printf("*******************\n");
-	printf("distance_ray : %i\n", distance_ray);
-	// printf("WALL_H : %i\n", WALL_H);
-	// printf("HORIZON : %i\n", HORIZON);
-	// printf("tan_alpha : %f\n", tan_alpha);
-	printf("Wall height apparence : %f\n", wall_height_apparence);
+	// printf("distance_ray : %i\n", distance_ray);
+	// // printf("WALL_H : %i\n", WALL_H);
+	// // printf("HORIZON : %i\n", HORIZON);
+	// // printf("tan_alpha : %f\n", tan_alpha);
+	// printf("Wall height apparence : %f\n", wall_height_apparence);
 
 
 
@@ -77,15 +84,79 @@ void	ft_lign_vertical_3d(t_data *data, int x, int y, int y_end, int color)
 	// mlx_put_image_to_window(data->mlx, data->mlx_win, data->img, 0, 0);
 }
 
+void	ft_color_wall(t_data *data)
+{
+	int	vecteur_x;
+	int	vecteur_y;
+
+
+	vecteur_x = data->ray_x/32 - data->ray_x_before/32;
+	vecteur_y = data->ray_y/32 - data->ray_y_before/32;
+
+	// printf("data->ray_x_before : %i\n", vecteur_x);
+	// printf("data->ray_y_before : %i\n", vecteur_y);
+
+	if (vecteur_x > 1 && vecteur_y == 0)
+		data->color_wall = WALL_N;
+	if (vecteur_x < 1 && vecteur_y == 0)
+		data->color_wall = WALL_S;
+	if (vecteur_x == 0 && vecteur_y < 0)
+		data->color_wall = WALL_E;
+	if (vecteur_x == 0 && vecteur_y > 0)
+		data->color_wall = WALL_W;
+
+
+}
+
+int find_y_float(float angle, int distance, int origin_y)
+{
+	int vecteur_y;
+
+	// printf("cos x : %f\n", cos(angle * 3.14/180));
+	vecteur_y = (int)(cos(angle * 3.14/180) * distance);
+	return (vecteur_y + origin_y);
+}
+
+int find_x_float(float angle, int distance, int origin_x)
+{
+	int vecteur_x;
+	vecteur_x = (int)(sin(angle * 3.14/180) * distance);
+	return (vecteur_x + origin_x);
+}
+
+int	delete_fish_eye(int distance, float fov)
+{
+	int	new_distance;
+	float angle;
+
+	// if(fov == 0)
+	// 	return (distance);
+
+ 	angle = ( fov )* 3.14 / 180;
+	new_distance = distance * cosf(angle);
+	// printf("*************************\n");
+	// printf("(fov) 	: %f\n",fov);
+	// printf("(fov_inverse) 	: %f\n", 90 - absolu_float(fov));
+	// printf("angle 	: %f\n", angle);
+	// printf("cosf(angle) : %f\n", cosf(angle));
+	// // printf("absolu(fov) : %f\n", absolu_float(fov));
+	// printf("distance 	: %i\n", distance);
+	// printf("new distance 	: %i\n", new_distance);
+
+	return ((new_distance));
+}
+
 void	ray_traicing(t_data *data)
 {
 	(void)data;
 	int	x;
 	int	y;
-	int	fov;
+	float	fov;
 	int	distance_ray;
 	int	wall_ha;
+	int	i;
 
+	i = 0;
 	fov = -30;
 
 		int y_c;
@@ -99,16 +170,20 @@ void	ray_traicing(t_data *data)
 	// }
 	int	wall_x = WIDTH;
 
-	while (fov <= 30)
+	while (fov <= 31)
 	{
 
-		x = find_x(data->player->direction + fov, 1000, data->player->x);
-		y = find_y(data->player->direction + fov, 1000, data->player->y);
+		x = find_x_float((float)data->player->direction + fov, 1000, data->player->x);
+		y = find_y_float((float)data->player->direction + fov, 1000, data->player->y);
+
+		// printf("x / y : %i / %i\n", x, y);
 		ray_way(data, data->player->x, data->player->y, x, y);
 		// printf("data->ray_x : %i\n", data->ray_x);
 		// printf("data->ray_y : %i\n", data->ray_y);
 		distance_ray = calcul_ray_distance(data->player->x, data->player->y, data->ray_x, data->ray_y);
-		// printf("distance_ray : %i\n", distance_ray);
+		// distance_ray = delete_fish_eye(distance_ray, fov);
+
+		printf("distance_ray : %i\n", distance_ray);
 		wall_ha = (int)wall_height_apparence(distance_ray);
 
 		y_c = HEIGHT/2 - wall_ha;
@@ -116,16 +191,31 @@ void	ray_traicing(t_data *data)
 		// printf("wall_ha : %i\n", wall_ha);
 		// printf("y_c : %i\n", y_c);
 		// printf("y_f : %i\n", y_f);
-		if (fov == -30 || fov == 0 || fov == 30)
+		// if (fov == -30 || fov == 0 || fov == 30)
 			printf("Wall height apparence : %d\n", wall_ha);
 
 
-		ft_lign_vertical_3d(data, wall_x, y_c, y_f, RED);
-		wall_x -= WIDTH / 60;
-		fov++;
+		ft_color_wall(data);
+
+		if (data->color_wall == WALL_N)
+			ft_lign_vertical_3d(data, wall_x, y_c, y_f, RED);
+		else if (data->color_wall == WALL_S)
+			ft_lign_vertical_3d(data, wall_x, y_c, y_f, GREEN);
+		else if (data->color_wall == WALL_E)
+			ft_lign_vertical_3d(data, wall_x, y_c, y_f, BLUE);
+		else if (data->color_wall == WALL_W)
+			ft_lign_vertical_3d(data, wall_x, y_c, y_f, WHITE);
+		// printf("i : %i\n", i);
+		// printf("fov : %f\n", fov);
+		// printf("60/WIDTH : %d\n", 60/WIDTH);
+		i++;
+		wall_x--;
+		fov = fov + 0.075;
+		// fov++;
 	}
 	(void)y_c;
 	(void)y_f;
+	(void)i;
 }
 
 
@@ -156,12 +246,17 @@ void ray_way(t_data *data, int x1, int y1, int x2, int y2)
 							{
 								data->ray_x = x1;
 								data->ray_y = y1;
+
+								data->ray_x_before = x1 - 1;
+
+
 								break;
 							}
 							x1++;
 							e -= dy;
 							if (e < 0)
 							{
+								data->ray_y_before = y1;
 								y1++ ; // déplacement diagonal
 								e += dx ;
 							}
@@ -178,12 +273,14 @@ void ray_way(t_data *data, int x1, int y1, int x2, int y2)
 							{
 								data->ray_x = x1;
 								data->ray_y = y1;
+								data->ray_y_before = y1 - 1;
 								break;
 							}
 							y1++;
 							e -= dx;
 							if (e < 0)
 							{
+								data->ray_x_before = x1;
 								x1++;
 								e += dy ;
 							}
@@ -200,6 +297,7 @@ void ray_way(t_data *data, int x1, int y1, int x2, int y2)
 						{
 							if (verif_wall(data, x1 , y1))
 							{
+								data->ray_x_before = x1 - 1;
 								data->ray_x = x1;
 								data->ray_y = y1;
 								break;
@@ -208,6 +306,7 @@ void ray_way(t_data *data, int x1, int y1, int x2, int y2)
 							e += dy;
 							if (e < 0)
 							{
+								data->ray_x_before = y1;
 								y1--;
 								e += dx ;
 							}
@@ -224,12 +323,14 @@ void ray_way(t_data *data, int x1, int y1, int x2, int y2)
 							{
 								data->ray_x = x1;
 								data->ray_y = y1;
+								data->ray_y_before = y1 + 1;
 								break;
 							}
 							y1--;
 							e += dx;
 							if (e > 0)
 							{
+								data->ray_x_before = x1;
 								x1++ ;  // déplacement diagonal
 								e += dy ;
 							}
@@ -244,6 +345,8 @@ void ray_way(t_data *data, int x1, int y1, int x2, int y2)
 				{
 					if (verif_wall(data, x1 , y1))
 						{
+							data->ray_y_before = y1;
+							data->ray_x_before = x1 - 1;
 							data->ray_x = x1;
 							data->ray_y = y1;
 							break;
@@ -270,6 +373,7 @@ void ray_way(t_data *data, int x1, int y1, int x2, int y2)
 						{
 							if (verif_wall(data, x1 , y1))
 							{
+								data->ray_x_before = x1 + 1;
 								data->ray_x = x1;
 								data->ray_y = y1;
 								break;
@@ -278,6 +382,7 @@ void ray_way(t_data *data, int x1, int y1, int x2, int y2)
 							e += dy;
 							if (e >= 0)
 							{
+								data->ray_y_before = y1;
 								y1++ ;  // déplacement diagonal
 								e += dx ;
 							}
@@ -295,6 +400,7 @@ void ray_way(t_data *data, int x1, int y1, int x2, int y2)
 						{
 							if (verif_wall(data, x1 , y1))
 							{
+								data->ray_y_before = y1 - 1;
 								data->ray_x = x1;
 								data->ray_y = y1;
 								break;
@@ -303,6 +409,7 @@ void ray_way(t_data *data, int x1, int y1, int x2, int y2)
 							e += dx;
 							if (e <= 0)
 							{
+								data->ray_x_before = x1;
 								x1-- ;  // déplacement diagonal
 								e += dy ;
 							}
@@ -321,6 +428,7 @@ void ray_way(t_data *data, int x1, int y1, int x2, int y2)
 						{
 							if (verif_wall(data, x1 , y1))
 							{
+								data->ray_x_before = x1 + 1;
 								data->ray_x = x1;
 								data->ray_y = y1;
 								break;
@@ -329,6 +437,7 @@ void ray_way(t_data *data, int x1, int y1, int x2, int y2)
 							e -= dy;
 							if (e >= 0)
 							{
+								data->ray_y_before = y1;
 								y1-- ;
 								e += dx ;
 							}
@@ -343,14 +452,16 @@ void ray_way(t_data *data, int x1, int y1, int x2, int y2)
 						{
 							if (verif_wall(data, x1 , y1))
 							{
+								data->ray_y_before = y1 + 1;
 								data->ray_x = x1;
 								data->ray_y = y1;
 								break;
 							}
-							y1 = y1 - 1;
+							y1--;
 							e -= dx;
 							if (e >= 0)
 							{
+								data->ray_x_before = x1;
 								--x1;
 								e += dy;
 							}
@@ -364,6 +475,8 @@ void ray_way(t_data *data, int x1, int y1, int x2, int y2)
 				{
 					if (verif_wall(data, x1 , y1))
 					{
+						data->ray_y_before = y1;
+						data->ray_x_before = x1 + 1;
 						data->ray_x = x1;
 						data->ray_y = y1;
 						break;
@@ -385,6 +498,8 @@ void ray_way(t_data *data, int x1, int y1, int x2, int y2)
 				{
 					if (verif_wall(data, x1 , y1))
 					{
+						data->ray_y_before = y1 - 1;
+						data->ray_x_before = x1;
 						data->ray_x = x1;
 						data->ray_y = y1;
 						break;
@@ -398,6 +513,8 @@ void ray_way(t_data *data, int x1, int y1, int x2, int y2)
 				{
 					if (verif_wall(data, x1 , y1))
 						{
+							data->ray_x_before = x1;
+							data->ray_y_before = y1 + 1;
 							data->ray_x = x1;
 							data->ray_y = y1;
 							break;

@@ -6,7 +6,7 @@
 /*   By: aptive <aptive@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 14:30:39 by aptive            #+#    #+#             */
-/*   Updated: 2022/08/24 18:53:25 by aptive           ###   ########.fr       */
+/*   Updated: 2022/08/25 03:20:25 by aptive           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,14 @@
 # define BLUE	create_trgb(0, 54, 60, 2450)
 # define GREEN	create_trgb(0, 55, 255, 0)
 # define BLACK	create_trgb(0, 0, 0, 0)
-# define HORIZON	300
-# define WALL_H		WIDTH
+# define HORIZON	500
+# define WALL_H		300
+
+
+# define WALL_N	1
+# define WALL_S	3
+# define WALL_E	2
+# define WALL_W	4
 
 typedef struct s_path {
 	char	*path_map;
@@ -51,6 +57,7 @@ typedef struct s_player {
 	int	x;
 	int	y;
 	int	direction;
+
 }	t_player;
 
 typedef struct s_data {
@@ -85,6 +92,9 @@ typedef struct s_data {
 
 	int	ray_x;
 	int	ray_y;
+	int	ray_x_before;
+	int	ray_y_before;
+	int	color_wall;
 
 
 }	t_data;
