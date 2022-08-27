@@ -6,7 +6,7 @@
 /*   By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 15:41:23 by aptive            #+#    #+#             */
-/*   Updated: 2022/08/25 16:30:38 by chaidel          ###   ########.fr       */
+/*   Updated: 2022/08/27 15:24:17 by chaidel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ char	*ft_map_read(int fd)
 {
 	char	*tmp_map;
 	char	*map_line;
-	int		ln;
 
 	map_line = ft_calloc(sizeof(char), 1);
 	if (!map_line)
@@ -133,43 +132,115 @@ int	parsing_rgb_fc(t_data *data, char **tab_gnl)
 	return (1);
 }
 
+/*
+ *	Vérifie si les 1er char sont clés d'option
+*/
+int	not_key(char *str)
+{
+	if (ft_strlen(str) > 2)
+	{
+		if (str[0] == 'F' || str[0] == 'C'
+			|| !ft_strncmp(str, "NO", 2) || !ft_strncmp(str, "SO", 2)
+			|| !ft_strncmp(str, "WE", 2) || !ft_strncmp(str, "EA", 2))
+			return (0);
+	}
+	return (1);
+}
+
+char	**split_tab(char **tab, int len, char ***rest)
+{
+	char	**opt;
+	int		i;
+	int		j;
+	int		max;
+
+	max = ft_doubletab_len(tab);
+	if (len >= max)
+		return (NULL);
+	opt = (char **)malloc(sizeof(char *) * (len + 1));
+	if (!opt)
+		return (NULL);
+	opt[len] = NULL;
+	i = 0;
+	while (i < len)
+	{
+		opt[i] = ft_strdup(tab[i]);
+		i++;
+	}
+	*(rest) = malloc(sizeof(char *) * (max - len + 1));
+	j = 0;
+	while (++i < max)
+	{
+		// printf("l%d: %s\n", i, tab[i]);
+		rest[j] = ft_strdup(tab[i]);
+		printf("l%d: %s\n", j, *rest[j]);
+		j++;
+	}
+	rest[i] = '\0';
+	return (opt);
+}
+
+int	split_at_key(char **file)
+{
+	int	len;
+	
+	len = ft_doubletab_len(file);
+	printf("len: %d\n", len);
+	len--;
+	while (len > 0 && not_key(file[len]))
+		len--;
+	printf("len: %d\n", len);
+	return (len);
+}
+
 void	parsing_map(t_data *data)
 {
 	char	**texture;
 	char	**map;
+	char	**mapi;
 	char	*str;
 	int		fd;
+	int		len;
 
 	fd = open(data->path->path_map, O_RDONLY);
 	if (!fd)
-		msg_error("Map don't exist");
-	str = ft_map_read(fd, 5);
-	// printf("|%s|\n", str);
-	texture = ft_split(str, '\n');
-	free(str);
-	if (!parsing_path_texture(data, texture)/* || !check_texture_path(data)*/)
-	{
-		ft_free_doubletab(texture);
-		free_struct_config(data);
-	}
-	ft_free_doubletab(texture);
-	str = ft_map_read(fd, 2);
-	// printf("|%s|\n", str);
-	texture = ft_split(str, '\n');
-	free(str);
-	if (!parsing_rgb_fc(data, texture) || !check_rgb(data))
-	{
-		ft_free_doubletab(texture);
-		free_struct_config(data);	
-	}
-	ft_free_doubletab(texture);
-	str = ft_map_read(fd, -1);
-	// printf("|%s|\n", str);
+		msg_error("Error\n");
+	str = ft_map_read(fd);
 	map = ft_split(str, '\n');
 	free(str);
-	copy_map(data, map);
+	len = split_at_key(map);
+	texture = split_tab(map, len, &mapi);
 	ft_free_doubletab(map);
-	// for (int i = 0; data->map[i]; i++)
+	for (int i = 0; texture[i]; i++)
+		printf("|%s|\n", texture[i]);
+	for (int i = 0; mapi[i]; i++)
+		printf("|%s|\n", mapi[i]);
+	// // printf("|%s|\n", str);
+	// texture = ft_split(str, '\n');
+	// free(str);
+	// if (!parsing_path_texture(data, texture)/* || !check_texture_path(data)*/)
+	// {
+	// 	ft_free_doubletab(texture);
+	// 	free_struct_config(data);
+	// }
+	// ft_free_doubletab(texture);
+	// str = ft_map_read(fd, 2);
+	// // printf("|%s|\n", str);
+	// texture = ft_split(str, '\n');
+	// free(str);
+	// if (!parsing_rgb_fc(data, texture) || !check_rgb(data))
+	// {
+	// 	ft_free_doubletab(texture);
+	// 	free_struct_config(data);	
+	// }
+	// ft_free_doubletab(texture);
+	// str = ft_map_read(fd, -1);
+	// // printf("|%s|\n", str);
+	// map = ft_split(str, '\n');
+	// free(str);
+	// copy_map(data, map);
+	// ft_free_doubletab(map);
+	// // for (int i = 0; data->map[i]; i++)
 	// 	printf("|%s|\n", data->map[i]);
 }
 
