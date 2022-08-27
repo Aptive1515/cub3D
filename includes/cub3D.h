@@ -6,7 +6,7 @@
 /*   By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 14:30:39 by aptive            #+#    #+#             */
-/*   Updated: 2022/08/25 16:30:44 by chaidel          ###   ########.fr       */
+/*   Updated: 2022/08/27 19:55:15 by chaidel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,15 +77,16 @@ MAIN_C--------------------------------------------------------------------------
 
 /*	Parsing */
 t_data	*init_data(t_data *data, char *path_map);
-char	*ft_map_read(int fd);
+char	*ft_map_read(char *path);
 void	parsing_map(t_data *data);
 void	copy_map(t_data *data, char **map);
 int		msg_error(char *str);
 int		verif_open_map(char *path_map);
 int		verif_arg(int argc, char **argv);
-int		parsing_rgb_fc(t_data *data, char **tab_gnl);
+int		parsing_rgb(t_data *data, char *str);
 int		parsing_path_texture(t_data *data, char **tab_gnl);
 int		config_err(void);
+int		strs_are_num(char **av);
 
 /*	Utils */
 void    free_struct(t_data *data);

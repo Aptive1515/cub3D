@@ -6,7 +6,7 @@
 /*   By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 17:32:52 by root              #+#    #+#             */
-/*   Updated: 2022/08/25 15:26:01 by chaidel          ###   ########.fr       */
+/*   Updated: 2022/08/27 20:02:36 by chaidel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,14 @@ int	check_rgb(t_data *data)
 	int	i;
 	int	value;
 	
-	printf("inside\n");
+	// printf("inside\n");
 	i = 0;
+	if (!data->floor_rgb || !data->ceiling_rgb)
+		return (0);
 	if (ft_doubletab_len(data->floor_rgb) != 3
 		|| ft_doubletab_len(data->ceiling_rgb) != 3)
+		return (0);
+	if (!strs_are_num(data->floor_rgb) || !strs_are_num(data->ceiling_rgb))
 		return (0);
 	while (i < 3)
 	{
@@ -67,6 +71,27 @@ int	check_rgb(t_data *data)
 		value = ft_atoi(data->ceiling_rgb[i]);
 		if (value < 0 || value > 255)
 			return (0);
+		i++;
+	}
+	return (1);
+}
+
+int	strs_are_num(char **av)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	if (!av)
+		return (0);
+	while (av[i])
+	{
+		j = 0;
+		if (!av[i][j])
+			return (0);
+		while (av[i][j])
+			if (!(av[i][j] >= '0' && av[i][j++] <= '9'))
+				return (0);
 		i++;
 	}
 	return (1);
