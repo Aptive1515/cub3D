@@ -6,7 +6,7 @@
 /*   By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 14:32:44 by aptive            #+#    #+#             */
-/*   Updated: 2022/08/29 12:01:01 by chaidel          ###   ########.fr       */
+/*   Updated: 2022/08/29 14:29:29 by chaidel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	debug(t_data *data)
 		printf("%s,", data->ceiling_rgb[i]);
 	printf("\n\n");
 	for (int i = 0; data->map[i]; i++)
-		printf("%s\n", data->map[i]);
+		printf("|%s|\n", data->map[i]);
 }
 
 int	main(int argc, char **argv)

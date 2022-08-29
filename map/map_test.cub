@@ -2,7 +2,6 @@ SO ../img/south_texture
 F 126,200,255
 WE ../img/west_texture
 
-EA ../img/east_texture
 
 NO ../img/north_texture
 
@@ -19,12 +18,9 @@ NO ../img/north_texture
 
 
 
-
-
-qas
-
-
 C ,100,100,100
+EA ../img/east_texture
+
         1111111111111111111111111
         1000000000110000000000001
         1011000001110000000000001

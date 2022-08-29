@@ -6,7 +6,7 @@
 /*   By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 12:51:41 by chaidel           #+#    #+#             */
-/*   Updated: 2022/08/29 11:47:14 by chaidel          ###   ########.fr       */
+/*   Updated: 2022/08/29 14:38:00 by chaidel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,8 +109,8 @@ char	**split_tab(char **tab, int len, char *(**rest))
 	if (*(rest) == NULL)
 		return (NULL);
 	j = 0;
-	while (++i < max)
-		rest[0][j++] = ft_strdup(tab[i]);
-	rest[0][j] = '\0';
+	while (i < max)
+		rest[0][j++] = ft_strdup(tab[i++]);
+	rest[0][j] = NULL;
 	return (opt);
 }
