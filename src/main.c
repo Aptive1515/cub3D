@@ -6,7 +6,7 @@
 /*   By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 14:32:44 by aptive            #+#    #+#             */
-/*   Updated: 2022/08/29 14:29:29 by chaidel          ###   ########.fr       */
+/*   Updated: 2022/08/29 18:00:46 by chaidel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,15 @@ int	main(int argc, char **argv)
 	data = init_data(data, argv[1]);
 	parsing_map(data);
 	init_player(data);
-	debug(data);
-	free_struct(data);
-	return (0);
+
+	launcher(data);
+	// if (!check_map(data))
+	// {
+	// 	config_err();
+	// 	return (free_struct(data));
+	// }
+	// debug(data);
+	return (free_struct(data));
 
 	// affichage_data(data);
 

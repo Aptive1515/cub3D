@@ -6,7 +6,7 @@
 #    By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/02/22 23:12:10 by pbondoer          #+#    #+#              #
-#    Updated: 2022/08/29 11:26:57 by chaidel          ###   ########.fr        #
+#    Updated: 2022/08/29 19:50:20 by chaidel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,7 @@ SRC		=	main.c\
 			hook/hook_1.c\
 			utils/utils.c\
 			utils/error.c\
+			checker/mapper.c\
 			checker/option.c\
 
 
@@ -90,4 +91,5 @@ fclean: clean
 	rm -rf $(NAME)
 	make -C $(FT) fclean
 
-re: fclean all
+re: fclean
+	make all

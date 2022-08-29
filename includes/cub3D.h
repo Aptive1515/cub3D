@@ -6,7 +6,7 @@
 /*   By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 14:30:39 by aptive            #+#    #+#             */
-/*   Updated: 2022/08/29 11:56:30 by chaidel          ###   ########.fr       */
+/*   Updated: 2022/08/29 17:53:58 by chaidel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,9 +94,16 @@ char	**split_tab(char **tab, int len, char *(**rest));
 char	*split_txt(char *str);
 int		get_max(t_data *data, char **map, int *max);
 
+/*	Checker */
+int	 check_map(t_data *data);
+
+/*	Backtracking map*/
+int	solver(t_data *data, int y, int x);
+int	launcher(t_data *data);
+
 /*	Utils */
-void	free_struct(t_data *data);
-void	free_struct_config(t_data *data);
+int		free_struct(t_data *data);
+int		free_struct_config(t_data *data);
 int		ft_free_doubletab(char **tab);
 
 /*	Option */

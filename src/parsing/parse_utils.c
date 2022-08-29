@@ -6,7 +6,7 @@
 /*   By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 11:20:21 by chaidel           #+#    #+#             */
-/*   Updated: 2022/08/29 12:09:51 by chaidel          ###   ########.fr       */
+/*   Updated: 2022/08/29 15:26:29 by chaidel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	get_max(t_data *data, char **map, int *max)
 			*max = len;
 	}
 	data->map_h = i;
-	data->map_w = len;
+	data->map_w = *max;
 	data->map = ft_calloc(sizeof(data->map), i + 1);
 	if (!data->map)
 		return (0);

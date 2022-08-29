@@ -36,7 +36,7 @@ clean:
 fclean:		clean
 			$(RM) $(NAME)
 
-re:			fclean $(NAME)
+re:			fclean all
 
 bonus:		all $(OBJSB)
 			ar rcs $(NAME) $(OBJSB)

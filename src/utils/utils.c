@@ -6,7 +6,7 @@
 /*   By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 12:51:41 by chaidel           #+#    #+#             */
-/*   Updated: 2022/08/29 14:38:00 by chaidel          ###   ########.fr       */
+/*   Updated: 2022/08/29 15:36:38 by chaidel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ t_data	*init_data(t_data *data, char *path_map)
 	return (data);
 }
 
-void	free_struct(t_data *data)
+int	free_struct(t_data *data)
 {
 	if (data->floor_rgb)
 		ft_free_doubletab(data->floor_rgb);
@@ -65,7 +65,7 @@ void	free_struct(t_data *data)
 	free(data->player);
 	free(data->path);
 	free(data);
-	exit(EXIT_FAILURE);
+	return (0);
 }
 
 int	ft_free_doubletab(char **tab)
