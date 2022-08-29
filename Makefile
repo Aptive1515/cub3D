@@ -6,7 +6,7 @@
 #    By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/02/22 23:12:10 by pbondoer          #+#    #+#              #
-#    Updated: 2022/08/25 14:20:17 by chaidel          ###   ########.fr        #
+#    Updated: 2022/08/29 11:26:57 by chaidel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,12 +22,14 @@ OBJDIR		=	./obj
 SRC		=	main.c\
 			parsing/verif_arg.c\
 			parsing/parse_map.c\
+			parsing/parse_utils.c\
 			graph/figure.c\
 			graph/graph_utils.c\
 			graph/map.c\
 			player/player.c\
 			hook/hook_1.c\
 			utils/utils.c\
+			utils/error.c\
 			checker/option.c\
 
 
