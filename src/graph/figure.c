@@ -6,7 +6,7 @@
 /*   By: aptive <aptive@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 16:02:53 by aptive            #+#    #+#             */
-/*   Updated: 2022/08/25 00:21:54 by aptive           ###   ########.fr       */
+/*   Updated: 2022/08/25 15:30:07 by aptive           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,7 +183,7 @@ void draw_lign(t_data *data, int x1, int y1, int x2, int y2, int color)
 						dy = e;
 						while (y1 != y2)
 						{
-							my_mlx_pixel_put_limit_wall(data, x1 , y1, color);
+							my_mlx_pixel_put_limit_wall(data, x1 , y1, GREEN);
 							if (verif_wall(data, x1 , y1))
 								break;
 							y1++;
@@ -265,7 +265,7 @@ void draw_lign(t_data *data, int x1, int y1, int x2, int y2, int color)
 						dy = dy * 2 ;  // e est négatif
 						while (x1 != x2)  // déplacements horizontaux
 						{
-							my_mlx_pixel_put_limit_wall(data, x1 , y1, color);
+							my_mlx_pixel_put_limit_wall(data, x1 , y1, RED);
 							if (verif_wall(data, x1 , y1))
 								break;
 							x1--;
@@ -287,7 +287,7 @@ void draw_lign(t_data *data, int x1, int y1, int x2, int y2, int color)
 						dx = dx * 2 ;  // e est poiftif
 						while (y1 != y2)  // déplacements verticaux
 						{
-							my_mlx_pixel_put_limit_wall(data, x1 , y1, color);
+							my_mlx_pixel_put_limit_wall(data, x1 , y1, WHITE);
 							if (verif_wall(data, x1 , y1))
 								break;
 							y1++;

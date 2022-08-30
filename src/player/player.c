@@ -6,7 +6,7 @@
 /*   By: aptive <aptive@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 16:11:23 by aptive            #+#    #+#             */
-/*   Updated: 2022/08/25 01:03:20 by aptive           ###   ########.fr       */
+/*   Updated: 2022/08/25 03:39:40 by aptive           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -220,8 +220,8 @@ void	ft_move_player(t_data *data, char c)
 
 	mv_direction = find_move_direction_player(data, c);
 
-	x = find_x(mv_direction, 3, data->player->x);
-	y = find_y(mv_direction, 3, data->player->y);
+	x = find_x(mv_direction, 10, data->player->x);
+	y = find_y(mv_direction, 10, data->player->y);
 
 
 	// printf("mv_direction : %i\n", mv_direction);

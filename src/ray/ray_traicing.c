@@ -6,7 +6,7 @@
 /*   By: aptive <aptive@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 16:26:50 by aptive            #+#    #+#             */
-/*   Updated: 2022/08/25 03:22:09 by aptive           ###   ########.fr       */
+/*   Updated: 2022/08/25 15:24:04 by aptive           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	calcul_distance_square(int x1, int x2)
 	int	x_tmp;
 
 	x_tmp = (x2) - (x1);
-	return(x_tmp * x_tmp);
+	return (x_tmp * x_tmp);
 }
 
 int	calcul_ray_distance(int	x, int y, int x2, int y2)
@@ -93,18 +93,41 @@ void	ft_color_wall(t_data *data)
 	vecteur_x = data->ray_x/32 - data->ray_x_before/32;
 	vecteur_y = data->ray_y/32 - data->ray_y_before/32;
 
-	// printf("data->ray_x_before : %i\n", vecteur_x);
-	// printf("data->ray_y_before : %i\n", vecteur_y);
+	printf("________________\n");
+	printf("ray_x_map / ray_y_map		: %i / %i\n", data->ray_x/32, data->ray_y/32);
+	printf("before_x_map / before_y_map	: %i / %i\n", data->ray_x_before/32, data->ray_y_before/32);
 
-	if (vecteur_x > 1 && vecteur_y == 0)
-		data->color_wall = WALL_N;
-	if (vecteur_x < 1 && vecteur_y == 0)
-		data->color_wall = WALL_S;
-	if (vecteur_x == 0 && vecteur_y < 0)
-		data->color_wall = WALL_E;
-	if (vecteur_x == 0 && vecteur_y > 0)
+	printf("vecteur_x / vecteur_y		: %i / %i\n", vecteur_x, vecteur_y);
+
+	if (vecteur_x > 0 && vecteur_y == 0)
+	{
+		printf("WALL WEAST\n");
 		data->color_wall = WALL_W;
+	}
+	else if (vecteur_x < 0 && vecteur_y == 0)
+	{
+		printf("WALL EAST\n");
+		data->color_wall = WALL_E;
+	}
+	else if (vecteur_x == 0 && vecteur_y < 0)
+	{
+		printf("WALL SUD\n");
+		data->color_wall = WALL_S;
+	}
+	else if (vecteur_x == 0 && vecteur_y > 0)
+	{
+		printf("WALL NORD\n");
+		data->color_wall = WALL_N;
+	}
 
+	// if (vecteur_x > 1)
+	// 	data->color_wall = WALL_N;
+	// if (vecteur_x < 1)
+	// 	data->color_wall = WALL_S;
+	// if (vecteur_y < 0)
+	// 	data->color_wall = WALL_E;
+	// if (vecteur_y > 0)
+	// 	data->color_wall = WALL_W;
 
 }
 
@@ -148,27 +171,20 @@ int	delete_fish_eye(int distance, float fov)
 
 void	ray_traicing(t_data *data)
 {
-	(void)data;
-	int	x;
-	int	y;
+	int		x;
+	int		y;
 	float	fov;
-	int	distance_ray;
-	int	wall_ha;
-	int	i;
+	int		distance_ray;
+	int		wall_ha;
+	int		i;
+	int		y_c;
+	int		y_f;
+	int	wall_x = WIDTH;
+
+	(void)data;
 
 	i = 0;
 	fov = -30;
-
-		int y_c;
-		int	y_f;
-
-	// while (y_c <= y_f)
-	// {
-
-	// 	my_mlx_pixel_put_3d(data, 100, y_c, RED);
-	// 	y_c++;
-	// }
-	int	wall_x = WIDTH;
 
 	while (fov <= 31)
 	{
@@ -181,7 +197,7 @@ void	ray_traicing(t_data *data)
 		// printf("data->ray_x : %i\n", data->ray_x);
 		// printf("data->ray_y : %i\n", data->ray_y);
 		distance_ray = calcul_ray_distance(data->player->x, data->player->y, data->ray_x, data->ray_y);
-		// distance_ray = delete_fish_eye(distance_ray, fov);
+		distance_ray = delete_fish_eye(distance_ray, fov);
 
 		printf("distance_ray : %i\n", distance_ray);
 		wall_ha = (int)wall_height_apparence(distance_ray);
@@ -212,13 +228,12 @@ void	ray_traicing(t_data *data)
 		wall_x--;
 		fov = fov + 0.075;
 		// fov++;
+		// wall_x -= HEIGHT / 60;
 	}
 	(void)y_c;
 	(void)y_f;
 	(void)i;
 }
-
-
 
 void ray_way(t_data *data, int x1, int y1, int x2, int y2)
 {
@@ -246,10 +261,7 @@ void ray_way(t_data *data, int x1, int y1, int x2, int y2)
 							{
 								data->ray_x = x1;
 								data->ray_y = y1;
-
 								data->ray_x_before = x1 - 1;
-
-
 								break;
 							}
 							x1++;
@@ -355,7 +367,7 @@ void ray_way(t_data *data, int x1, int y1, int x2, int y2)
 				}
 			}
 		}
-		else  // dx < 0
+		else// dx < 0
 		{
 			dy = y2 - y1;
 			if (dy != 0 )

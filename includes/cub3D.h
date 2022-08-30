@@ -6,7 +6,7 @@
 /*   By: aptive <aptive@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 14:30:39 by aptive            #+#    #+#             */
-/*   Updated: 2022/08/25 03:20:25 by aptive           ###   ########.fr       */
+/*   Updated: 2022/08/25 14:34:00 by aptive           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 # define BLUE	create_trgb(0, 54, 60, 2450)
 # define GREEN	create_trgb(0, 55, 255, 0)
 # define BLACK	create_trgb(0, 0, 0, 0)
-# define HORIZON	500
+# define HORIZON	1000
 # define WALL_H		300
 
 
