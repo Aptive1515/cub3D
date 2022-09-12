@@ -6,7 +6,7 @@
 /*   By: aptive <aptive@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 16:02:53 by aptive            #+#    #+#             */
-/*   Updated: 2022/08/25 15:30:07 by aptive           ###   ########.fr       */
+/*   Updated: 2022/09/11 15:39:41 by aptive           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,13 @@ void ft_grille(t_data *data)
 	(void)data;
 	while (i < width)
 	{
-		ft_lign_vertical(data, i, 0, height, RED);
+		ft_lign_vertical(data, i, 0, height, RED_DARK);
 		i += SQUARE;
 	}
 	i = 0;
 	while (i < height)
 	{
-		ft_lign_horizontal(data, 0, width, i, RED);
+		ft_lign_horizontal(data, 0, width, i, RED_DARK);
 		i += SQUARE;
 	}
 }
@@ -164,7 +164,7 @@ void draw_lign(t_data *data, int x1, int y1, int x2, int y2, int color)
 						dy = dy *2;
 						while (x1 != x2)
 						{
-							my_mlx_pixel_put_limit_wall(data, x1 , y1, BLUE);
+							my_mlx_pixel_put_limit_wall(data, x1 , y1, color);
 							if (verif_wall(data, x1 , y1))
 								break;
 							x1++;
@@ -183,7 +183,7 @@ void draw_lign(t_data *data, int x1, int y1, int x2, int y2, int color)
 						dy = e;
 						while (y1 != y2)
 						{
-							my_mlx_pixel_put_limit_wall(data, x1 , y1, GREEN);
+							my_mlx_pixel_put_limit_wall(data, x1 , y1, color);
 							if (verif_wall(data, x1 , y1))
 								break;
 							y1++;
@@ -265,7 +265,7 @@ void draw_lign(t_data *data, int x1, int y1, int x2, int y2, int color)
 						dy = dy * 2 ;  // e est négatif
 						while (x1 != x2)  // déplacements horizontaux
 						{
-							my_mlx_pixel_put_limit_wall(data, x1 , y1, RED);
+							my_mlx_pixel_put_limit_wall(data, x1 , y1, color);
 							if (verif_wall(data, x1 , y1))
 								break;
 							x1--;
@@ -287,7 +287,7 @@ void draw_lign(t_data *data, int x1, int y1, int x2, int y2, int color)
 						dx = dx * 2 ;  // e est poiftif
 						while (y1 != y2)  // déplacements verticaux
 						{
-							my_mlx_pixel_put_limit_wall(data, x1 , y1, WHITE);
+							my_mlx_pixel_put_limit_wall(data, x1 , y1, color);
 							if (verif_wall(data, x1 , y1))
 								break;
 							y1++;

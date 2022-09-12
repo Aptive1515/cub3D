@@ -6,7 +6,7 @@
 /*   By: aptive <aptive@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 16:11:23 by aptive            #+#    #+#             */
-/*   Updated: 2022/08/25 03:39:40 by aptive           ###   ########.fr       */
+/*   Updated: 2022/09/02 16:52:24 by aptive           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,8 +174,8 @@ void	affichage_direction(t_data *data)
 
 void	affichage_player(t_data *data)
 {
-	full_circle(data, SQUARE / 3, data->player->x, data->player->y, GREEN);
-	affichage_direction(data);
+	full_circle(data, SQUARE / 4, data->player->x, data->player->y, GREEN);
+	// affichage_direction(data);
 	mlx_put_image_to_window(data->mlx, data->mlx_win, data->img, 0, 0);
 
 }
@@ -184,16 +184,16 @@ void	ft_move_fov(t_data *data, char c)
 {
 	if (c == 'r')
 	{
-		data->player->direction-= 3;
+		data->player->direction-= ONE_DEGRE;
 	}
 	if (c == 'g')
 	{
-		data->player->direction+= 3;
+		data->player->direction+= ONE_DEGRE;
 	}
-	if (data->player->direction >= 360)
+	if (data->player->direction >= 2 * M_PI)
 		data->player->direction = 0;
-	else if (data->player->direction < 0)
-		data->player->direction = 359;
+	else if (data->player->direction <= 0)
+		data->player->direction = 2 * M_PI;
 	ft_affiche_map(data);
 }
 
@@ -220,8 +220,8 @@ void	ft_move_player(t_data *data, char c)
 
 	mv_direction = find_move_direction_player(data, c);
 
-	x = find_x(mv_direction, 10, data->player->x);
-	y = find_y(mv_direction, 10, data->player->y);
+	x = find_x(mv_direction, 2, data->player->x);
+	y = find_y(mv_direction, 2, data->player->y);
 
 
 	// printf("mv_direction : %i\n", mv_direction);

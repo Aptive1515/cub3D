@@ -6,7 +6,7 @@
 /*   By: aptive <aptive@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 11:32:28 by aptive            #+#    #+#             */
-/*   Updated: 2022/08/18 16:29:00 by aptive           ###   ########.fr       */
+/*   Updated: 2022/09/03 01:45:36 by aptive           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	key_hook(int keycode, t_data *data)
 {
 	(void)data;
-	printf("keycode : %i\n", keycode);
+	// printf("keycode : %i\n", keycode);
 	if (keycode == 65307)
 		ft_close(data);
 	// if (keycode == 65364 || keycode == 1 || keycode == 115)

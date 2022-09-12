@@ -6,7 +6,7 @@
 /*   By: aptive <aptive@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 14:32:44 by aptive            #+#    #+#             */
-/*   Updated: 2022/08/19 18:18:00 by aptive           ###   ########.fr       */
+/*   Updated: 2022/09/02 03:02:49 by aptive           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void affichage_data(t_data	*data)
 	printf("map height : %i\n", data->map_h);
 	printf("map weight : %i\n", data->map_w);
 
-	printf("data->player->direction : %i\n", data->player->direction);
+	printf("data->player->direction : %f\n", data->player->direction);
 	printf("data->player->x : %i\n", data->player->x);
 	printf("data->player->y : %i\n", data->player->y);
 

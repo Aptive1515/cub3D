@@ -6,7 +6,7 @@
 #    By: aptive <aptive@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/02/22 23:12:10 by pbondoer          #+#    #+#              #
-#    Updated: 2022/08/24 16:40:04 by aptive           ###   ########.fr        #
+#    Updated: 2022/09/01 23:31:30 by aptive           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,8 @@ SRC		=	main.c\
 			player/player.c\
 			hook/hook_1.c\
 			ray/ray_traicing.c\
+			ray/ray_utils.c\
+			ray/wall_affichage.c\
 
 
 OBJ		= $(addprefix $(OBJDIR)/,$(SRC:.c=.o))
@@ -65,6 +67,8 @@ obj:
 	mkdir -p $(OBJDIR)/player
 	mkdir -p $(OBJDIR)/hook
 	mkdir -p $(OBJDIR)/ray
+
+
 
 $(OBJDIR)/%.o:$(SRCDIR)/%.c
 	$(CC) $(CFLAGS) $(MLX_INC) $(FT_INC) -I $(INCDIR) -o $@ -c $<

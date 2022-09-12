@@ -6,34 +6,13 @@
 /*   By: aptive <aptive@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 13:45:13 by aptive            #+#    #+#             */
-/*   Updated: 2022/08/25 01:04:46 by aptive           ###   ########.fr       */
+/*   Updated: 2022/09/12 14:51:02 by aptive           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3D.h"
 
-int	verif_wall(t_data *data, int x, int y)
-{
-	int	x_map;
-	int	y_map;
 
-	x_map = x / SQUARE;
-	y_map = y / SQUARE;
-	// printf("xp / y :	%i / %i\n", x, y);
-	// printf("x_map / y_map :	%i / %i\n", x_map, y_map);
-
-	if (x_map > data->map_w - 1 || x_map <= 0 || y_map > data->map_h - 1|| y_map <= 0)
-		return (1);
-	// printf("y (SQUARE * y_map) : %i\n", (SQUARE * y_map));
-
-	if(x % (SQUARE * x_map)|| y % (SQUARE * y_map))
-	{
-		if (data->map[y_map][x_map] == '1')
-			return (1);
-	}
-	(void)data;
-	return (0);
-}
 
 void	my_mlx_pixel_put_limit_wall(t_data *data, int x, int y, int color)
 {
@@ -74,4 +53,14 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 int	create_trgb(int t, int r, int g, int b)
 {
 	return (t << 24 | r << 16 | g << 8 | b);
+}
+
+void	ft_lign_vertical_3d(t_data *data, int x, int y, int y_end, int color)
+{
+	while (y < y_end)
+	{
+		my_mlx_pixel_put_3d(data, x, y, color);
+		y++;
+	}
+	// mlx_put_image_to_window(data->mlx, data->mlx_win, data->img, 0, 0);
 }
