@@ -6,7 +6,7 @@
 /*   By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 11:20:21 by chaidel           #+#    #+#             */
-/*   Updated: 2022/08/29 15:26:29 by chaidel          ###   ########.fr       */
+/*   Updated: 2022/09/13 14:27:12 by chaidel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ int	not_key(char *str)
 	}
 	return (1);
 }
-
 
 char	*split_txt(char *str)
 {
