@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aptive <aptive@student.42.fr>              +#+  +:+       +#+        */
+/*   By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 14:30:39 by aptive            #+#    #+#             */
-/*   Updated: 2022/08/18 13:08:21 by aptive           ###   ########.fr       */
+/*   Updated: 2022/09/14 18:23:09 by chaidel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stdlib.h>
 # include <string.h>
 # include <stdio.h>
+# include <errno.h>
 # include <fcntl.h>
 # include <math.h>
 # include "../libft/libft.h"
@@ -52,42 +53,62 @@ typedef struct s_player {
 }	t_player;
 
 typedef struct s_data {
-	void	*mlx;
-	void	*mlx_win;
-	void	*img;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
+	void		*mlx;
+	void		*mlx_win;
+	void		*img;
+	char		*addr;
+	int			bits_per_pixel;
+	int			line_length;
+	int			endian;
 
-
-	t_path	*path;
+	t_path		*path;
 	t_player	*player;
-	char	**floor_rgb;
-	char	**ceiling_rbg;
-	char	**map;
+	char		**floor_rgb;
+	char		**ceiling_rgb;
+	char		**map;
 
-	int		map_h;
-	int		map_w;
+	int			map_h;
+	int			map_w;
 }	t_data;
 
 /*
 MAIN_C---------------------------------------------------------------------------
 */
+void	debug(t_data *data); //DEBUG
 
-/*
-PARSING/PARSE_MAP_C--------------------------------------------------------------
-*/
+/*	Parsing */
 t_data	*init_data(t_data *data, char *path_map);
-char	*ft_map_read(char *path_map);
-void	parsing_map(t_data *data);
-
-/*
-PARSING/VERIF_ARG_C--------------------------------------------------------------
-*/
+char	*ft_map_read(char *path);
+int		parsing_map(t_data *data);
+int		copy_map(t_data *data, char **map);
 int		msg_error(char *str);
 int		verif_open_map(char *path_map);
 int		verif_arg(int argc, char **argv);
+int		parsing_rgb(t_data *data, char *str);
+int		parsing_path_texture(t_data *data, char **tab_gnl);
+int		config_err(void);
+int		strs_are_num(char **av);
+int		not_key(char *str);
+int		split_at_key(char **file);
+char	**split_tab(char **tab, int len, char *(**rest));
+char	*split_txt(char *str);
+int		get_max(t_data *data, char **map, int *max);
+
+/*	Checker */
+int		check_map(t_data *data);
+int		solver_x(t_data *data);
+int		solver_x_lim(t_data *data, int y);
+int		solver_x_open(t_data *data, int y, int x);
+int		solver_y(t_data *data);
+/*	Utils */
+int		free_struct(t_data *data);
+int		free_struct_config(t_data *data);
+int		ft_free_doubletab(char **tab);
+
+/*	Option */
+int		check_texture_path(t_data *pth);
+int		check_rgb(t_data *data);
+int		xpm_err(t_data *pth);
 
 /*
 GRAPH/FIRGURE_C------------------------------------------------------------------

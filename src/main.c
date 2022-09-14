@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 14:32:44 by aptive            #+#    #+#             */
-/*   Updated: 2022/08/18 16:11:35 by root             ###   ########.fr       */
+/*   Updated: 2022/09/14 18:23:00 by chaidel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ void affichage_data(t_data	*data)
 	for (int i = 0; data->floor_rgb[i]; i++)
 		printf ("ln %i	: %s\n", i, data->floor_rgb[i]);
 	printf("Ceeling RGB\n");
-	for (int i = 0; data->ceiling_rbg[i]; i++)
-		printf ("ln %i	: %s\n", i, data->ceiling_rbg[i]);
+	for (int i = 0; data->ceiling_rgb[i]; i++)
+		printf ("ln %i	: %s\n", i, data->ceiling_rgb[i]);
 	for (int i = 0; data->map[i]; i++)
 		printf ("ln %i	: %s\n", i, data->map[i]);
 
@@ -38,17 +38,43 @@ void affichage_data(t_data	*data)
 
 }
 
+void	debug(t_data *data)
+{
+	printf("NO %s\nSO %s\nWE %s\nEA %s\n", data->path->path_NO,data->path->path_SO,data->path->path_WE,data->path->path_EA);
+	printf("F ");
+	for (int i = 0; data->floor_rgb[i]; i++)
+		printf("%s,", data->floor_rgb[i]);
+	printf("\n");
+	printf("C ");
+	for (int i = 0; data->ceiling_rgb[i]; i++)
+		printf("%s,", data->ceiling_rgb[i]);
+	printf("\n\n");
+	for (int i = 0; data->map[i]; i++)
+		printf("|%s|\n", data->map[i]);
+}
+
 int	main(int argc, char **argv)
 {
 	t_data	*data;
 
-
 	data = NULL;
 	if (verif_arg(argc, argv))
+	{
+		printf("there\n");
 		return (1);
+	}
 	data = init_data(data, argv[1]);
-	parsing_map(data);
+	if (!parsing_map(data))
+		exit(EXIT_FAILURE);
 	init_player(data);
+
+	if (!check_map(data) || !solver_x(data) || !solver_y(data))
+	{
+		config_err();
+		return (free_struct(data));
+	}
+	debug(data);
+	return (free_struct(data));
 
 	// affichage_data(data);
 
@@ -61,5 +87,4 @@ int	main(int argc, char **argv)
 	mlx_key_hook(data->mlx_win, key_hook, data);
 	mlx_loop(data->mlx);
 
-	return (0);
 }

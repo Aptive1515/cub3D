@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   verif_arg.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aptive <aptive@student.42.fr>              +#+  +:+       +#+        */
+/*   By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 14:46:14 by aptive            #+#    #+#             */
-/*   Updated: 2022/08/12 15:11:12 by aptive           ###   ########.fr       */
+/*   Updated: 2022/08/25 13:32:21 by chaidel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,10 @@ int	verif_open_map(char *path_map)
 		return (1);
 	fd_map = open(path_map, O_RDONLY);
 	if (!fd_map)
+	{
+		printf("%s\n", strerror(errno));
 		return (1);
+	}
 	close (fd_map);
 	return (0);
 }
