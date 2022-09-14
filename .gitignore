@@ -2,3 +2,5 @@
 *.a
 cub3D
 log
+.vscode
+img
