@@ -6,7 +6,7 @@
 /*   By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 14:32:44 by aptive            #+#    #+#             */
-/*   Updated: 2022/09/14 18:23:00 by chaidel          ###   ########.fr       */
+/*   Updated: 2022/09/14 19:39:49 by chaidel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void affichage_data(t_data	*data)
 	printf("map height : %i\n", data->map_h);
 	printf("map weight : %i\n", data->map_w);
 
-	printf("data->player->direction : %i\n", data->player->direction);
+	printf("data->player->direction : %f\n", data->player->direction);
 	printf("data->player->x : %i\n", data->player->x);
 	printf("data->player->y : %i\n", data->player->y);
 
@@ -73,8 +73,6 @@ int	main(int argc, char **argv)
 		config_err();
 		return (free_struct(data));
 	}
-	debug(data);
-	return (free_struct(data));
 
 	// affichage_data(data);
 
@@ -82,9 +80,21 @@ int	main(int argc, char **argv)
 	data->mlx_win = mlx_new_window(data->mlx, data->map_w * SQUARE, data->map_h * SQUARE, "Cub3D");
 	data->img = mlx_new_image(data->mlx, data->map_w * SQUARE, data->map_h * SQUARE);
 	data->addr = mlx_get_data_addr(data->img, &data->bits_per_pixel, &data->line_length, &data->endian);
+
+	data->mlx_3d = mlx_init();
+	data->mlx_win_3d = mlx_new_window(data->mlx_3d, WIDTH, HEIGHT, "Cub3D");
+	data->img_3d = mlx_new_image(data->mlx_3d, WIDTH, HEIGHT);
+	data->addr_3d = mlx_get_data_addr(data->img_3d, &data->bits_per_pixel_3d, &data->line_length_3d, &data->endian_3d);
+
+
+
+
+
 	ft_affiche_map(data);
 	mlx_hook(data->mlx_win, 17, 1L << 0, ft_close, data);
 	mlx_key_hook(data->mlx_win, key_hook, data);
 	mlx_loop(data->mlx);
 
+	// debug(data);
+	return (free_struct(data));
 }

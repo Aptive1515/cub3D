@@ -6,7 +6,7 @@
 #    By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/02/22 23:12:10 by pbondoer          #+#    #+#              #
-#    Updated: 2022/09/14 19:04:02 by chaidel          ###   ########.fr        #
+#    Updated: 2022/09/14 19:25:37 by chaidel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,9 @@ SRC		=	main.c\
 			checker/mapper.c\
 			checker/option.c\
 			checker/solver.c\
+			ray/ray_traicing.c\
+			ray/ray_utils.c\
+			ray/wall_affichage.c\
 
 
 OBJ		= $(addprefix $(OBJDIR)/,$(SRC:.c=.o))
@@ -70,6 +73,9 @@ obj:
 	mkdir -p $(OBJDIR)/hook
 	mkdir -p $(OBJDIR)/utils
 	mkdir -p $(OBJDIR)/checker
+	mkdir -p $(OBJDIR)/ray
+
+
 
 $(OBJDIR)/%.o:	$(SRCDIR)/%.c
 	$(CC) $(CFLAGS) $(MLX_INC) $(FT_INC) -I $(INCDIR) -o $@ -c $<
