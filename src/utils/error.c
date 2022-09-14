@@ -6,7 +6,7 @@
 /*   By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 11:21:15 by chaidel           #+#    #+#             */
-/*   Updated: 2022/08/29 15:38:02 by chaidel          ###   ########.fr       */
+/*   Updated: 2022/09/14 19:12:16 by chaidel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,9 @@ int	free_struct_config(t_data *data)
 		mlx_destroy_image(data->mlx, data->path->texture_WE);
 	if (data->path->texture_EA)
 		mlx_destroy_image(data->mlx, data->path->texture_EA);
+	free(data->player);
+	free(data->path);
+	free(data);
 	config_err();
 	return (0);
 }

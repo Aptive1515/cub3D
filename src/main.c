@@ -6,7 +6,7 @@
 /*   By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 14:32:44 by aptive            #+#    #+#             */
-/*   Updated: 2022/09/14 16:55:22 by chaidel          ###   ########.fr       */
+/*   Updated: 2022/09/14 18:23:00 by chaidel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ int	main(int argc, char **argv)
 {
 	t_data	*data;
 
-
 	data = NULL;
 	if (verif_arg(argc, argv))
 	{
@@ -65,7 +64,8 @@ int	main(int argc, char **argv)
 		return (1);
 	}
 	data = init_data(data, argv[1]);
-	parsing_map(data);
+	if (!parsing_map(data))
+		exit(EXIT_FAILURE);
 	init_player(data);
 
 	if (!check_map(data) || !solver_x(data) || !solver_y(data))

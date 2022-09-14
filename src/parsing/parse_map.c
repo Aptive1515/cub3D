@@ -6,7 +6,7 @@
 /*   By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 15:41:23 by aptive            #+#    #+#             */
-/*   Updated: 2022/09/14 12:07:59 by chaidel          ###   ########.fr       */
+/*   Updated: 2022/09/14 19:19:35 by chaidel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,9 @@ int	parsing_rgb(t_data *data, char *str)
 	tmp_tab = ft_split(str, ' ');
 	if (ft_doubletab_len(tmp_tab) > 2)
 		return (ft_free_doubletab(tmp_tab));
-	if (!ft_strcmp(tmp_tab[0], "F"))
+	if (!ft_strcmp(tmp_tab[0], "F") && (int)ft_strlen(tmp_tab[1]) == 11)
 		data->floor_rgb = ft_split(tmp_tab[1], ',');
-	else if (!ft_strcmp(tmp_tab[0], "C"))
+	else if (!ft_strcmp(tmp_tab[0], "C") && (int)ft_strlen(tmp_tab[1]) == 11)
 		data->ceiling_rgb = ft_split(tmp_tab[1], ',');
 	else
 	{
@@ -88,7 +88,7 @@ int	parsing_rgb(t_data *data, char *str)
 	return (1);
 }
 
-void	parsing_map(t_data *data)
+int	parsing_map(t_data *data)
 {
 	char	**texture;
 	char	**map;
@@ -99,25 +99,30 @@ void	parsing_map(t_data *data)
 	map = ft_split(str, '\n');
 	free(str);
 	texture = split_tab(map, split_at_key(map), &mapi);
+	ft_free_doubletab(map);
 	if (!texture)
 	{
-		ft_free_doubletab(map);	
-		free_struct_config(data);
+		printf("there1\n");
+		ft_free_doubletab(mapi);
+		return (free_struct_config(data));
 	}
-	ft_free_doubletab(map);
 	if (!parsing_path_texture(data, texture)
 		|| !check_rgb(data) /*|| !check_texture_path(data)*/)
 	{
+		printf("there2\n");
+		ft_free_doubletab(mapi);
 		ft_free_doubletab(texture);
-		free_struct_config(data);
+		return (free_struct_config(data));
 	}
 	ft_free_doubletab(texture);
 	if (!copy_map(data, mapi))
 	{
+		printf("there3\n");
 		ft_free_doubletab(mapi);
-		free_struct_config(data);
+		return (free_struct_config(data));
 	}
 	ft_free_doubletab(mapi);
+	return (1);
 }
 
 int	copy_map(t_data *data, char **map)
