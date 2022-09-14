@@ -6,7 +6,7 @@
 /*   By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 15:41:23 by aptive            #+#    #+#             */
-/*   Updated: 2022/08/29 14:31:12 by chaidel          ###   ########.fr       */
+/*   Updated: 2022/09/14 12:07:59 by chaidel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ int	parsing_path_texture(t_data *data, char **tab_gnl)
 	return (1);
 }
 
+/*	VIRGULE AU DEBUT DU 1ER NUM A CORRIGER*/
 int	parsing_rgb(t_data *data, char *str)
 {
 	char	**tmp_tab;
