@@ -6,7 +6,7 @@
 #    By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/02/22 23:12:10 by pbondoer          #+#    #+#              #
-#    Updated: 2022/08/29 19:50:20 by chaidel          ###   ########.fr        #
+#    Updated: 2022/09/14 16:54:27 by chaidel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,7 @@ SRC		=	main.c\
 			utils/error.c\
 			checker/mapper.c\
 			checker/option.c\
+			checker/solver.c\
 
 
 OBJ		= $(addprefix $(OBJDIR)/,$(SRC:.c=.o))
