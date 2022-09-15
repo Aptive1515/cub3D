@@ -6,7 +6,7 @@
 /*   By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 15:41:23 by aptive            #+#    #+#             */
-/*   Updated: 2022/09/14 19:19:35 by chaidel          ###   ########.fr       */
+/*   Updated: 2022/09/15 11:25:41 by chaidel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ int	parsing_path_texture(t_data *data, char **tab_gnl)
 	return (1);
 }
 
-/*	VIRGULE AU DEBUT DU 1ER NUM A CORRIGER*/
 int	parsing_rgb(t_data *data, char *str)
 {
 	char	**tmp_tab;
@@ -75,9 +74,9 @@ int	parsing_rgb(t_data *data, char *str)
 	tmp_tab = ft_split(str, ' ');
 	if (ft_doubletab_len(tmp_tab) > 2)
 		return (ft_free_doubletab(tmp_tab));
-	if (!ft_strcmp(tmp_tab[0], "F") && (int)ft_strlen(tmp_tab[1]) == 11)
+	if (!ft_strcmp(tmp_tab[0], "F") && ((int)ft_strlen(tmp_tab[1])  >= 5 && (int)ft_strlen(tmp_tab[1]) <= 11))
 		data->floor_rgb = ft_split(tmp_tab[1], ',');
-	else if (!ft_strcmp(tmp_tab[0], "C") && (int)ft_strlen(tmp_tab[1]) == 11)
+	else if (!ft_strcmp(tmp_tab[0], "C") && ((int)ft_strlen(tmp_tab[1])  >= 5 && (int)ft_strlen(tmp_tab[1]) <= 11))
 		data->ceiling_rgb = ft_split(tmp_tab[1], ',');
 	else
 	{
@@ -107,7 +106,7 @@ int	parsing_map(t_data *data)
 		return (free_struct_config(data));
 	}
 	if (!parsing_path_texture(data, texture)
-		|| !check_rgb(data) /*|| !check_texture_path(data)*/)
+		|| !check_rgb(data))
 	{
 		printf("there2\n");
 		ft_free_doubletab(mapi);

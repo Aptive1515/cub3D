@@ -1,9 +1,9 @@
-SO ../img/south_texture
+SO ./img/south_texture.xpm
 F 126,200,255
-WE ../img/west_texture
+WE ./img/west_texture.xpm
 
 
-NO ../img/north_texture
+NO ./img/north_texture.xpm
 
 
 
@@ -19,7 +19,7 @@ NO ../img/north_texture
 
 
 C 100,100,100
-EA ../img/east_texture
+EA ./img/east_texture.xpm
 
         111111 11111111111111111111
         100001 10011000000000001

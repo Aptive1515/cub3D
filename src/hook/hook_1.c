@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hook_1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aptive <aptive@student.42.fr>              +#+  +:+       +#+        */
+/*   By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 11:32:28 by aptive            #+#    #+#             */
-/*   Updated: 2022/09/03 01:45:36 by aptive           ###   ########.fr       */
+/*   Updated: 2022/09/15 12:25:46 by chaidel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,6 @@ int	key_hook(int keycode, t_data *data)
 
 int	ft_close(t_data *data)
 {
-	(void)data;
+	free_struct(data);
 	exit (EXIT_SUCCESS);
 }

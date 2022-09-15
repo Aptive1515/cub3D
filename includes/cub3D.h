@@ -6,7 +6,7 @@
 /*   By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 14:30:39 by aptive            #+#    #+#             */
-/*   Updated: 2022/09/14 19:37:56 by chaidel          ###   ########.fr       */
+/*   Updated: 2022/09/15 11:46:32 by chaidel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@
 # define ROSE	create_trgb(0, 245, 66, 224)
 # define HORIZON	600
 # define WALL_H	32
-# define PI		M_PI
+# define PI M_PI
 # define CONVERT_RAD	PI / (double)180
 # define ONE_DEGRE 0.0174533
 
@@ -60,8 +60,8 @@ typedef struct s_path {
 }	t_path;
 
 typedef struct s_player {
-	int	x;
-	int	y;
+	int		x;
+	int		y;
 	double	direction;
 
 	double	tile_Y_x;
@@ -87,31 +87,28 @@ typedef struct s_data {
 	int			endian;
 
 
-	void	*mlx_3d;
-	void	*mlx_win_3d;
-	void	*img_3d;
-	char	*addr_3d;
-	int		bits_per_pixel_3d;
-	int		line_length_3d;
-	int		endian_3d;
+	void		*mlx_3d;
+	void		*mlx_win_3d;
+	void		*img_3d;
+	char		*addr_3d;
+	int			bits_per_pixel_3d;
+	int			line_length_3d;
+	int			endian_3d;
 
-
-
-
-	t_path	*path;
+	t_path		*path;
 	t_player	*player;
-	char	**floor_rgb;
-	char	**ceiling_rgb;
-	char	**map;
+	char		**floor_rgb;
+	char		**ceiling_rgb;
+	char		**map;
 
-	int		map_h;
-	int		map_w;
+	int			map_h;
+	int			map_w;
 
-	double	ray_x;
-	double	ray_y;
-	int	ray_x_before;
-	int	ray_y_before;
-	int	color_wall;
+	double		ray_x;
+	double		ray_y;
+	int			ray_x_before;
+	int			ray_y_before;
+	int			color_wall;
 
 
 }	t_data;
@@ -166,7 +163,7 @@ void	draw_lign(t_data *data, int x1, int y1, int x2, int y2, int color);
 /*
 GRAPH/GRAPH_UTILS_C--------------------------------------------------------------
 */
-int	verif_wall(t_data *data, int x, int y);
+int		verif_wall(t_data *data, int x, int y);
 void	my_mlx_pixel_put_limit_wall(t_data *data, int x, int y, int color);
 void	ft_lign_vertical(t_data *data, int x, int y, int y_end, int color);
 void	ft_lign_horizontal(t_data *data, int x, int x_end, int y,int color);
@@ -192,8 +189,8 @@ void	init_player(t_data *data);
 void	affichage_player(t_data *data);
 void	ft_move_fov(t_data *data, char c);
 void	ft_move_player(t_data *data, char c);
-int find_x(int angle, int distance, int origin_x);
-int find_y(int angle, int distance, int origin_y);
+int 	find_x(int angle, int distance, int origin_x);
+int 	find_y(int angle, int distance, int origin_y);
 
 /*
 HOOK/HOOK_C----------------------------------------------------------------------
@@ -206,16 +203,16 @@ RAY/RAY_TRAICING_C--------------------------------------------------------------
 */
 void	ray_traicing(t_data *data);
 void	ray_way(t_data *data, int x1, int y1, int x2, int y2);
-double		delete_fish_eye(t_data *data, double distance, double angle_ray);
+double	delete_fish_eye(t_data *data, double distance, double angle_ray);
 /*
 RAY/RAY_UTILS_C------------------------------------------------------------------
 */
-int	absolu(int nb);
+int		absolu(int nb);
 float	absolu_float(float nb);
 double	calcul_distance_square(double x1, double x2);
 double	calcul_ray_distance(double	x, double y, double x2, double y2);
-int find_y_float(float angle, int distance, int origin_y);
-int find_x_float(float angle, int distance, int origin_x);
+int 	find_y_float(float angle, int distance, int origin_y);
+int 	find_x_float(float angle, int distance, int origin_x);
 
 /*
 RAY/RAY_WALL_AFFICHAGE_C---------------------------------------------------------

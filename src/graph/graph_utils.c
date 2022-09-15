@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   graph_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aptive <aptive@student.42.fr>              +#+  +:+       +#+        */
+/*   By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 13:45:13 by aptive            #+#    #+#             */
-/*   Updated: 2022/09/12 14:51:02 by aptive           ###   ########.fr       */
+/*   Updated: 2022/09/15 11:48:31 by chaidel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3D.h"
-
-
 
 void	my_mlx_pixel_put_limit_wall(t_data *data, int x, int y, int color)
 {
@@ -22,7 +20,6 @@ void	my_mlx_pixel_put_limit_wall(t_data *data, int x, int y, int color)
 		return;
 	my_mlx_pixel_put(data, x, y, color);
 }
-
 
 void	my_mlx_pixel_put_limit(t_data *data, int x, int y, int color)
 {
