@@ -6,7 +6,7 @@
 /*   By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 12:51:41 by chaidel           #+#    #+#             */
-/*   Updated: 2022/09/15 12:35:58 by chaidel          ###   ########.fr       */
+/*   Updated: 2022/09/15 12:55:05 by chaidel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,9 @@ t_data	*init_data(t_data *data, char *path_map)
 	data->path->texture_SO = NULL;
 	data->path->texture_WE = NULL;
 	data->path->texture_EA = NULL;
+
+	data->mlx = NULL;
+	data->mlx_3d = NULL;
 	return (data);
 }
 
@@ -64,9 +67,10 @@ int	free_struct(t_data *data)
 		mlx_destroy_image(data->mlx, data->path->texture_EA);
 	mlx_destroy_image(data->mlx, data->img);
 	mlx_destroy_image(data->mlx, data->img_3d);
-	
-	mlx_destroy_window(data->mlx, data->mlx_win);
-	mlx_destroy_window(data->mlx_3d, data->mlx_win_3d);
+	if (data->mlx_win)
+		mlx_destroy_window(data->mlx, data->mlx_win);
+	if (data->mlx_win_3d)
+		mlx_destroy_window(data->mlx_3d, data->mlx_win_3d);
 	mlx_destroy_display(data->mlx);
 	mlx_destroy_display(data->mlx_3d);
 	

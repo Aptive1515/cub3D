@@ -6,7 +6,7 @@
 /*   By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 17:32:52 by root              #+#    #+#             */
-/*   Updated: 2022/09/15 11:25:03 by chaidel          ###   ########.fr       */
+/*   Updated: 2022/09/15 12:53:13 by chaidel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	check_texture_path(t_data *pth)
 	pth->path->texture_EA = mlx_xpm_file_to_image(pth->mlx, pth->path->path_EA, &imgw, &imgh);
 	if (pth->path->texture_NO == NULL || pth->path->texture_SO == NULL
 		|| pth->path->texture_WE == NULL || pth->path->texture_EA == NULL)
-		return (xpm_err(pth));
+		return (0);
 	return (1);
 }
 

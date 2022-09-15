@@ -1,4 +1,4 @@
-SO ./img/south_texture.xpm
+SO ./img/south_texture.xpmz
 F 126,200,255
 WE ./img/west_texture.xpm
 NO ./img/north_texture.xpm
