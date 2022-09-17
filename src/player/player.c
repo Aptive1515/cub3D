@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aptive <aptive@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 16:11:23 by aptive            #+#    #+#             */
-/*   Updated: 2022/09/14 19:31:09 by chaidel          ###   ########.fr       */
+/*   Updated: 2022/09/17 14:55:24 by aptive           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,13 @@ void find_player_orientation(t_data *data)
 		while (x < data->map_w)
 		{
 			if (data->map[y][x] == 'N')
-				data->player->direction = 180;
+				data->player->direction = 90 * ONE_DEGRE;
 			else if (data->map[y][x] == 'E')
-				data->player->direction = 90;
-			else if (data->map[y][x] == 'S')
 				data->player->direction = 0;
+			else if (data->map[y][x] == 'S')
+				data->player->direction = 270 * ONE_DEGRE;
 			else if (data->map[y][x] == 'W')
-				data->player->direction = 270;
+				data->player->direction = 180 * ONE_DEGRE;
 			x++;
 		}
 		y++;
@@ -181,11 +181,11 @@ void	ft_move_fov(t_data *data, char c)
 {
 	if (c == 'r')
 	{
-		data->player->direction-= ONE_DEGRE;
+		data->player->direction-= 45 * ONE_DEGRE;
 	}
 	if (c == 'g')
 	{
-		data->player->direction+= ONE_DEGRE;
+		data->player->direction+= 45 * ONE_DEGRE;
 	}
 	if (data->player->direction >= 2 * M_PI)
 		data->player->direction = 0;

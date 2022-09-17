@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aptive <aptive@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 14:30:39 by aptive            #+#    #+#             */
-/*   Updated: 2022/09/15 11:46:32 by chaidel          ###   ########.fr       */
+/*   Updated: 2022/09/17 15:26:07 by aptive           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,11 +69,17 @@ typedef struct s_player {
 
 	double	tile_X_x;
 	double	tile_X_y;
-	int		tile_step_x;
-	int		tile_step_y;
+	int		tile_step_X;
+	int		tile_step_Y;
 
 	float	delta_y;
 	float	delta_x;
+
+
+	double distance_proj_plane;
+
+	double	absolu_cos_angle_ray;
+	double	tan_angle_ray;
 
 }	t_player;
 
@@ -203,12 +209,13 @@ RAY/RAY_TRAICING_C--------------------------------------------------------------
 */
 void	ray_traicing(t_data *data);
 void	ray_way(t_data *data, int x1, int y1, int x2, int y2);
-double	delete_fish_eye(t_data *data, double distance, double angle_ray);
+double	delete_fish_eye(double distance, double fov);
 /*
 RAY/RAY_UTILS_C------------------------------------------------------------------
 */
 int		absolu(int nb);
 float	absolu_float(float nb);
+double	absolu_double(double nb);
 double	calcul_distance_square(double x1, double x2);
 double	calcul_ray_distance(double	x, double y, double x2, double y2);
 int 	find_y_float(float angle, int distance, int origin_y);
@@ -217,7 +224,8 @@ int 	find_x_float(float angle, int distance, int origin_x);
 /*
 RAY/RAY_WALL_AFFICHAGE_C---------------------------------------------------------
 */
-double	wall_height_apparence(double	distance_ray);
+void	init_constante(t_data *data);
+double	wall_height_apparence(t_player *player, double	distance_ray);
 void	ft_color_wall(t_data *data);
 
 #endif

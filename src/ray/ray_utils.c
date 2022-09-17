@@ -6,7 +6,7 @@
 /*   By: aptive <aptive@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 23:25:56 by aptive            #+#    #+#             */
-/*   Updated: 2022/09/02 22:59:39 by aptive           ###   ########.fr       */
+/*   Updated: 2022/09/17 15:05:56 by aptive           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,13 @@ int	absolu(int nb)
 }
 
 float	absolu_float(float nb)
+{
+	if (nb < 0)
+		nb = -nb;
+	return (nb);
+}
+
+double	absolu_double(double nb)
 {
 	if (nb < 0)
 		nb = -nb;
