@@ -6,7 +6,7 @@
 /*   By: aptive <aptive@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 14:30:39 by aptive            #+#    #+#             */
-/*   Updated: 2022/09/20 14:13:19 by aptive           ###   ########.fr       */
+/*   Updated: 2022/09/20 15:42:46 by aptive           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,8 +198,8 @@ void	init_player(t_data *data);
 void	affichage_player(t_data *data);
 void	ft_move_fov(t_data *data, char c);
 void	ft_move_player(t_data *data, char c);
-int 	find_x(int angle, int distance, int origin_x);
-int 	find_y(int angle, int distance, int origin_y);
+int 	find_x(double angle, int distance, int origin_x);
+int 	find_y(double angle, int distance, int origin_y);
 
 /*
 HOOK/HOOK_C----------------------------------------------------------------------
@@ -213,6 +213,7 @@ RAY/RAY_TRAICING_C--------------------------------------------------------------
 void	ray_traicing(t_data *data);
 void	ray_way(t_data *data, int x1, int y1, int x2, int y2);
 double	delete_fish_eye(double distance, double fov);
+double	inter_pi(double angle_ray);
 /*
 RAY/RAY_UTILS_C------------------------------------------------------------------
 */
