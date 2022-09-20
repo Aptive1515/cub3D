@@ -6,7 +6,7 @@
 /*   By: aptive <aptive@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 14:30:39 by aptive            #+#    #+#             */
-/*   Updated: 2022/09/17 15:26:07 by aptive           ###   ########.fr       */
+/*   Updated: 2022/09/20 14:13:19 by aptive           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,13 @@
 
 
 # define WALL_N	1
+// RED
 # define WALL_S	3
+//GREEN
 # define WALL_E	2
+// BLUE
 # define WALL_W	4
-
+// WHITE
 typedef struct s_path {
 	char	*path_map;
 

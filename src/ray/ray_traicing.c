@@ -6,7 +6,7 @@
 /*   By: aptive <aptive@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 16:26:50 by aptive            #+#    #+#             */
-/*   Updated: 2022/09/17 16:45:43 by aptive           ###   ########.fr       */
+/*   Updated: 2022/09/20 14:56:50 by aptive           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,21 +25,34 @@ void	calcul_tile_step(t_player *player, char c, int tile_step)
 	if (c == 'Y')
 	{
 		if (tile_step == 1)
+		{
 			player->tile_Y_y = (player->y/SQUARE) * SQUARE - 1;
-		else
-			player->tile_Y_y = (player->y/SQUARE) * SQUARE + SQUARE;
+			player->tile_Y_x = player->x + (player->y  -player->tile_Y_y - 1) / player->tan_angle_ray;
 
-		player->tile_Y_x = player->x + (player->y -player->tile_Y_y) / player->tan_angle_ray;
+		}
+		else
+		{
+			player->tile_Y_y = (player->y/SQUARE) * SQUARE + SQUARE;
+			player->tile_Y_x = player->x + (player->y  -player->tile_Y_y) / player->tan_angle_ray;
+		}
 	}
 	else
 	{
 
 		if (tile_step == 1)
+		{
 			player->tile_X_x = (player->x/ SQUARE) * SQUARE + SQUARE;
-		else
-			player->tile_X_x = player->x/ SQUARE * SQUARE - 1;
+			player->tile_X_y = player->y + (player->x - player->tile_X_x) * player->tan_angle_ray;
 
-		player->tile_X_y = player->y + (player->x - player->tile_X_x) * player->tan_angle_ray;
+
+		}
+		else
+		{
+			player->tile_X_x = (player->x/ SQUARE) * SQUARE - 1;
+			player->tile_X_y = player->y + (player->x - player->tile_X_x - 1) * player->tan_angle_ray;
+		}
+
+
 	}
 }
 
@@ -180,6 +193,7 @@ void	ray_traicing(t_data *data)
 	double	distance_ray;
 	int		wall_x = WIDTH;
 	t_player *player;
+	int	i = 0;
 
 	player = data->player;
 	fov = -30 * ONE_DEGRE;
@@ -191,6 +205,7 @@ void	ray_traicing(t_data *data)
 
 		player->tan_angle_ray = tan(angle_ray);
 		player->absolu_cos_angle_ray = absolu_double(cos(angle_ray));
+
 
 
 		// direction Pour les lignes verticale
@@ -207,32 +222,38 @@ void	ray_traicing(t_data *data)
 		player->delta_x = SQUARE * player->tan_angle_ray;
 		player->delta_y = SQUARE / player->tan_angle_ray;
 
+
 		while (!check_intersection(data, player->tile_Y_x, player->tile_Y_y))
 			next_intercept(player, angle_ray, 'Y');
 		while (!check_intersection(data, player->tile_X_x, player->tile_X_y))
 			next_intercept(player, angle_ray, 'X');
 
 
+		i++;
 		// calucle de l'insterstion d' un mur le plus proche
-		double PA = absolu(player->x - player->tile_X_x) / player->absolu_cos_angle_ray;
-		double PB = absolu(player->x - player->tile_Y_x) / player->absolu_cos_angle_ray;
+		double PA = absolu(player->x - (int)player->tile_X_x) / player->absolu_cos_angle_ray;
+		double PB = absolu(player->x - (int)player->tile_Y_x) / player->absolu_cos_angle_ray;
+		// double PA = calcul_ray_distance(player->x, player->y, (int)player->tile_X_x, (int)player->tile_X_y);
+		// double PB = calcul_ray_distance(player->x, player->y, (int)player->tile_Y_x, (int)player->tile_Y_y);
+
+
 		if (PB < PA)
 		{
 			data->ray_x = player->tile_Y_x;
 			data->ray_y = player->tile_Y_y;
 			if (player->tile_step_Y > 0)
-				data->color_wall = WALL_E;
+				data->color_wall = WALL_S;
 			else
-				data->color_wall = WALL_W;
+				data->color_wall = WALL_N;
 		}
-		else
+		else if ((PB > PA))
 		{
 			data->ray_x = player->tile_X_x;
 			data->ray_y = player->tile_X_y;
 			if (player->tile_step_X > 0)
-				data->color_wall = WALL_S;
+				data->color_wall = WALL_E;
 			else
-				data->color_wall = WALL_N;
+				data->color_wall = WALL_W;
 		}
 
 
