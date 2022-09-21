@@ -6,7 +6,7 @@
 /*   By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 17:32:52 by root              #+#    #+#             */
-/*   Updated: 2022/09/15 12:53:13 by chaidel          ###   ########.fr       */
+/*   Updated: 2022/09/21 13:22:24 by chaidel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,27 +20,31 @@ int	check_texture_path(t_data *pth)
 	int	imgw;
 	int	imgh;
 
-	pth->path->texture_NO = mlx_xpm_file_to_image(pth->mlx, pth->path->path_NO, &imgw, &imgh);
-	pth->path->texture_SO = mlx_xpm_file_to_image(pth->mlx, pth->path->path_SO, &imgw, &imgh);
-	pth->path->texture_WE = mlx_xpm_file_to_image(pth->mlx, pth->path->path_WE, &imgw, &imgh);
-	pth->path->texture_EA = mlx_xpm_file_to_image(pth->mlx, pth->path->path_EA, &imgw, &imgh);
-	if (pth->path->texture_NO == NULL || pth->path->texture_SO == NULL
-		|| pth->path->texture_WE == NULL || pth->path->texture_EA == NULL)
+	pth->tex_NO->img_ptr = mlx_xpm_file_to_image(pth->mlx, pth->tex_NO->path_tex, &imgw, &imgh);
+	pth->tex_SO->img_ptr = mlx_xpm_file_to_image(pth->mlx, pth->tex_SO->path_tex, &imgw, &imgh);
+	pth->tex_WE->img_ptr = mlx_xpm_file_to_image(pth->mlx, pth->tex_WE->path_tex, &imgw, &imgh);
+	pth->tex_EA->img_ptr = mlx_xpm_file_to_image(pth->mlx, pth->tex_EA->path_tex, &imgw, &imgh);
+	if (pth->tex_NO->img_ptr == NULL || pth->tex_SO->img_ptr == NULL
+		|| pth->tex_WE->img_ptr == NULL || pth->tex_EA->img_ptr == NULL)
 		return (0);
+	pth->tex_NO->addr = mlx_get_data_addr(pth->tex_NO->img_ptr, &pth->tex_NO->bits_per_pixel, &pth->tex_NO->line_length, &pth->tex_NO->endian);
+	pth->tex_SO->addr = mlx_get_data_addr(pth->tex_SO->img_ptr, &pth->tex_SO->bits_per_pixel, &pth->tex_SO->line_length, &pth->tex_SO->endian);
+	pth->tex_WE->addr = mlx_get_data_addr(pth->tex_WE->img_ptr, &pth->tex_WE->bits_per_pixel, &pth->tex_WE->line_length, &pth->tex_WE->endian);
+	pth->tex_EA->addr = mlx_get_data_addr(pth->tex_EA->img_ptr, &pth->tex_EA->bits_per_pixel, &pth->tex_EA->line_length, &pth->tex_EA->endian);
 	return (1);
 }
 
 int	xpm_err(t_data *pth)
 {
 	printf("text err\n");
-	if (pth->path->texture_NO)
-		mlx_destroy_image(pth->mlx, pth->path->texture_NO);
-	if (pth->path->texture_SO)
-		mlx_destroy_image(pth->mlx, pth->path->texture_SO);
-	if (pth->path->texture_WE)
-		mlx_destroy_image(pth->mlx, pth->path->texture_WE);
-	if (pth->path->texture_EA)
-		mlx_destroy_image(pth->mlx, pth->path->texture_EA);
+	if (pth->tex_NO)
+		mlx_destroy_image(pth->mlx, pth->tex_NO);
+	if (pth->tex_SO)
+		mlx_destroy_image(pth->mlx, pth->tex_SO);
+	if (pth->tex_WE)
+		mlx_destroy_image(pth->mlx, pth->tex_WE);
+	if (pth->tex_EA)
+		mlx_destroy_image(pth->mlx, pth->tex_EA);
 	return (0);
 }
 

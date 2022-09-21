@@ -6,7 +6,7 @@
 /*   By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 13:45:13 by aptive            #+#    #+#             */
-/*   Updated: 2022/09/16 19:36:33 by chaidel          ###   ########.fr       */
+/*   Updated: 2022/09/21 20:05:38 by chaidel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,26 +52,25 @@ int	create_trgb(int t, int r, int g, int b)
 	return (t << 24 | r << 16 | g << 8 | b);
 }
 
-void	ft_lign_vertical_3d(t_data *data, int x, int y, int y_end, void* color)
+void	ft_lign_vertical_3d(t_data *data, int x, int y, int y_end, t_img *tex)
 {
-	char *dst;
-	while (y < y_end)
-	{
-		if (!(x > WIDTH || x < 0 || y > HEIGHT || y < 0))
-		{
-			dst = color + (x * 4 + 4 * data->line_length_3d * y);
+	int	tex_y;
+	int	tex_x;
+	int	d;
 
-		}
-		// printf("y:%d | x: %d\n",y,x);
-		// mlx_put_image_to_window(data->mlx_3d, data->mlx_win_3d, color, x, y);
-		// my_mlx_pixel_put_3d(data, x, y, color);
-		y++;
-	}
-/*
+	// printf("texy: %d| da: %d\n", tex->line_length, data->line_length_3d);
 	while (y < y_end)
 	{
-		mlx_put_image_to_window(data->mlx, data->mlx_win, color, x, y);
+		if (!(y > HEIGHT || y < 0 || x < 0 || x > WIDTH))
+		{
+			d = y * tex->line_length - HEIGHT * tex->line_length / 2 + y_end * tex->line_length / 2;
+			tex_y = ((d * 128) / y_end) / tex->line_length;
+			tex_x = x;
+			printf("x:%d\n", tex_x);
+			// tex_x = x;
+			data->addr_3d[y * data->line_length_3d + x] = 
+				tex->addr[tex_y * tex->line_length + tex_x];
+		}
 		y++;
 	}
-*/
 }

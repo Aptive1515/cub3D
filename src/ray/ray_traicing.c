@@ -6,140 +6,84 @@
 /*   By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 16:26:50 by aptive            #+#    #+#             */
-/*   Updated: 2022/09/16 19:32:22 by chaidel          ###   ########.fr       */
+/*   Updated: 2022/09/21 12:21:37 by chaidel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3D.h"
 
-double	calcul_delta(t_data *data, char c)
+double	calcul_delta(t_player *player, char c)
 {
-	double tile;
-
 	if (c == 'X')
-	{
-
-		tile = (data->player->x - (data->player->x/SQUARE) * SQUARE);
-		// printf("delta x %f\n", tile);
-	}
+		return(player->x - (player->x/SQUARE) * SQUARE);
 	else
-	{
-		tile = (data->player->y - (data->player->y/SQUARE) * SQUARE);
-		// printf("delta y %f\n", tile);
-	}
-
-
-	return (tile);
+		return(player->y - (player->y/SQUARE) * SQUARE);
 }
 
-// void	calcul_tile_step(t_data *data, double direction_ray, char c, int tile_step)
-// {
-// 	// printf ("direction_ray : %f\n", direction_ray);
-// 	double delta_y;
-// 	double delta_x;
-
-// 	if (c == 'Y')
-// 	{
-// 		if (tile_step == 1)
-// 		{
-// 			delta_y = calcul_delta(data, 'Y');
-// 			delta_x = calcul_delta(data, 'X');
-
-// 		}
-// 		else
-// 		{
-// 			delta_y = -calcul_delta(data, 'Y');
-// 			delta_x = -calcul_delta(data, 'X');
-
-// 		}
-
-// 		data->player->tile_Y_y = data->player->y + delta_y;
-//  		data->player->tile_Y_y = data->player->x + delta_x + delta_y / tan(direction_ray);
-
-// 		// printf("first data->player->tile_Y_x : %f/ %i\n", data->player->tile_Y_x, (int)data->player->tile_Y_x / 32);
-// 		// printf("first data->player->tile_Y_y : %f/ %i\n", data->player->tile_Y_y, (int)data->player->tile_Y_y / 32);
-// 	}
-// 	else
-// 	{
-
-// 		if (tile_step == 1)
-// 		{
-// 			delta_y = calcul_delta(data, 'Y');
-// 			delta_x = calcul_delta(data, 'X');
-
-// 		}
-// 		else
-// 		{
-// 			delta_y = -calcul_delta(data, 'Y');
-// 			delta_x = -calcul_delta(data, 'X');
-
-// 		}
-// 		data->player->tile_X_x = data->player->x + delta_x;
-// 		data->player->tile_X_y = data->player->y + delta_y - delta_x/ tan(direction_ray);;
-// 	}
-// 	// printf(" tan %f\n",  tan(direction_ray * CONVERT_RAD));
-// }
-
-void	calcul_tile_step(t_data *data, double direction_ray, char c, int tile_step)
+void	calcul_tile_step(t_player *player, char c, int tile_step)
 {
-	// printf ("direction_ray : %f\n", direction_ray);
 	if (c == 'Y')
 	{
 		if (tile_step == 1)
 		{
-			data->player->tile_Y_y = (data->player->y/SQUARE) * SQUARE - 1;
+			player->tile_Y_y = (player->y/SQUARE) * SQUARE - 1;
+			player->tile_Y_x = player->x + (player->y  -player->tile_Y_y - 1) / player->tan_angle_ray;
+
 		}
 		else
-			data->player->tile_Y_y = (data->player->y/SQUARE) * SQUARE + SQUARE;
-
- 		data->player->tile_Y_x = data->player->x + (data->player->y -data->player->tile_Y_y) / tan(direction_ray);
-
-		// printf("first data->player->tile_Y_x : %f/ %i\n", data->player->tile_Y_x, (int)data->player->tile_Y_x / 32);
-		// printf("first data->player->tile_Y_y : %f/ %i\n", data->player->tile_Y_y, (int)data->player->tile_Y_y / 32);
+		{
+			player->tile_Y_y = (player->y/SQUARE) * SQUARE + SQUARE;
+			player->tile_Y_x = player->x + (player->y  -player->tile_Y_y) / player->tan_angle_ray;
+		}
 	}
 	else
 	{
 
 		if (tile_step == 1)
 		{
-			data->player->tile_X_x = (data->player->x/ SQUARE) * SQUARE + SQUARE;
+			player->tile_X_x = (player->x/ SQUARE) * SQUARE + SQUARE;
+			player->tile_X_y = player->y + (player->x - player->tile_X_x) * player->tan_angle_ray;
+
+
 		}
 		else
 		{
-			data->player->tile_X_x = data->player->x/ SQUARE * SQUARE - 1;
-
+			player->tile_X_x = (player->x/ SQUARE) * SQUARE - 1;
+			player->tile_X_y = player->y + (player->x - player->tile_X_x - 1) * player->tan_angle_ray;
 		}
-		data->player->tile_X_y = data->player->y + (data->player->x - data->player->tile_X_x) * tan(direction_ray);;
+
+
 	}
-	// printf(" tan %f\n",  tan(direction_ray * CONVERT_RAD));
 }
 
-void next_intercept(t_data *data, double direction_ray, char c, int tile_step_Y, int tile_step_X)
+void next_intercept(t_player *player, double direction_ray, char c)
 {
 	(void)direction_ray;
 	if (c == 'Y')
 	{
-		if (tile_step_Y == 1)
-			data->player->tile_Y_y -= (double)SQUARE; // YA
+		if (player->tile_step_Y == 1)
+		{
+			player->tile_Y_y -= (double)SQUARE; // YA
+			player->tile_Y_x += player->delta_y; //XA
+		}
 		else
-			data->player->tile_Y_y += (double)SQUARE; //YA
-
-		if (tile_step_Y == 1)
-			data->player->tile_Y_x += data->player->delta_y; //XA
-		else
-			data->player->tile_Y_x -= data->player->delta_y; // XA
+		{
+			player->tile_Y_y += (double)SQUARE; //YA
+			player->tile_Y_x -= player->delta_y; // XA
+		}
 	}
 	else
 	{
-		if (tile_step_X == 1)
-			data->player->tile_X_x += (double)SQUARE;
+		if (player->tile_step_X == 1)
+		{
+			player->tile_X_x += (double)SQUARE;
+			player->tile_X_y -= player->delta_x;
+		}
 		else
-			data->player->tile_X_x -= (double)SQUARE;
-
-		if (tile_step_X == 1)
-			data->player->tile_X_y -= data->player->delta_x;
-		else
-			data->player->tile_X_y += data->player->delta_x;
+		{
+			player->tile_X_x -= (double)SQUARE;
+			player->tile_X_y += player->delta_x;
+		}
 	}
 }
 
@@ -148,38 +92,20 @@ int check_intersection(t_data *data, int x, int y)
 	int	x_map;
 	int	y_map;
 
-	x_map = x / SQUARE;
-	y_map = y / SQUARE;
 
+	y_map = y / SQUARE;
+	x_map = x / SQUARE;
 
 	if (x_map > data->map_w - 1|| x_map <= 0 || y_map > data->map_h -1 || y_map <= 0)
 	{
 		ft_full(data, (x * SQUARE), (y * SQUARE), RED);
 		return (1);
 	}
-	// printf("y (SQUARE * y_map) : %i\n", (SQUARE * y_map));
-
-	// if(x % (SQUARE * x_map) && y % (SQUARE * y_map))
-	// {
-	// 	if (data->map[y_map][x_map] == '1')
-	// 	{
-	// 		// ft_full(data, (x_map * SQUARE), (y_map * SQUARE), GREEN);
-	// 		return (1);
-	// 	}
-	// }
-
-	if(x - 1 % (SQUARE * x_map) && y - 1 % (SQUARE * y_map))
+	if (data->map[y_map][x_map] == '1')
 	{
-		if (data->map[y_map][x_map] == '1')
-		{
-			// ft_full(data, (x_map * SQUARE), (y_map * SQUARE), GREEN);
-			return (1);
-		}
+		// ft_full(data, (x_map * SQUARE), (y_map * SQUARE), GREEN);
+		return (1);
 	}
-
-
-
-
 	return (0);
 }
 
@@ -193,8 +119,8 @@ int	verif_wall(t_data *data, int x, int y)
 	// printf("xp / y :	%i / %i\n", x, y);
 	// printf("x_map / y_map :	%i / %i\n", x_map, y_map);
 
-	if (x_map > data->map_w - 1 || x_map <= 0 || y_map > data->map_h - 1|| y_map <= 0)
-		return (1);
+	// if (x_map > data->map_w - 1 || x_map <= 0 || y_map > data->map_h - 1|| y_map <= 0)
+	// 	return (1);
 	// printf("y (SQUARE * y_map) : %i\n", (SQUARE * y_map));
 
 	if(x % (SQUARE * x_map)|| y % (SQUARE * y_map))
@@ -206,7 +132,7 @@ int	verif_wall(t_data *data, int x, int y)
 	return (0);
 }
 
-double distance (double x1, double y1, double x2, double y2)
+double distance(double x1, double y1, double x2, double y2)
 {
 	double x;
 	double y;
@@ -215,104 +141,133 @@ double distance (double x1, double y1, double x2, double y2)
 	y = y2 - y1;
 	return (sqrt(x * x + y * y));
 }
-void	ray_traicing(t_data *data)
-{
 
-	double	fov;
-	float	angle_ray;
-	double	distance_ray;
+double inter_pi(double angle_ray)
+{
+	if (angle_ray < 0)
+		angle_ray += 2 * M_PI;
+	else if (angle_ray > 2 * M_PI)
+		angle_ray -= 2 * M_PI;
+	return (angle_ray);
+}
+
+void	calcul_tile_step_Y(t_player *player, double angle_ray)
+{
+	if (angle_ray < M_PI )
+		player->tile_step_Y = 1;
+	else
+		player->tile_step_Y = -1;
+}
+
+void	calcul_tile_step_X(t_player *player, double angle_ray)
+{
+	if (angle_ray < M_PI / 2 || angle_ray > 3 * M_PI / 2)
+		player->tile_step_X = 1;
+	else
+		player->tile_step_X = -1;
+}
+
+void	affiche_wall(t_data *data, double distance_ray, int wall_x)
+{
 	double	wall_ha;
 	int		y_c;
 	int		y_f;
-	int		wall_x = WIDTH;
 
+	wall_ha = wall_height_apparence(data->player, distance_ray) / 2;
+	y_c = HEIGHT/2 - wall_ha;
+	y_f = HEIGHT/2 + wall_ha;
+	if (data->color_wall == WALL_N)
+		ft_lign_vertical_3d(data, wall_x, y_c, y_f, data->tex_NO);
+	else if (data->color_wall == WALL_S)
+		ft_lign_vertical_3d(data, wall_x, y_c, y_f, data->tex_SO);
+	else if (data->color_wall == WALL_E)
+		ft_lign_vertical_3d(data, wall_x, y_c, y_f, data->tex_EA);
+	else if (data->color_wall == WALL_W)
+		ft_lign_vertical_3d(data, wall_x, y_c, y_f, data->tex_WE);
+}
+
+void	ray_traicing(t_data *data)
+{
+	double	fov;
+	float	angle_ray;
+	double	distance_ray;
+	int		wall_x = WIDTH;
+	t_player *player;
+	int	i = 0;
+
+	player = data->player;
 	fov = -30 * ONE_DEGRE;
 	while (fov <= 30 * ONE_DEGRE)
 	{
 
 		// Saut de 0 a PI
-		angle_ray = data->player->direction + fov;
-		if (angle_ray < 0)
-			angle_ray += 2 * M_PI;
-		else if (angle_ray > 2 * M_PI)
-			angle_ray -= 2 * M_PI;
+		angle_ray = inter_pi(data->player->direction + fov);
+
+		player->tan_angle_ray = tan(angle_ray);
+		player->absolu_cos_angle_ray = absolu_double(cos(angle_ray));
+
 
 
 		// direction Pour les lignes verticale
-		if (angle_ray < M_PI )
-			data->player->tile_step_y = 1;
-		else
-			data->player->tile_step_y = -1;
+		calcul_tile_step_Y(player, angle_ray);
 
 		// direction pour les lignes horizontale
-		if (angle_ray < M_PI / 2 || angle_ray > 3 * M_PI / 2)
-			data->player->tile_step_x = 1;
-		else
-			data->player->tile_step_x = -1;
+		calcul_tile_step_X(player, angle_ray);
 
 		// calcule de la premiere intersection
-		calcul_tile_step(data, angle_ray, 'Y', data->player->tile_step_y);
-		calcul_tile_step(data, angle_ray, 'X', data->player->tile_step_x);
-
+		calcul_tile_step(player, 'Y', player->tile_step_Y);
+		calcul_tile_step(player, 'X', player->tile_step_X);
 
 		// calcule des instection suivante jusqu'a un mur
-		data->player->delta_x = SQUARE * tan(angle_ray);
-		data->player->delta_y = SQUARE / tan(angle_ray);
-		while (!check_intersection(data, data->player->tile_Y_x, data->player->tile_Y_y))
-			next_intercept(data, angle_ray, 'Y', data->player->tile_step_y, data->player->tile_step_x);
-		while (!check_intersection(data, data->player->tile_X_x, data->player->tile_X_y))
-			next_intercept(data, angle_ray, 'X', data->player->tile_step_y, data->player->tile_step_x);
+		player->delta_x = SQUARE * player->tan_angle_ray;
+		player->delta_y = SQUARE / player->tan_angle_ray;
 
 
+		while (!check_intersection(data, player->tile_Y_x, player->tile_Y_y))
+			next_intercept(player, angle_ray, 'Y');
+		while (!check_intersection(data, player->tile_X_x, player->tile_X_y))
+			next_intercept(player, angle_ray, 'X');
+
+
+		i++;
 		// calucle de l'insterstion d' un mur le plus proche
-		float PA = absolu(data->player->x - data->player->tile_X_x) / absolu_float((float)cos(angle_ray));
-		float PB = absolu(data->player->x - data->player->tile_Y_x) / absolu_float((float)cos(angle_ray));
-		if ( PB < PA )
+		double PA = absolu(player->x - (int)player->tile_X_x) / player->absolu_cos_angle_ray;
+		double PB = absolu(player->x - (int)player->tile_Y_x) / player->absolu_cos_angle_ray;
+		// double PA = calcul_ray_distance(player->x, player->y, (int)player->tile_X_x, (int)player->tile_X_y);
+		// double PB = calcul_ray_distance(player->x, player->y, (int)player->tile_Y_x, (int)player->tile_Y_y);
+
+
+		if (PB < PA)
 		{
-			data->ray_x = data->player->tile_Y_x;
-			data->ray_y = data->player->tile_Y_y;
-			if (data->player->tile_step_y > 0)
-				data->color_wall = WALL_E;
-			else
-				data->color_wall = WALL_W;
-		}
-		else
-		{
-			data->ray_x = data->player->tile_X_x;
-			data->ray_y = data->player->tile_X_y;
-			if (data->player->tile_step_x > 0)
+			data->ray_x = player->tile_Y_x;
+			data->ray_y = player->tile_Y_y;
+			if (player->tile_step_Y > 0)
 				data->color_wall = WALL_S;
 			else
 				data->color_wall = WALL_N;
 		}
+		else if ((PB > PA))
+		{
+			data->ray_x = player->tile_X_x;
+			data->ray_y = player->tile_X_y;
+			if (player->tile_step_X > 0)
+				data->color_wall = WALL_E;
+			else
+				data->color_wall = WALL_W;
+		}
 
-
-	draw_lign(data, data->player->x, data->player->y, data->ray_x, data->ray_y, WHITE);
 
 		// calcule de la distance du rayon
-		distance_ray = calcul_ray_distance(data->player->x, data->player->y, data->ray_x, data->ray_y);
+		distance_ray = calcul_ray_distance(player->x, player->y, data->ray_x, data->ray_y);
 
 		// delete le fish eye effect
-		distance_ray = delete_fish_eye(data, distance_ray, fov);
-
+		distance_ray = delete_fish_eye(distance_ray, fov);
 
 
 		// affichage du mur;
-		wall_ha = (double)wall_height_apparence(distance_ray) / 2;
-		y_c = HEIGHT/2 - wall_ha;
-		y_f = HEIGHT/2 + wall_ha;
-		if (y_c < 0)
-			y_c = 0;
-		if (y_c > HEIGHT)
-			y_c = HEIGHT;
-		if (data->color_wall == WALL_N)
-			ft_lign_vertical_3d(data, wall_x, y_c, y_f, data->path->texture_NO);
-		else if (data->color_wall == WALL_S)
-			ft_lign_vertical_3d(data, wall_x, y_c, y_f, data->path->texture_SO);
-		else if (data->color_wall == WALL_E)
-			ft_lign_vertical_3d(data, wall_x, y_c, y_f, data->path->texture_EA);
-		else if (data->color_wall == WALL_W)
-			ft_lign_vertical_3d(data, wall_x, y_c, y_f, data->path->texture_WE);
+		affiche_wall(data, distance_ray, wall_x);
+
+
 
 		wall_x--;
 		fov += ONE_DEGRE * 60 / WIDTH;
@@ -320,25 +275,9 @@ void	ray_traicing(t_data *data)
 }
 
 
-double	delete_fish_eye(t_data *data, double distance, double angle_ray)
+double	delete_fish_eye(double distance, double fov)
 {
-	double	new_distance;
-	(void)data;
-
-	// if (angle_ray > data->player->direction)
-	// 	new_distance = distance * (cos(angle_ray));
-	// else
-		new_distance = distance * absolu_float(cos(angle_ray));
-	// printf("*************************\n");
-	// printf("(fov) 	: %f\n",fov);
-	// printf("(fov_inverse) 	: %f\n", 90 - absolu_float(fov));
-	// printf("angle 	: %f\n", angle);
-	// printf("cosf(angle) : %f\n", cosf(angle));
-	// // printf("absolu(fov) : %f\n", absolu_float(fov));
-	// printf("distance 	: %i\n", distance);
-	// printf("new distance 	: %i\n", new_distance);
-
-	return (absolu_float((double)(new_distance)));
+	return (absolu_double(distance * (cos(fov))));
 }
 
 void ray_way(t_data *data, int x1, int y1, int x2, int y2)

@@ -6,7 +6,7 @@
 /*   By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 14:30:39 by aptive            #+#    #+#             */
-/*   Updated: 2022/09/16 19:32:44 by chaidel          ###   ########.fr       */
+/*   Updated: 2022/09/21 13:26:56 by chaidel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,24 +40,23 @@
 
 
 # define WALL_N	1
+// RED
 # define WALL_S	3
+//GREEN
 # define WALL_E	2
+// BLUE
 # define WALL_W	4
+// WHITE
 
-typedef struct s_path {
-	char	*path_map;
+typedef struct s_img {
+	void	*img_ptr;
+	char	*addr;				/*	tab de pixel*/
+	char	*path_tex;			/*	Path to xpm file*/
 
-	char	*path_NO;
-	char	*path_SO;
-	char	*path_WE;
-	char	*path_EA;
-
-	void	*texture_NO;
-	void	*texture_SO;
-	void	*texture_WE;
-	void	*texture_EA;
-
-}	t_path;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+}	t_img;
 
 typedef struct s_player {
 	int		x;
@@ -69,11 +68,17 @@ typedef struct s_player {
 
 	double	tile_X_x;
 	double	tile_X_y;
-	int		tile_step_x;
-	int		tile_step_y;
+	int		tile_step_X;
+	int		tile_step_Y;
 
 	float	delta_y;
 	float	delta_x;
+
+
+	double distance_proj_plane;
+
+	double	absolu_cos_angle_ray;
+	double	tan_angle_ray;
 
 }	t_player;
 
@@ -95,7 +100,11 @@ typedef struct s_data {
 	int			line_length_3d;
 	int			endian_3d;
 
-	t_path		*path;
+	char		*path_map;
+	t_img		*tex_NO;
+	t_img		*tex_SO;
+	t_img		*tex_WE;
+	t_img		*tex_EA;
 	t_player	*player;
 	char		**floor_rgb;
 	char		**ceiling_rgb;
@@ -120,6 +129,7 @@ void	debug(t_data *data); //DEBUG
 
 /*	Parsing */
 t_data	*init_data(t_data *data, char *path_map);
+void	init_img(t_data *data);
 char	*ft_map_read(char *path);
 int		parsing_map(t_data *data);
 int		copy_map(t_data *data, char **map);
@@ -173,7 +183,7 @@ void	my_mlx_pixel_put_limit(t_data *data, int x, int y, int color);
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 int		create_trgb(int t, int r, int g, int b);
 void	my_mlx_pixel_put_3d(t_data *data, int x, int y, int color);
-void	ft_lign_vertical_3d(t_data *data, int x, int y, int y_end, void *color);
+void	ft_lign_vertical_3d(t_data *data, int x, int y, int y_end, t_img *tex);
 
 /*
 GRAPH/MAP_C----------------------------------------------------------------------
@@ -189,8 +199,8 @@ void	init_player(t_data *data);
 void	affichage_player(t_data *data);
 void	ft_move_fov(t_data *data, char c);
 void	ft_move_player(t_data *data, char c);
-int 	find_x(int angle, int distance, int origin_x);
-int 	find_y(int angle, int distance, int origin_y);
+int 	find_x(double angle, int distance, int origin_x);
+int 	find_y(double angle, int distance, int origin_y);
 
 /*
 HOOK/HOOK_C----------------------------------------------------------------------
@@ -203,12 +213,14 @@ RAY/RAY_TRAICING_C--------------------------------------------------------------
 */
 void	ray_traicing(t_data *data);
 void	ray_way(t_data *data, int x1, int y1, int x2, int y2);
-double	delete_fish_eye(t_data *data, double distance, double angle_ray);
+double	delete_fish_eye(double distance, double fov);
+double	inter_pi(double angle_ray);
 /*
 RAY/RAY_UTILS_C------------------------------------------------------------------
 */
 int		absolu(int nb);
 float	absolu_float(float nb);
+double	absolu_double(double nb);
 double	calcul_distance_square(double x1, double x2);
 double	calcul_ray_distance(double	x, double y, double x2, double y2);
 int 	find_y_float(float angle, int distance, int origin_y);
@@ -217,7 +229,8 @@ int 	find_x_float(float angle, int distance, int origin_x);
 /*
 RAY/RAY_WALL_AFFICHAGE_C---------------------------------------------------------
 */
-double	wall_height_apparence(double	distance_ray);
+void	init_constante(t_data *data);
+double	wall_height_apparence(t_player *player, double	distance_ray);
 void	ft_color_wall(t_data *data);
 
 #endif

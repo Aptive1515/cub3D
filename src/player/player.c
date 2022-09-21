@@ -6,7 +6,7 @@
 /*   By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 16:11:23 by aptive            #+#    #+#             */
-/*   Updated: 2022/09/16 19:17:02 by chaidel          ###   ########.fr       */
+/*   Updated: 2022/09/21 16:30:18 by chaidel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,13 @@ void find_player_orientation(t_data *data)
 		while (x < data->map_w)
 		{
 			if (data->map[y][x] == 'N')
-				data->player->direction = M_PI/2;
+				data->player->direction = 90 * ONE_DEGRE;
 			else if (data->map[y][x] == 'E')
 				data->player->direction = 0;
 			else if (data->map[y][x] == 'S')
-				data->player->direction = 3*M_PI/2;
+				data->player->direction = 270 * ONE_DEGRE;
 			else if (data->map[y][x] == 'W')
-				data->player->direction = M_PI;
+				data->player->direction = 180 * ONE_DEGRE;
 			x++;
 		}
 		y++;
@@ -66,19 +66,22 @@ void	init_player(t_data *data)
 	find_player_position(data);
 }
 
-int find_y(int angle, int distance, int origin_y)
+int find_y(double angle, int distance, int origin_y)
 {
 	int vecteur_y;
 
-	// printf("cos x : %f\n", cos(angle * 3.14/180));
-	vecteur_y = (int)(cos(angle * 3.14/180) * distance);
+	vecteur_y = (int)(sin(angle) * distance);
+	if (angle > 0)
+		vecteur_y *= -1;
 	return (vecteur_y + origin_y);
 }
 
-int find_x(int angle, int distance, int origin_x)
+int find_x(double angle, int distance, int origin_x)
 {
 	int vecteur_x;
-	vecteur_x = (int)(sin(angle * 3.14/180) * distance);
+	vecteur_x = (int)(cos(angle) * distance);
+
+
 	return (vecteur_x + origin_x);
 }
 
@@ -151,16 +154,16 @@ void	affichage_direction(t_data *data)
 
 	draw_lign(data, data->player->x, data->player->y, x, y, GREEN);
 
-	x = find_x(data->player->direction + 90, 1000, data->player->x);
-	y = find_y(data->player->direction + 90, 1000, data->player->y);
+	x = find_x(data->player->direction, 1000, data->player->x);
+	y = find_y(data->player->direction, 1000, data->player->y);
 	draw_lign(data, data->player->x, data->player->y, x, y, WHITE);
 
-	x = find_x(data->player->direction + 180, 1000, data->player->x);
-	y = find_y(data->player->direction + 180, 1000, data->player->y);
+	x = find_x(data->player->direction, 1000, data->player->x);
+	y = find_y(data->player->direction, 1000, data->player->y);
 	draw_lign(data, data->player->x, data->player->y, x, y, WHITE);
 
-	x = find_x(data->player->direction - 90, 1000, data->player->x);
-	y = find_y(data->player->direction - 90, 1000, data->player->y);
+	x = find_x(data->player->direction, 1000, data->player->x);
+	y = find_y(data->player->direction, 1000, data->player->y);
 	draw_lign(data, data->player->x, data->player->y, x, y, WHITE);
 
 
@@ -181,54 +184,45 @@ void	ft_move_fov(t_data *data, char c)
 {
 	if (c == 'r')
 	{
-		data->player->direction-= ONE_DEGRE*20;
+		data->player->direction-= 45 * ONE_DEGRE;
 	}
 	if (c == 'g')
 	{
-		data->player->direction+= ONE_DEGRE*20;
+		data->player->direction+= 45 * ONE_DEGRE;
 	}
 	if (data->player->direction >= 2 * M_PI)
 		data->player->direction = 0;
 	else if (data->player->direction <= 0)
 		data->player->direction = 2 * M_PI;
+	// printf("data->player->direction : %f\n",data->player->direction);
 	ft_affiche_map(data);
 }
 
-int find_move_direction_player(t_data *data, char c)
+double find_move_direction_player(t_data *data, char c)
 {
-	int	mv_direction;
-
+	double	mv_direction;
 	if (c == 'u')
 		mv_direction = data->player->direction;
 	if (c == 'd')
-		mv_direction = data->player->direction + 180;
+		mv_direction = data->player->direction - 180 * ONE_DEGRE;
 	if (c == 'g')
-		mv_direction = data->player->direction + 90;
+		mv_direction = data->player->direction + 90 * ONE_DEGRE;
 	if (c == 'r')
-		mv_direction = data->player->direction - 90;
+		mv_direction = data->player->direction - 90 * ONE_DEGRE;
+	mv_direction = inter_pi(mv_direction);
 	return (mv_direction);
 }
 
 void	ft_move_player(t_data *data, char c)
 {
-	int	mv_direction;
-	static float	x;
-	static float	y;
+	double	mv_direction;
+	double	x;
+	double	y;
 
 	mv_direction = find_move_direction_player(data, c);
-
-	x = find_x(mv_direction, 2, data->player->x);
-	y = find_y(mv_direction, 2, data->player->y);
-
-
-	// printf("mv_direction : %i\n", mv_direction);
-	// printf("x/y : %i/ %i\n", x - data->player->x, y- data->player->y);
-
+	x = find_x(mv_direction, 4, data->player->x);
+	y = find_y(mv_direction, 4, data->player->y);
 	data->player->x = x;
 	data->player->y = y;
-	// if (data->player->direction >= 360)
-	// 	data->player->direction = 0;
-	// else if (data->player->direction < 0)
-	// 	data->player->direction = 359;
 	ft_affiche_map(data);
 }

@@ -6,7 +6,7 @@
 /*   By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 15:41:23 by aptive            #+#    #+#             */
-/*   Updated: 2022/09/15 11:25:41 by chaidel          ###   ########.fr       */
+/*   Updated: 2022/09/21 12:35:27 by chaidel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,13 @@ int	parsing_path_texture(t_data *data, char **tab_gnl)
 	while (++i < len)
 	{
 		if (!ft_strncmp("NO", tab_gnl[i], 2))
-			data->path->path_NO = split_txt(tab_gnl[i]);
+			data->tex_NO->path_tex = split_txt(tab_gnl[i]);
 		else if (!ft_strncmp("SO", tab_gnl[i], 2))
-			data->path->path_SO = split_txt(tab_gnl[i]);
+			data->tex_SO->path_tex = split_txt(tab_gnl[i]);
 		else if (!ft_strncmp("WE", tab_gnl[i], 2))
-			data->path->path_WE = split_txt(tab_gnl[i]);
+			data->tex_WE->path_tex = split_txt(tab_gnl[i]);
 		else if (!ft_strncmp("EA", tab_gnl[i], 2))
-			data->path->path_EA = split_txt(tab_gnl[i]);
+			data->tex_EA->path_tex = split_txt(tab_gnl[i]);
 		else if (!ft_strncmp("F", tab_gnl[i], 1))
 			parsing_rgb(data, tab_gnl[i]);
 		else if (!ft_strncmp("C", tab_gnl[i], 1))
@@ -94,7 +94,7 @@ int	parsing_map(t_data *data)
 	char	**mapi;
 	char	*str;
 
-	str = ft_map_read(data->path->path_map);
+	str = ft_map_read(data->path_map);
 	map = ft_split(str, '\n');
 	free(str);
 	texture = split_tab(map, split_at_key(map), &mapi);

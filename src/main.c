@@ -6,7 +6,7 @@
 /*   By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 14:32:44 by aptive            #+#    #+#             */
-/*   Updated: 2022/09/15 12:55:36 by chaidel          ###   ########.fr       */
+/*   Updated: 2022/09/21 13:22:00 by chaidel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void affichage_data(t_data	*data)
 
 void	debug(t_data *data)
 {
-	printf("NO %s\nSO %s\nWE %s\nEA %s\n", data->path->path_NO,data->path->path_SO,data->path->path_WE,data->path->path_EA);
+	printf("NO %s\nSO %s\nWE %s\nEA %s\n", data->tex_NO->path_tex,data->tex_SO->path_tex,data->tex_WE->path_tex,data->tex_EA->path_tex);
 	printf("F ");
 	for (int i = 0; data->floor_rgb[i]; i++)
 		printf("%s,", data->floor_rgb[i]);
@@ -83,6 +83,7 @@ int	main(int argc, char **argv)
 
 	// affichage_data(data);
 
+	init_constante(data);
 
 	ft_affiche_map(data);
 	mlx_hook(data->mlx_win, 17, 1L << 0, ft_close, data);

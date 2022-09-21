@@ -6,7 +6,7 @@
 /*   By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 12:51:41 by chaidel           #+#    #+#             */
-/*   Updated: 2022/09/15 12:55:05 by chaidel          ###   ########.fr       */
+/*   Updated: 2022/09/21 15:49:07 by chaidel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,19 +23,23 @@ t_data	*init_data(t_data *data, char *path_map)
 	data->player = malloc(sizeof(t_player));
 	if (!data->player)
 		return (NULL);
-	data->path = malloc(sizeof(t_path));
-	if (!data->path)
+	data->path_map = path_map;
+	data->tex_NO = malloc(sizeof(t_img));
+	if (!data->tex_NO)
 		return (NULL);
-	data->path->path_map = path_map;
-	data->path->path_NO = NULL;
-	data->path->path_SO = NULL;
-	data->path->path_WE = NULL;
-	data->path->path_EA = NULL;
-	data->path->texture_NO = NULL;
-	data->path->texture_SO = NULL;
-	data->path->texture_WE = NULL;
-	data->path->texture_EA = NULL;
-
+	data->tex_SO = malloc(sizeof(t_img));
+	if (!data->tex_SO)
+		return (NULL);
+	data->tex_WE = malloc(sizeof(t_img));
+	if (!data->tex_WE)
+		return (NULL);
+	data->tex_EA = malloc(sizeof(t_img));
+	if (!data->tex_EA)
+		return (NULL);
+	data->tex_NO->img_ptr = NULL;
+	data->tex_SO->img_ptr = NULL;
+	data->tex_WE->img_ptr = NULL;
+	data->tex_EA->img_ptr = NULL;
 	data->mlx = NULL;
 	data->mlx_3d = NULL;
 	return (data);
@@ -49,22 +53,22 @@ int	free_struct(t_data *data)
 		ft_free_doubletab(data->ceiling_rgb);
 	if (data->map)
 		ft_free_doubletab(data->map);
-	if (data->path->path_NO)
-		free(data->path->path_NO);
-	if (data->path->path_SO)
-		free(data->path->path_SO);
-	if (data->path->path_WE)
-		free(data->path->path_WE);
-	if (data->path->path_EA)
-		free(data->path->path_EA);
-	if (data->path->texture_NO)
-		mlx_destroy_image(data->mlx, data->path->texture_NO);
-	if (data->path->texture_SO)
-		mlx_destroy_image(data->mlx, data->path->texture_SO);
-	if (data->path->texture_WE)
-		mlx_destroy_image(data->mlx, data->path->texture_WE);
-	if (data->path->texture_EA)
-		mlx_destroy_image(data->mlx, data->path->texture_EA);
+	if (data->tex_NO->path_tex)
+		free(data->tex_NO->path_tex);
+	if (data->tex_SO->path_tex)
+		free(data->tex_SO->path_tex);
+	if (data->tex_WE->path_tex)
+		free(data->tex_WE->path_tex);
+	if (data->tex_EA->path_tex)
+		free(data->tex_EA->path_tex);
+	// if (data->tex_NO->img_ptr)
+		mlx_destroy_image(data->mlx, data->tex_NO->img_ptr);
+	// if (data->tex_SO->img_ptr)
+		mlx_destroy_image(data->mlx, data->tex_SO->img_ptr);
+	// if (data->tex_WE->img_ptr)
+		mlx_destroy_image(data->mlx, data->tex_WE->img_ptr);
+	// if (data->tex_EA->img_ptr)
+		mlx_destroy_image(data->mlx, data->tex_EA->img_ptr);
 	mlx_destroy_image(data->mlx, data->img);
 	mlx_destroy_image(data->mlx, data->img_3d);
 	if (data->mlx_win)
@@ -77,7 +81,10 @@ int	free_struct(t_data *data)
 	free(data->mlx);
 	free(data->mlx_3d);
 	free(data->player);
-	free(data->path);
+	free(data->tex_NO);
+	free(data->tex_SO);
+	free(data->tex_WE);
+	free(data->tex_EA);
 	free(data);
 	return (0);
 }
