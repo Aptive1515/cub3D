@@ -1,14 +1,11 @@
 SO ./img/south_texture.xpm
 F 126,200,255
-WE ./img/west_texture.xpm
+WE ./img/west_texture1.xpm
 NO ./img/north_texture.xpm
 C 100,100,100
 EA ./img/east_texture.xpm
 
-111111111111
-100000000001
-10000001S101
-100000001001
-100000000001
-100000000001
-111111111111
+1111111
+1000001
+101S101
+1111111

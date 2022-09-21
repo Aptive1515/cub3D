@@ -6,7 +6,7 @@
 /*   By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 14:30:39 by aptive            #+#    #+#             */
-/*   Updated: 2022/09/15 14:20:22 by chaidel          ###   ########.fr       */
+/*   Updated: 2022/09/16 19:32:44 by chaidel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,7 +173,7 @@ void	my_mlx_pixel_put_limit(t_data *data, int x, int y, int color);
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 int		create_trgb(int t, int r, int g, int b);
 void	my_mlx_pixel_put_3d(t_data *data, int x, int y, int color);
-void	ft_lign_vertical_3d(t_data *data, int x, int y, int y_end, int color);
+void	ft_lign_vertical_3d(t_data *data, int x, int y, int y_end, void *color);
 
 /*
 GRAPH/MAP_C----------------------------------------------------------------------

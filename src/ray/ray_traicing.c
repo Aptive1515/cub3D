@@ -6,7 +6,7 @@
 /*   By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 16:26:50 by aptive            #+#    #+#             */
-/*   Updated: 2022/09/15 14:20:02 by chaidel          ###   ########.fr       */
+/*   Updated: 2022/09/16 19:32:22 by chaidel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -287,7 +287,7 @@ void	ray_traicing(t_data *data)
 		}
 
 
-
+	draw_lign(data, data->player->x, data->player->y, data->ray_x, data->ray_y, WHITE);
 
 		// calcule de la distance du rayon
 		distance_ray = calcul_ray_distance(data->player->x, data->player->y, data->ray_x, data->ray_y);
@@ -298,18 +298,21 @@ void	ray_traicing(t_data *data)
 
 
 		// affichage du mur;
-
 		wall_ha = (double)wall_height_apparence(distance_ray) / 2;
 		y_c = HEIGHT/2 - wall_ha;
 		y_f = HEIGHT/2 + wall_ha;
+		if (y_c < 0)
+			y_c = 0;
+		if (y_c > HEIGHT)
+			y_c = HEIGHT;
 		if (data->color_wall == WALL_N)
-			ft_lign_vertical_3d(data, wall_x, y_c, y_f, RED);
+			ft_lign_vertical_3d(data, wall_x, y_c, y_f, data->path->texture_NO);
 		else if (data->color_wall == WALL_S)
-			ft_lign_vertical_3d(data, wall_x, y_c, y_f, GREEN);
+			ft_lign_vertical_3d(data, wall_x, y_c, y_f, data->path->texture_SO);
 		else if (data->color_wall == WALL_E)
-			ft_lign_vertical_3d(data, wall_x, y_c, y_f, BLUE);
+			ft_lign_vertical_3d(data, wall_x, y_c, y_f, data->path->texture_EA);
 		else if (data->color_wall == WALL_W)
-			ft_lign_vertical_3d(data, wall_x, y_c, y_f, WHITE);
+			ft_lign_vertical_3d(data, wall_x, y_c, y_f, data->path->texture_WE);
 
 		wall_x--;
 		fov += ONE_DEGRE * 60 / WIDTH;
