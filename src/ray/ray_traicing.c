@@ -6,7 +6,7 @@
 /*   By: aptive <aptive@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 16:26:50 by aptive            #+#    #+#             */
-/*   Updated: 2022/09/20 14:56:50 by aptive           ###   ########.fr       */
+/*   Updated: 2022/09/22 16:00:01 by aptive           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,8 +174,8 @@ void	affiche_wall(t_data *data, double distance_ray, int wall_x)
 	int		y_f;
 
 	wall_ha = wall_height_apparence(data->player, distance_ray) / 2;
-	y_c = HEIGHT/2 - wall_ha;
-	y_f = HEIGHT/2 + wall_ha;
+	y_c = data->screen_h/2 - wall_ha;
+	y_f = data->screen_h/2 + wall_ha;
 	if (data->color_wall == WALL_N)
 		ft_lign_vertical_3d(data, wall_x, y_c, y_f, RED);
 	else if (data->color_wall == WALL_S)
@@ -191,7 +191,7 @@ void	ray_traicing(t_data *data)
 	double	fov;
 	float	angle_ray;
 	double	distance_ray;
-	int		wall_x = WIDTH;
+	int		wall_x = data->screen_w;
 	t_player *player;
 	int	i = 0;
 
@@ -270,7 +270,7 @@ void	ray_traicing(t_data *data)
 
 
 		wall_x--;
-		fov += ONE_DEGRE * 60 / WIDTH;
+		fov += ONE_DEGRE * 60 / data->screen_w;
 	}
 }
 

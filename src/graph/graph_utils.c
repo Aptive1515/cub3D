@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   graph_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aptive <aptive@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 13:45:13 by aptive            #+#    #+#             */
-/*   Updated: 2022/09/15 11:48:31 by chaidel          ###   ########.fr       */
+/*   Updated: 2022/09/22 15:59:10 by aptive           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	my_mlx_pixel_put_3d(t_data *data, int x, int y, int color)
 {
 	char	*dst;
 
-	if (x > WIDTH || x < 0 || y > HEIGHT || y < 0)
+	if (x > data->screen_w || x < 0 || y > data->screen_h || y < 0)
 		return;
 
 	dst = data->addr_3d + (y * data->line_length_3d + x * (data->bits_per_pixel_3d / 8));

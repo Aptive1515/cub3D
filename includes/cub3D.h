@@ -6,7 +6,7 @@
 /*   By: aptive <aptive@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 14:30:39 by aptive            #+#    #+#             */
-/*   Updated: 2022/09/20 15:42:46 by aptive           ###   ########.fr       */
+/*   Updated: 2022/09/22 15:33:20 by aptive           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 
 # define WIDTH	1080
 # define HEIGHT	960
-# define SQUARE	64
+# define SQUARE	32
 # define RED	0xCF2500
 # define RED_DARK	create_trgb(0, 102, 8, 1)
 # define WHITE	create_trgb(0, 255, 255, 255)
@@ -84,6 +84,8 @@ typedef struct s_player {
 	double	absolu_cos_angle_ray;
 	double	tan_angle_ray;
 
+
+
 }	t_player;
 
 typedef struct s_data {
@@ -104,6 +106,9 @@ typedef struct s_data {
 	int			line_length_3d;
 	int			endian_3d;
 
+	int			screen_h;
+	int			screen_w;
+
 	t_path		*path;
 	t_player	*player;
 	char		**floor_rgb;
@@ -119,6 +124,13 @@ typedef struct s_data {
 	int			ray_y_before;
 	int			color_wall;
 
+	int	forward;
+	int	backward;
+	int	go_right;
+	int	go_left;
+
+	int	turn_right;
+	int turn_left;
 
 }	t_data;
 
@@ -204,8 +216,11 @@ int 	find_y(double angle, int distance, int origin_y);
 /*
 HOOK/HOOK_C----------------------------------------------------------------------
 */
-int		key_hook(int keycode, t_data *data);
+int		key_hook(t_data *data);
 int		ft_close(t_data *data);
+int		ft_press(int keycode, t_data *data);
+int		ft_release(int keycode, t_data *data);
+
 
 /*
 RAY/RAY_TRAICING_C---------------------------------------------------------------

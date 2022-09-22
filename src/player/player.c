@@ -6,7 +6,7 @@
 /*   By: aptive <aptive@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 16:11:23 by aptive            #+#    #+#             */
-/*   Updated: 2022/09/20 17:24:12 by aptive           ###   ########.fr       */
+/*   Updated: 2022/09/21 23:23:00 by aptive           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,20 +182,21 @@ void	affichage_player(t_data *data)
 
 void	ft_move_fov(t_data *data, char c)
 {
+
 	if (c == 'r')
 	{
-		data->player->direction-= 45 * ONE_DEGRE;
+		data->player->direction-= 10 * ONE_DEGRE;
 	}
 	if (c == 'g')
 	{
-		data->player->direction+= 45 * ONE_DEGRE;
+		data->player->direction+= 10 * ONE_DEGRE;
 	}
 	if (data->player->direction >= 2 * M_PI)
 		data->player->direction = 0;
 	else if (data->player->direction <= 0)
 		data->player->direction = 2 * M_PI;
-	printf("data->player->direction : %f\n",data->player->direction);
-	ft_affiche_map(data);
+
+
 }
 
 double find_move_direction_player(t_data *data, char c)
@@ -220,9 +221,9 @@ void	ft_move_player(t_data *data, char c)
 	double	y;
 
 	mv_direction = find_move_direction_player(data, c);
-	x = find_x(mv_direction, 4, data->player->x);
-	y = find_y(mv_direction, 4, data->player->y);
+	x = find_x(mv_direction, 5, data->player->x);
+	y = find_y(mv_direction, 5, data->player->y);
 	data->player->x = x;
 	data->player->y = y;
-	ft_affiche_map(data);
+	// ft_affiche_map(data);
 }

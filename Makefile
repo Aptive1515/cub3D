@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+         #
+#    By: aptive <aptive@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/02/22 23:12:10 by pbondoer          #+#    #+#              #
-#    Updated: 2022/09/15 11:07:47 by chaidel          ###   ########.fr        #
+#    Updated: 2022/09/21 15:40:39 by aptive           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,8 +41,8 @@ SRC		=	main.c\
 OBJ		= $(addprefix $(OBJDIR)/,$(SRC:.c=.o))
 
 # compiler
-CC		= gcc
-CFLAGS	= -Wall -Wextra -g #-fsanitize=address #-Werror
+CC		= clang
+CFLAGS	= -Wall -Wextra -g -fsanitize=address #-Werror
 
 
 # mlx library
@@ -81,10 +81,10 @@ $(OBJDIR)/%.o:	$(SRCDIR)/%.c
 	$(CC) $(CFLAGS) $(MLX_INC) $(FT_INC) -I $(INCDIR) -o $@ -c $<
 
 $(FT_LIB):
-	@make -C $(FT)
+	@make -j -C $(FT)
 
 $(MLX_LIB):
-	@make -C $(MLX)
+	@make -j -C $(MLX)
 
 $(NAME): $(OBJ)
 	$(CC) $(CFLAGS) $(OBJ) $(MLX_LNK) $(FT_LNK) -lm -o $(NAME)

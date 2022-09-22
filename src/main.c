@@ -6,7 +6,7 @@
 /*   By: aptive <aptive@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 14:32:44 by aptive            #+#    #+#             */
-/*   Updated: 2022/09/17 15:09:44 by aptive           ###   ########.fr       */
+/*   Updated: 2022/09/22 15:58:30 by aptive           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,14 +66,21 @@ int	main(int argc, char **argv)
 	if (!check_map(data) || !solver_x(data) || !solver_y(data))
 		exit(free_struct_config(data) + 1);
 	init_player(data);
+
+
+
+
 	data->mlx = mlx_init();
-	data->mlx_3d = mlx_init();
 	data->img = mlx_new_image(data->mlx, data->map_w * SQUARE, data->map_h * SQUARE);
 	data->addr = mlx_get_data_addr(data->img, &data->bits_per_pixel, &data->line_length, &data->endian);
-	data->img_3d = mlx_new_image(data->mlx_3d, WIDTH, HEIGHT);
+
+
+
+	data->mlx_3d = mlx_init();
+	mlx_get_screen_size(data->mlx_3d, &data->screen_w, &data->screen_h);
+	data->img_3d = mlx_new_image(data->mlx_3d, data->screen_w, data->screen_h);
 	data->addr_3d = mlx_get_data_addr(data->img_3d, &data->bits_per_pixel_3d, &data->line_length_3d, &data->endian_3d);
-	data->mlx_win_3d = mlx_new_window(data->mlx_3d, WIDTH, HEIGHT, "Cub3D");
-	data->mlx_win = mlx_new_window(data->mlx, data->map_w * SQUARE, data->map_h * SQUARE, "Cub3D");
+	data->mlx_win_3d = mlx_new_window(data->mlx_3d, data->screen_w, data->screen_h, "Cub3D");
 	// if (!check_texture_path(data))
 	// {
 	// 	config_err();
@@ -83,10 +90,13 @@ int	main(int argc, char **argv)
 
 	// affichage_data(data);
 
+	printf("data->screen_w / data->screen_h: %i / %i\n", data->screen_w, data->screen_h);
 	init_constante(data);
 
 	ft_affiche_map(data);
-	mlx_hook(data->mlx_win, 17, 1L << 0, ft_close, data);
-	mlx_key_hook(data->mlx_win, key_hook, data);
-	mlx_loop(data->mlx);
+	mlx_hook(data->mlx_win_3d, 33, 1L << 0, ft_close, data);
+	mlx_hook(data->mlx_win_3d, 2, 1L << 0, ft_press, data);
+	mlx_loop_hook(data->mlx_3d, key_hook, data);
+	mlx_hook(data->mlx_win_3d, 3, 1L << 1, ft_release, data);
+	mlx_loop(data->mlx_3d);
 }
