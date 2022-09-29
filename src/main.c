@@ -6,7 +6,7 @@
 /*   By: aptive <aptive@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 14:32:44 by aptive            #+#    #+#             */
-/*   Updated: 2022/09/22 15:58:30 by aptive           ###   ########.fr       */
+/*   Updated: 2022/09/26 17:54:08 by aptive           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,11 @@ int	main(int argc, char **argv)
 
 	data->mlx_3d = mlx_init();
 	mlx_get_screen_size(data->mlx_3d, &data->screen_w, &data->screen_h);
+
+	data->screen_w = 1080;
+	data->screen_h = 960;
+
+
 	data->img_3d = mlx_new_image(data->mlx_3d, data->screen_w, data->screen_h);
 	data->addr_3d = mlx_get_data_addr(data->img_3d, &data->bits_per_pixel_3d, &data->line_length_3d, &data->endian_3d);
 	data->mlx_win_3d = mlx_new_window(data->mlx_3d, data->screen_w, data->screen_h, "Cub3D");

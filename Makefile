@@ -6,7 +6,7 @@
 #    By: aptive <aptive@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/02/22 23:12:10 by pbondoer          #+#    #+#              #
-#    Updated: 2022/09/21 15:40:39 by aptive           ###   ########.fr        #
+#    Updated: 2022/09/26 18:12:54 by aptive           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,12 +27,15 @@ SRC		=	main.c\
 			graph/graph_utils.c\
 			graph/map.c\
 			player/player.c\
+			player/player_utils.c\
 			hook/hook_1.c\
 			utils/utils.c\
 			utils/error.c\
 			checker/mapper.c\
 			checker/option.c\
 			checker/solver.c\
+			ray/dda.c\
+			ray/dda_utils.c\
 			ray/ray_traicing.c\
 			ray/ray_utils.c\
 			ray/wall_affichage.c\

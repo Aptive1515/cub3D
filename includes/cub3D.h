@@ -6,7 +6,7 @@
 /*   By: aptive <aptive@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 14:30:39 by aptive            #+#    #+#             */
-/*   Updated: 2022/09/22 15:33:20 by aptive           ###   ########.fr       */
+/*   Updated: 2022/09/26 18:18:51 by aptive           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,10 +78,8 @@ typedef struct s_player {
 	float	delta_y;
 	float	delta_x;
 
-
-	double distance_proj_plane;
-
-	double	absolu_cos_angle_ray;
+	double	distance_proj_plane;
+	double	ab_cos_angle_ray;
 	double	tan_angle_ray;
 
 
@@ -184,7 +182,7 @@ void	draw_lign(t_data *data, int x1, int y1, int x2, int y2, int color);
 /*
 GRAPH/GRAPH_UTILS_C--------------------------------------------------------------
 */
-int		verif_wall(t_data *data, int x, int y);
+// int		verif_wall(t_data *data, int x, int y);
 void	my_mlx_pixel_put_limit_wall(t_data *data, int x, int y, int color);
 void	ft_lign_vertical(t_data *data, int x, int y, int y_end, int color);
 void	ft_lign_horizontal(t_data *data, int x, int x_end, int y,int color);
@@ -206,12 +204,24 @@ PLAYER/PLAYER_C-----------------------------------------------------------------
 */
 void	find_player_orientation(t_data *data);
 void	find_player_position(t_data *data);
-void	init_player(t_data *data);
 void	affichage_player(t_data *data);
 void	ft_move_fov(t_data *data, char c);
 void	ft_move_player(t_data *data, char c);
 int 	find_x(double angle, int distance, int origin_x);
 int 	find_y(double angle, int distance, int origin_y);
+
+/*
+PLAYER/PLAYER_SUPP_C-------------------------------------------------------------
+*/
+void	init_player(t_data *data);
+
+
+/*
+PLAYER/PLAYER_SUPP_C-------------------------------------------------------------
+*/
+void	affichage_direction(t_data *data);
+void	affichage_player(t_data *data);
+
 
 /*
 HOOK/HOOK_C----------------------------------------------------------------------
@@ -221,30 +231,43 @@ int		ft_close(t_data *data);
 int		ft_press(int keycode, t_data *data);
 int		ft_release(int keycode, t_data *data);
 
-
+/*
+RAY/DDA_C------------------------------------------------------------------------
+*/
+void	dda(t_data *data, t_player *player, double angle_ray);
+double	calcul_delta(t_player *player, char c);
+int		check_intersection(t_data *data, int x, int y);
+/*
+RAY/DDA_UTILS_C------------------------------------------------------------------
+*/
+void	calcul_tile_step_y_y(t_player *p, int tile_step);
+void	calcul_tile_step_x_x(t_player *p, int tile_step);
+void	next_intercept_y(t_player *player);
+void	next_intercept_x(t_player *player);
 /*
 RAY/RAY_TRAICING_C---------------------------------------------------------------
 */
 void	ray_traicing(t_data *data);
 void	ray_way(t_data *data, int x1, int y1, int x2, int y2);
-double	delete_fish_eye(double distance, double fov);
-double	inter_pi(double angle_ray);
+void	witch_ray(t_data *data, t_player *player);
+
 /*
 RAY/RAY_UTILS_C------------------------------------------------------------------
 */
 int		absolu(int nb);
-float	absolu_float(float nb);
 double	absolu_double(double nb);
 double	calcul_distance_square(double x1, double x2);
-double	calcul_ray_distance(double	x, double y, double x2, double y2);
-int 	find_y_float(float angle, int distance, int origin_y);
-int 	find_x_float(float angle, int distance, int origin_x);
+double	ray_distance(double x, double y, double x2, double y2);
+double	inter_pi(double angle_ray);
+// int		find_y_float(float angle, int distance, int origin_y);
+// int		find_x_float(float angle, int distance, int origin_x);
 
 /*
 RAY/RAY_WALL_AFFICHAGE_C---------------------------------------------------------
 */
 void	init_constante(t_data *data);
-double	wall_height_apparence(t_player *player, double	distance_ray);
-void	ft_color_wall(t_data *data);
+double	wall_height_apparence(t_player *player, double distance_ray);
+void	affiche_wall(t_data *data, double distance_ray, int wall_x);
+double	delete_fish_eye(double distance, double fov);
 
 #endif
