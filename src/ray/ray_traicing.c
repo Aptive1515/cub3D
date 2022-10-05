@@ -6,7 +6,7 @@
 /*   By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 16:26:50 by aptive            #+#    #+#             */
-/*   Updated: 2022/09/21 12:21:37 by chaidel          ###   ########.fr       */
+/*   Updated: 2022/10/05 16:21:59 by chaidel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,7 +167,7 @@ void	calcul_tile_step_X(t_player *player, double angle_ray)
 		player->tile_step_X = -1;
 }
 
-void	affiche_wall(t_data *data, double distance_ray, int wall_x)
+void	affiche_wall(t_data *data, double distance_ray, int wall_x, double PB)
 {
 	double	wall_ha;
 	int		y_c;
@@ -177,13 +177,13 @@ void	affiche_wall(t_data *data, double distance_ray, int wall_x)
 	y_c = HEIGHT/2 - wall_ha;
 	y_f = HEIGHT/2 + wall_ha;
 	if (data->color_wall == WALL_N)
-		ft_lign_vertical_3d(data, wall_x, y_c, y_f, data->tex_NO);
+		ft_lign_vertical_3d(data, wall_x, y_c, y_f, data->tex_NO, 1);
 	else if (data->color_wall == WALL_S)
-		ft_lign_vertical_3d(data, wall_x, y_c, y_f, data->tex_SO);
+		ft_lign_vertical_3d(data, wall_x, y_c, y_f, data->tex_SO, 1);
 	else if (data->color_wall == WALL_E)
-		ft_lign_vertical_3d(data, wall_x, y_c, y_f, data->tex_EA);
+		ft_lign_vertical_3d(data, wall_x, y_c, y_f, data->tex_EA, 0);
 	else if (data->color_wall == WALL_W)
-		ft_lign_vertical_3d(data, wall_x, y_c, y_f, data->tex_WE);
+		ft_lign_vertical_3d(data, wall_x, y_c, y_f, data->tex_WE, 0);
 }
 
 void	ray_traicing(t_data *data)
@@ -265,7 +265,7 @@ void	ray_traicing(t_data *data)
 
 
 		// affichage du mur;
-		affiche_wall(data, distance_ray, wall_x);
+		affiche_wall(data, distance_ray, wall_x, PB);
 
 
 

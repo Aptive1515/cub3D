@@ -6,7 +6,7 @@
 /*   By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 16:11:23 by aptive            #+#    #+#             */
-/*   Updated: 2022/09/21 16:30:18 by chaidel          ###   ########.fr       */
+/*   Updated: 2022/09/22 12:07:07 by chaidel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,9 +122,9 @@ void	affichage_direction(t_data *data)
 	x = 0;
 	y = 0;
 	int	fov;
-	(void) fov;
-	fov = -30;
-	while (fov <= 30)
+	// (void) fov;
+	fov = -30 * ONE_DEGRE;
+	while (fov <= 30 * ONE_DEGRE)
 	{
 		x = find_x(data->player->direction + fov, 1000, data->player->x);
 		y = find_y(data->player->direction + fov, 1000, data->player->y);
@@ -175,7 +175,7 @@ void	affichage_direction(t_data *data)
 void	affichage_player(t_data *data)
 {
 	full_circle(data, SQUARE / 4, data->player->x, data->player->y, GREEN);
-	// affichage_direction(data);
+	affichage_direction(data);
 	mlx_put_image_to_window(data->mlx, data->mlx_win, data->img, 0, 0);
 
 }
