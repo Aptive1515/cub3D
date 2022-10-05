@@ -6,7 +6,7 @@
 /*   By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 12:51:41 by chaidel           #+#    #+#             */
-/*   Updated: 2022/10/05 16:48:49 by chaidel          ###   ########.fr       */
+/*   Updated: 2022/10/05 17:17:35 by chaidel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,13 +61,13 @@ int	free_struct(t_data *data)
 		free(data->tex_WE->path_tex);
 	if (data->tex_EA->path_tex)
 		free(data->tex_EA->path_tex);
-	// if (data->tex_NO->img_ptr)
+	if (data->tex_NO->img_ptr)
 		mlx_destroy_image(data->mlx, data->tex_NO->img_ptr);
-	// if (data->tex_SO->img_ptr)
+	if (data->tex_SO->img_ptr)
 		mlx_destroy_image(data->mlx, data->tex_SO->img_ptr);
-	// if (data->tex_WE->img_ptr)
+	if (data->tex_WE->img_ptr)
 		mlx_destroy_image(data->mlx, data->tex_WE->img_ptr);
-	// if (data->tex_EA->img_ptr)
+	if (data->tex_EA->img_ptr)
 		mlx_destroy_image(data->mlx, data->tex_EA->img_ptr);
 	mlx_destroy_image(data->mlx, data->img);
 	mlx_destroy_image(data->mlx, data->img_3d);
