@@ -6,7 +6,7 @@
 /*   By: tdelauna <tdelauna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 13:45:13 by aptive            #+#    #+#             */
-/*   Updated: 2022/10/05 17:55:36 by tdelauna         ###   ########.fr       */
+/*   Updated: 2022/10/05 19:29:33 by tdelauna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,21 +61,29 @@ void	ft_lign_vertical_3d(t_data *data, int x, int y, int y_end, t_img *tex, int 
 	// printf("texy: %d| da: %d\n", tex->line_length, data->line_length_3d);
 	// printf("x:%d | y: %d\n", data->ray_x, data->ray_y);
 
-
+	int	w_height = y_end - y;
+	// printf("w_height : %i\n", w_height);
 
 	while (y < y_end)
 	{
 		if (!(y > data->screen_h || y < 0 || x < 0 || x > data->screen_w ))
 		{
-			d = y * tex->line_length - HEIGHT * tex->line_length / 2 + y_end * tex->line_length / 2;
-			tex_y = ((d * 64) / y_end) / tex->line_length;
 
-			// printf("x:%d\n", tex_x);
+
+
+
+
+
+
+			tex_y = (y - data->screen_h / 2 + w_height / 2) * 64 / w_height;
+
+
+			// printf("tex_y : %d\n", tex_y);
 
 			if(side == 0)
-				tex_x = 64 - ((int)data->ray_x % 32) - 1;
+				tex_x = 64 - ((int)data->ray_x % 32)*2 - 1;
     		if(side == 1)
-				tex_x = 64 - ((int)data->ray_y % 32) - 1;
+				tex_x = 64 - ((int)data->ray_y % 32)*2 - 1;
 
 
 			// if (data->ray_x % 32)
@@ -83,9 +91,12 @@ void	ft_lign_vertical_3d(t_data *data, int x, int y, int y_end, t_img *tex, int 
 
 
 			// printf ("tex_x : %i\n", tex_x);
-
-		data->addr_3d[y * data->line_length_3d + x * (data->bits_per_pixel / 8)] = 	tex->addr[tex_y * tex->line_length + tex_x * (data->bits_per_pixel / 8)];
-
+			if (tex_x  >= 0 && tex_y >= 0)
+			{
+				data->addr_3d[y * data->line_length_3d + x * (data->bits_per_pixel / 8)] = 	tex->addr[tex_y * tex->line_length + tex_x * (tex->bits_per_pixel / 8)];
+				data->addr_3d[y * data->line_length_3d + x * (data->bits_per_pixel / 8) + 1] = 	tex->addr[tex_y * tex->line_length + tex_x * (tex->bits_per_pixel / 8) + 1];
+				data->addr_3d[y * data->line_length_3d + x * (data->bits_per_pixel / 8) + 2] = 	tex->addr[tex_y * tex->line_length + tex_x * (tex->bits_per_pixel / 8) + 2];
+			}
 		// data->addr_3d[y * data->line_length_3d + x] = 	tex->addr[tex_y * tex->line_length + tex_x];
 
 
