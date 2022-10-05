@@ -3,6 +3,9 @@
 cub3D
 log
 .vscode
-img
 leak
 log
+img/east_texture.png
+img/north_texture.png
+img/south_texture.png
+img/west_texture.png
