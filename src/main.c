@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aptive <aptive@student.42.fr>              +#+  +:+       +#+        */
+/*   By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 14:32:44 by aptive            #+#    #+#             */
-/*   Updated: 2022/09/26 17:54:08 by aptive           ###   ########.fr       */
+/*   Updated: 2022/10/05 16:50:34 by chaidel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void affichage_data(t_data	*data)
 
 void	debug(t_data *data)
 {
-	printf("NO %s\nSO %s\nWE %s\nEA %s\n", data->path->path_NO,data->path->path_SO,data->path->path_WE,data->path->path_EA);
+	printf("NO %s\nSO %s\nWE %s\nEA %s\n", data->tex_NO->path_tex,data->tex_SO->path_tex,data->tex_WE->path_tex,data->tex_EA->path_tex);
 	printf("F ");
 	for (int i = 0; data->floor_rgb[i]; i++)
 		printf("%s,", data->floor_rgb[i]);
@@ -86,11 +86,11 @@ int	main(int argc, char **argv)
 	data->img_3d = mlx_new_image(data->mlx_3d, data->screen_w, data->screen_h);
 	data->addr_3d = mlx_get_data_addr(data->img_3d, &data->bits_per_pixel_3d, &data->line_length_3d, &data->endian_3d);
 	data->mlx_win_3d = mlx_new_window(data->mlx_3d, data->screen_w, data->screen_h, "Cub3D");
-	// if (!check_texture_path(data))
-	// {
-	// 	config_err();
-	// 	return (free_struct(data));
-	// }
+	if (!check_texture_path(data))
+	{
+		config_err();
+		return (free_struct(data));
+	}
 	// debug(data);
 
 	// affichage_data(data);

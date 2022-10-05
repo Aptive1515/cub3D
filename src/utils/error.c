@@ -6,7 +6,7 @@
 /*   By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 11:21:15 by chaidel           #+#    #+#             */
-/*   Updated: 2022/09/14 19:12:16 by chaidel          ###   ########.fr       */
+/*   Updated: 2022/09/21 12:33:53 by chaidel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,24 +26,27 @@ int	free_struct_config(t_data *data)
 		ft_free_doubletab(data->ceiling_rgb);
 	if (data->map)
 		ft_free_doubletab(data->map);
-	if (data->path->path_NO)
-		free(data->path->path_NO);
-	if (data->path->path_SO)
-		free(data->path->path_SO);
-	if (data->path->path_WE)
-		free(data->path->path_WE);
-	if (data->path->path_EA)
-		free(data->path->path_EA);
-	if (data->path->texture_NO)
-		mlx_destroy_image(data->mlx, data->path->texture_NO);
-	if (data->path->texture_SO)
-		mlx_destroy_image(data->mlx, data->path->texture_SO);
-	if (data->path->texture_WE)
-		mlx_destroy_image(data->mlx, data->path->texture_WE);
-	if (data->path->texture_EA)
-		mlx_destroy_image(data->mlx, data->path->texture_EA);
+	if (data->tex_NO->path_tex)
+		free(data->tex_NO->path_tex);
+	if (data->tex_SO->path_tex)
+		free(data->tex_SO->path_tex);
+	if (data->tex_WE->path_tex)
+		free(data->tex_WE->path_tex);
+	if (data->tex_EA->path_tex)
+		free(data->tex_EA->path_tex);
+	if (data->tex_NO->img_ptr)
+		mlx_destroy_image(data->mlx, data->tex_NO->img_ptr);
+	if (data->tex_SO->img_ptr)
+		mlx_destroy_image(data->mlx, data->tex_SO->img_ptr);
+	if (data->tex_WE->img_ptr)
+		mlx_destroy_image(data->mlx, data->tex_WE->img_ptr);
+	if (data->tex_EA->img_ptr)
+		mlx_destroy_image(data->mlx, data->tex_EA->img_ptr);
 	free(data->player);
-	free(data->path);
+	free(data->tex_NO);
+	free(data->tex_SO);
+	free(data->tex_WE);
+	free(data->tex_EA);
 	free(data);
 	config_err();
 	return (0);

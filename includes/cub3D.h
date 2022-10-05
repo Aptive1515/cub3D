@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aptive <aptive@student.42.fr>              +#+  +:+       +#+        */
+/*   By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 14:30:39 by aptive            #+#    #+#             */
-/*   Updated: 2022/09/26 18:18:51 by aptive           ###   ########.fr       */
+/*   Updated: 2022/10/05 16:46:36 by chaidel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,20 +47,16 @@
 // BLUE
 # define WALL_W	4
 // WHITE
-typedef struct s_path {
-	char	*path_map;
 
-	char	*path_NO;
-	char	*path_SO;
-	char	*path_WE;
-	char	*path_EA;
+typedef struct s_img {
+	void	*img_ptr;
+	char	*addr;				/*	tab de pixel*/
+	char	*path_tex;			/*	Path to xpm file*/
 
-	void	*texture_NO;
-	void	*texture_SO;
-	void	*texture_WE;
-	void	*texture_EA;
-
-}	t_path;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+}	t_img;
 
 typedef struct s_player {
 	int		x;
@@ -107,7 +103,11 @@ typedef struct s_data {
 	int			screen_h;
 	int			screen_w;
 
-	t_path		*path;
+	char		*path_map;
+	t_img		*tex_NO;
+	t_img		*tex_SO;
+	t_img		*tex_WE;
+	t_img		*tex_EA;
 	t_player	*player;
 	char		**floor_rgb;
 	char		**ceiling_rgb;
@@ -139,6 +139,7 @@ void	debug(t_data *data); //DEBUG
 
 /*	Parsing */
 t_data	*init_data(t_data *data, char *path_map);
+void	init_img(t_data *data);
 char	*ft_map_read(char *path);
 int		parsing_map(t_data *data);
 int		copy_map(t_data *data, char **map);
@@ -192,7 +193,7 @@ void	my_mlx_pixel_put_limit(t_data *data, int x, int y, int color);
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 int		create_trgb(int t, int r, int g, int b);
 void	my_mlx_pixel_put_3d(t_data *data, int x, int y, int color);
-void	ft_lign_vertical_3d(t_data *data, int x, int y, int y_end, int color);
+void	ft_lign_vertical_3d(t_data *data, int x, int y, int y_end, t_img *tex, int side);
 
 /*
 GRAPH/MAP_C----------------------------------------------------------------------

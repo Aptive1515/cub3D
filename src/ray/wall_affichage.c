@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wall_affichage.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aptive <aptive@student.42.fr>              +#+  +:+       +#+        */
+/*   By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 23:30:03 by aptive            #+#    #+#             */
-/*   Updated: 2022/09/26 17:48:02 by aptive           ###   ########.fr       */
+/*   Updated: 2022/10/05 16:53:39 by chaidel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,13 @@ void	affiche_wall(t_data *data, double distance_ray, int wall_x)
 	y_c = data->screen_h / 2 - wall_ha;
 	y_f = data->screen_h / 2 + wall_ha;
 	if (data->color_wall == WALL_N)
-		ft_lign_vertical_3d(data, wall_x, y_c, y_f, RED);
+		ft_lign_vertical_3d(data, wall_x, y_c, y_f,data->tex_NO, 0);
 	else if (data->color_wall == WALL_S)
-		ft_lign_vertical_3d(data, wall_x, y_c, y_f, GREEN);
+		ft_lign_vertical_3d(data, wall_x, y_c, y_f,data->tex_SO, 0);
 	else if (data->color_wall == WALL_E)
-		ft_lign_vertical_3d(data, wall_x, y_c, y_f, BLUE);
+		ft_lign_vertical_3d(data, wall_x, y_c, y_f,data->tex_EA, 1);
 	else if (data->color_wall == WALL_W)
-		ft_lign_vertical_3d(data, wall_x, y_c, y_f, WHITE);
+		ft_lign_vertical_3d(data, wall_x, y_c, y_f,data->tex_WE, 1);
 }
 
 double	delete_fish_eye(double distance, double fov)
