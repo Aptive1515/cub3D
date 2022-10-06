@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tdelauna <tdelauna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 14:32:44 by aptive            #+#    #+#             */
-/*   Updated: 2022/10/05 19:51:09 by tdelauna         ###   ########.fr       */
+/*   Updated: 2022/10/06 17:26:59 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3D.h"
 
+/*	DEBUG */
 void affichage_data(t_data	*data)
 {
 	// printf("data->path->path_NO : %s\n", data->path->path_NO);
@@ -38,9 +39,10 @@ void affichage_data(t_data	*data)
 
 }
 
+/*	DEBUG */
 void	debug(t_data *data)
 {
-	printf("NO %s\nSO %s\nWE %s\nEA %s\n", data->tex_NO->path_tex,data->tex_SO->path_tex,data->tex_WE->path_tex,data->tex_EA->path_tex);
+	printf("NO %s\nSO %s\nWE %s\nEA %s\n", data->tex_NO->path,data->tex_SO->path,data->tex_WE->path,data->tex_EA->path);
 	printf("F ");
 	for (int i = 0; data->floor_rgb[i]; i++)
 		printf("%s,", data->floor_rgb[i]);
@@ -67,12 +69,13 @@ int	main(int argc, char **argv)
 		exit(free_struct_config(data) + 1);
 	init_player(data);
 
+	debug(data);
+	exit(0);
 
 
-
-	data->mlx = mlx_init();
-	data->img = mlx_new_image(data->mlx, data->map_w * SQUARE, data->map_h * SQUARE);
-	data->addr = mlx_get_data_addr(data->img, &data->bits_per_pixel, &data->line_length, &data->endian);
+	// data->mlx = mlx_init();
+	// data->img = mlx_new_image(data->mlx, data->map_w * SQUARE, data->map_h * SQUARE);
+	// data->addr = mlx_get_data_addr(data->img, &data->bits_per_pixel, &data->line_length, &data->endian);
 
 
 
@@ -91,7 +94,6 @@ int	main(int argc, char **argv)
 		config_err();
 		return (free_struct(data));
 	}
-	// debug(data);
 
 	// affichage_data(data);
 

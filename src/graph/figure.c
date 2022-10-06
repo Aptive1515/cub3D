@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   figure.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aptive <aptive@student.42.fr>              +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 16:02:53 by aptive            #+#    #+#             */
-/*   Updated: 2022/09/26 18:22:01 by aptive           ###   ########.fr       */
+/*   Updated: 2022/10/06 17:44:21 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,27 +49,27 @@ void	ft_lign_horizontal(t_data *data, int x, int x_end, int y,int color)
 	}
 }
 
-void	ft_grille(t_data *data)
-{
-	int	i;
-	int	height;
-	int	width;
+// void	ft_grille(t_data *data)
+// {
+// 	int	i;
+// 	int	height;
+// 	int	width;
 
-	height = data->map_h * SQUARE;
-	width = data->map_w * SQUARE;
-	i = 0;
-	while (i < width)
-	{
-		ft_lign_vertical(data, i, 0, height, RED_DARK);
-		i += SQUARE;
-	}
-	i = 0;
-	while (i < height)
-	{
-		ft_lign_horizontal(data, 0, width, i, RED_DARK);
-		i += SQUARE;
-	}
-}
+// 	height = data->map_h * SQUARE;
+// 	width = data->map_w * SQUARE;
+// 	i = 0;
+// 	while (i < width)
+// 	{
+// 		ft_lign_vertical(data, i, 0, height, RED_DARK);
+// 		i += SQUARE;
+// 	}
+// 	i = 0;
+// 	while (i < height)
+// 	{
+// 		ft_lign_horizontal(data, 0, width, i, RED_DARK);
+// 		i += SQUARE;
+// 	}
+// }
 
 void	ft_full(t_data *data, int x_beg, int y_beg, int color)
 {
@@ -122,6 +122,7 @@ void	do_circle(t_data *data, int r, int x_centre, int y_centre, int color)
 		}
 	}
 }
+
 int	ft_absolu(int nb)
 {
 	if (nb < 0)

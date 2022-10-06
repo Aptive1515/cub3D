@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 14:30:39 by aptive            #+#    #+#             */
-/*   Updated: 2022/10/05 16:46:36 by chaidel          ###   ########.fr       */
+/*   Updated: 2022/10/06 17:39:52 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,13 @@
 // WHITE
 
 typedef struct s_img {
-	void	*img_ptr;
+	void	*ptr;
 	char	*addr;				/*	tab de pixel*/
-	char	*path_tex;			/*	Path to xpm file*/
+	char	*path;			/*	Path to xpm file*/
 
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
+	int		bpp;
+	int		length;
+	int		end;
 }	t_img;
 
 typedef struct s_player {
@@ -83,13 +83,13 @@ typedef struct s_player {
 }	t_player;
 
 typedef struct s_data {
-	void		*mlx;
-	void		*mlx_win;
-	void		*img;
-	char		*addr;
-	int			bits_per_pixel;
-	int			line_length;
-	int			endian;
+	// void		*mlx;
+	// void		*mlx_win;
+	// void		*img;
+	// char		*addr;
+	// int			bits_per_pixel;
+	// int			line_length;
+	// int			endian;
 
 
 	void		*mlx_3d;
@@ -139,9 +139,11 @@ void	debug(t_data *data); //DEBUG
 
 /*	Parsing */
 t_data	*init_data(t_data *data, char *path_map);
+void	init_tex(t_data *data);
 void	init_img(t_data *data);
 char	*ft_map_read(char *path);
 int		parsing_map(t_data *data);
+int		parsing_map_sc(t_data *data, char **mapi, char **tex);
 int		copy_map(t_data *data, char **map);
 int		msg_error(char *str);
 int		verif_open_map(char *path_map);
@@ -165,6 +167,8 @@ int		solver_y(t_data *data);
 /*	Utils */
 int		free_struct(t_data *data);
 int		free_struct_config(t_data *data);
+void	freer(t_data *data);
+void	destroyer(t_data *data);
 int		ft_free_doubletab(char **tab);
 
 /*	Option */

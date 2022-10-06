@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tdelauna <tdelauna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 12:51:41 by chaidel           #+#    #+#             */
-/*   Updated: 2022/10/05 17:10:38 by tdelauna         ###   ########.fr       */
+/*   Updated: 2022/10/06 17:37:56 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,17 @@ t_data	*init_data(t_data *data, char *path_map)
 	data->tex_EA = malloc(sizeof(t_img));
 	if (!data->tex_EA)
 		return (NULL);
-	data->tex_NO->img_ptr = NULL;
-	data->tex_SO->img_ptr = NULL;
-	data->tex_WE->img_ptr = NULL;
-	data->tex_EA->img_ptr = NULL;
-	data->mlx = NULL;
-	data->mlx_3d = NULL;
+	init_tex(data);
 	return (data);
+}
+
+void	init_tex(t_data *data)
+{
+	data->tex_NO->ptr = NULL;
+	data->tex_SO->ptr = NULL;
+	data->tex_WE->ptr = NULL;
+	data->tex_EA->ptr = NULL;
+	data->mlx_3d = NULL;
 }
 
 int	free_struct(t_data *data)
@@ -53,31 +57,15 @@ int	free_struct(t_data *data)
 		ft_free_doubletab(data->ceiling_rgb);
 	if (data->map)
 		ft_free_doubletab(data->map);
-	if (data->tex_NO->path_tex)
-		free(data->tex_NO->path_tex);
-	if (data->tex_SO->path_tex)
-		free(data->tex_SO->path_tex);
-	if (data->tex_WE->path_tex)
-		free(data->tex_WE->path_tex);
-	if (data->tex_EA->path_tex)
-		free(data->tex_EA->path_tex);
-	if (data->tex_NO->img_ptr)
-		mlx_destroy_image(data->mlx, data->tex_NO->img_ptr);
-	if (data->tex_SO->img_ptr)
-		mlx_destroy_image(data->mlx, data->tex_SO->img_ptr);
-	if (data->tex_WE->img_ptr)
-		mlx_destroy_image(data->mlx, data->tex_WE->img_ptr);
-	if (data->tex_EA->img_ptr)
-		mlx_destroy_image(data->mlx, data->tex_EA->img_ptr);
-	mlx_destroy_image(data->mlx, data->img);
-	mlx_destroy_image(data->mlx, data->img_3d);
-	// if (data->mlx_win)
-	// 	mlx_destroy_window(data->mlx, data->mlx_win);
-	if (data->mlx_win_3d)
-		mlx_destroy_window(data->mlx_3d, data->mlx_win_3d);
-	mlx_destroy_display(data->mlx);
-	mlx_destroy_display(data->mlx_3d);
-	free(data->mlx);
+	if (data->tex_NO->path)
+		free(data->tex_NO->path);
+	if (data->tex_SO->path)
+		free(data->tex_SO->path);
+	if (data->tex_WE->path)
+		free(data->tex_WE->path);
+	if (data->tex_EA->path)
+		free(data->tex_EA->path);
+	destroyer(data);
 	free(data->mlx_3d);
 	free(data->player);
 	free(data->tex_NO);
@@ -88,6 +76,21 @@ int	free_struct(t_data *data)
 	return (0);
 }
 
+void	destroyer(t_data *data)
+{
+	if (data->tex_NO->ptr)
+		mlx_destroy_image(data->mlx_3d, data->tex_NO->ptr);
+	if (data->tex_SO->ptr)
+		mlx_destroy_image(data->mlx_3d, data->tex_SO->ptr);
+	if (data->tex_WE->ptr)
+		mlx_destroy_image(data->mlx_3d, data->tex_WE->ptr);
+	if (data->tex_EA->ptr)
+		mlx_destroy_image(data->mlx_3d, data->tex_EA->ptr);
+	mlx_destroy_image(data->mlx_3d, data->img_3d);
+	if (data->mlx_win_3d)
+		mlx_destroy_window(data->mlx_3d, data->mlx_win_3d);
+	mlx_destroy_display(data->mlx_3d);
+}
 int	ft_free_doubletab(char **tab)
 {
 	int	i;
