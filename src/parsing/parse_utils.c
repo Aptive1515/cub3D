@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 11:20:21 by chaidel           #+#    #+#             */
-/*   Updated: 2022/10/06 17:17:19 by root             ###   ########.fr       */
+/*   Updated: 2022/10/07 19:48:24 by chaidel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,21 +20,6 @@ int	split_at_key(char **file)
 	while (len > 0 && not_key(file[len]))
 		len--;
 	return (len);
-}
-
-/*
- *	Vérifie si les 1er char sont clés d'option
-*/
-int	not_key(char *str)
-{
-	if (ft_strlen(str) > 2)
-	{
-		if (str[0] == 'F' || str[0] == 'C'
-			|| !ft_strncmp(str, "NO", 2) || !ft_strncmp(str, "SO", 2)
-			|| !ft_strncmp(str, "WE", 2) || !ft_strncmp(str, "EA", 2))
-			return (0);
-	}
-	return (1);
 }
 
 char	*split_txt(char *str)
@@ -96,4 +81,32 @@ int	copy_map(t_data *data, char **map)
 			data->map[i] = ft_strdup(map[i]);
 	}
 	return (1);
+}
+
+char	**split_tab(char **tab, int len, char *(**rest))
+{
+	char	**opt;
+	int		i;
+	int		j;
+	int		max;
+
+	len++;
+	max = ft_doubletab_len(tab);
+	if (len >= max)
+		return (NULL);
+	opt = (char **)malloc(sizeof(char *) * (len + 1));
+	if (!opt)
+		return (NULL);
+	opt[len] = NULL;
+	i = -1;
+	while (++i < len)
+		opt[i] = ft_strdup(tab[i]);
+	*(rest) = (char **)malloc(sizeof(char *) * (max - len + 1));
+	if (*(rest) == NULL)
+		return (NULL);
+	j = 0;
+	while (i < max)
+		rest[0][j++] = ft_strdup(tab[i++]);
+	rest[0][j] = NULL;
+	return (opt);
 }

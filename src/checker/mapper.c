@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mapper.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 15:30:45 by chaidel           #+#    #+#             */
-/*   Updated: 2022/10/06 17:02:17 by root             ###   ########.fr       */
+/*   Updated: 2022/10/07 21:00:00 by chaidel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int	solver_x(t_data *data)
 					end = 1;
 			}
 			if (!start || !end)
-				return (0);	
+				return (0);
 		}
 	}
 	return (1);

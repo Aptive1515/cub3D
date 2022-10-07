@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 11:21:15 by chaidel           #+#    #+#             */
-/*   Updated: 2022/10/06 17:34:07 by root             ###   ########.fr       */
+/*   Updated: 2022/10/07 20:21:27 by chaidel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,22 +26,22 @@ int	free_struct_config(t_data *data)
 		ft_free_doubletab(data->ceiling_rgb);
 	if (data->map)
 		ft_free_doubletab(data->map);
-	if (data->tex_NO->path)
-		free(data->tex_NO->path);
-	if (data->tex_SO->path)
-		free(data->tex_SO->path);
-	if (data->tex_WE->path)
-		free(data->tex_WE->path);
-	if (data->tex_EA->path)
-		free(data->tex_EA->path);
-	if (data->tex_NO->ptr)
-		mlx_destroy_image(data->mlx_3d, data->tex_NO->ptr);
-	if (data->tex_SO->ptr)
-		mlx_destroy_image(data->mlx_3d, data->tex_SO->ptr);
-	if (data->tex_WE->ptr)
-		mlx_destroy_image(data->mlx_3d, data->tex_WE->ptr);
-	if (data->tex_EA->ptr)
-		mlx_destroy_image(data->mlx_3d, data->tex_EA->ptr);
+	if (data->tex_no->path)
+		free(data->tex_no->path);
+	if (data->tex_so->path)
+		free(data->tex_so->path);
+	if (data->tex_we->path)
+		free(data->tex_we->path);
+	if (data->tex_ea->path)
+		free(data->tex_ea->path);
+	if (data->tex_no->ptr)
+		mlx_destroy_image(data->mlx_3d, data->tex_no->ptr);
+	if (data->tex_so->ptr)
+		mlx_destroy_image(data->mlx_3d, data->tex_so->ptr);
+	if (data->tex_we->ptr)
+		mlx_destroy_image(data->mlx_3d, data->tex_we->ptr);
+	if (data->tex_ea->ptr)
+		mlx_destroy_image(data->mlx_3d, data->tex_ea->ptr);
 	freer(data);
 	return (config_err());
 }
@@ -49,9 +49,9 @@ int	free_struct_config(t_data *data)
 void	freer(t_data *data)
 {
 	free(data->player);
-	free(data->tex_NO);
-	free(data->tex_SO);
-	free(data->tex_WE);
-	free(data->tex_EA);
+	free(data->tex_no);
+	free(data->tex_so);
+	free(data->tex_we);
+	free(data->tex_ea);
 	free(data);
 }

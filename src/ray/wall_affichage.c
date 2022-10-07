@@ -6,7 +6,7 @@
 /*   By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 23:30:03 by aptive            #+#    #+#             */
-/*   Updated: 2022/10/05 16:53:39 by chaidel          ###   ########.fr       */
+/*   Updated: 2022/10/07 20:02:22 by chaidel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,20 +38,18 @@ double	wall_height_apparence(t_player *player, double distance_ray)
 void	affiche_wall(t_data *data, double distance_ray, int wall_x)
 {
 	double	wall_ha;
-	int		y_c;
-	int		y_f;
 
 	wall_ha = wall_height_apparence(data->player, distance_ray) / 2;
-	y_c = data->screen_h / 2 - wall_ha;
-	y_f = data->screen_h / 2 + wall_ha;
+	data->y_s = data->screen_h / 2 - wall_ha;
+	data->y_end = data->screen_h / 2 + wall_ha;
 	if (data->color_wall == WALL_N)
-		ft_lign_vertical_3d(data, wall_x, y_c, y_f,data->tex_NO, 0);
+		v_line_3d(data, wall_x, data->tex_no, 0);
 	else if (data->color_wall == WALL_S)
-		ft_lign_vertical_3d(data, wall_x, y_c, y_f,data->tex_SO, 0);
+		v_line_3d(data, wall_x, data->tex_so, 0);
 	else if (data->color_wall == WALL_E)
-		ft_lign_vertical_3d(data, wall_x, y_c, y_f,data->tex_EA, 1);
+		v_line_3d(data, wall_x, data->tex_ea, 1);
 	else if (data->color_wall == WALL_W)
-		ft_lign_vertical_3d(data, wall_x, y_c, y_f,data->tex_WE, 1);
+		v_line_3d(data, wall_x, data->tex_we, 1);
 }
 
 double	delete_fish_eye(double distance, double fov)

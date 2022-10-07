@@ -6,7 +6,7 @@
 /*   By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 14:30:39 by aptive            #+#    #+#             */
-/*   Updated: 2022/10/07 19:09:43 by chaidel          ###   ########.fr       */
+/*   Updated: 2022/10/07 20:15:06 by chaidel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ typedef struct s_img {
 	char	*addr;
 	char	*path;
 	int		bpp;
-	int		length;
+	int		line;
 	int		end;
 }	t_img;
 
@@ -90,13 +90,16 @@ typedef struct s_data {
 	void		*mlx_3d;
 	void		*mlx_win_3d;
 	void		*img_3d;
-	char		*addr_3d;
-	int			bits_per_pixel_3d;
-	int			line_length_3d;
+	char		*addr3d;
+	int			bpp;
+	int			length;
 	int			endian_3d;
 
 	int			screen_h;
 	int			screen_w;
+
+	int			y_s;
+	int			y_end;
 
 	char		*path_map;
 	t_img		*tex_no;
@@ -123,7 +126,7 @@ typedef struct s_data {
 	int			go_left;
 
 	int			turn_right;
-	int			 turn_left;
+	int			turn_left;
 
 }	t_data;
 
@@ -192,7 +195,8 @@ void	my_mlx_pixel_put_limit(t_data *data, int x, int y, int color);
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 int		create_trgb(int t, int r, int g, int b);
 void	my_mlx_pixel_put_3d(t_data *data, int x, int y, int color);
-void	ft_lign_vertical_3d(t_data *data, int x, int y, int y_end, t_img *tex, int side);
+void	v_line_3d(t_data *data, int x, t_img *tex, int side);
+void	sides(t_data *data, int *tex_x, int *tex_y, int side);
 
 /*
 GRAPH/MAP_C----------------------------------------------------------------------

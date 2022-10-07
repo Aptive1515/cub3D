@@ -6,7 +6,7 @@
 #    By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/02/22 23:12:10 by pbondoer          #+#    #+#              #
-#    Updated: 2022/10/07 19:06:32 by chaidel          ###   ########.fr        #
+#    Updated: 2022/10/07 20:02:53 by chaidel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,7 @@ SRC		=	main.c\
 			graph/figure.c\
 			graph/graph_utils.c\
 			graph/map.c\
+			graph/texturing.c\
 			player/player.c\
 			player/player_utils.c\
 			hook/hook_1.c\

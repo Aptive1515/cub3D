@@ -6,7 +6,7 @@
 /*   By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 16:26:50 by aptive            #+#    #+#             */
-/*   Updated: 2022/10/05 16:51:30 by chaidel          ###   ########.fr       */
+/*   Updated: 2022/10/07 20:16:53 by chaidel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,17 @@ double	calcul_angle_ray(t_data *data, int wall_x)
 void	calcul_tile_step_y(t_player *player, double angle_ray)
 {
 	if (angle_ray < M_PI)
-		player->tile_step_Y = 1;
+		player->tile_step_y = 1;
 	else
-		player->tile_step_Y = -1;
+		player->tile_step_y = -1;
 }
 
 void	calcul_tile_step_x(t_player *player, double angle_ray)
 {
 	if (angle_ray < M_PI / 2 || angle_ray > 3 * M_PI / 2)
-		player->tile_step_X = 1;
+		player->tile_step_x = 1;
 	else
-		player->tile_step_X = -1;
+		player->tile_step_x = -1;
 }
 
 void	ray_traicing(t_data *data)
@@ -67,22 +67,22 @@ void	witch_ray(t_data *data, t_player *player)
 	double		pa;
 	double		pb;
 
-	pa = absolu(player->x - (int)player->tile_X_x) / player->ab_cos_angle_ray;
-	pb = absolu(player->x - (int)player->tile_Y_x) / player->ab_cos_angle_ray;
+	pa = absolu(player->x - (int)player->tile_x_x) / player->ab_cos_angle_ray;
+	pb = absolu(player->x - (int)player->tile_y_x) / player->ab_cos_angle_ray;
 	if (pb < pa)
 	{
-		data->ray_x = player->tile_Y_x;
-		data->ray_y = player->tile_Y_y;
-		if (player->tile_step_Y > 0)
+		data->ray_x = player->tile_y_x;
+		data->ray_y = player->tile_y_y;
+		if (player->tile_step_y > 0)
 			data->color_wall = WALL_S;
 		else
 			data->color_wall = WALL_N;
 	}
 	else
 	{
-		data->ray_x = player->tile_X_x;
-		data->ray_y = player->tile_X_y;
-		if (player->tile_step_X > 0)
+		data->ray_x = player->tile_x_x;
+		data->ray_y = player->tile_x_y;
+		if (player->tile_step_x > 0)
 			data->color_wall = WALL_E;
 		else
 			data->color_wall = WALL_W;

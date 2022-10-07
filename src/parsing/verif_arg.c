@@ -6,7 +6,7 @@
 /*   By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 14:46:14 by aptive            #+#    #+#             */
-/*   Updated: 2022/09/15 11:08:21 by chaidel          ###   ########.fr       */
+/*   Updated: 2022/10/07 19:26:27 by chaidel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,19 @@ int	verif_arg(int argc, char **argv)
 	else if (verif_open_map(argv[1]))
 		return (1);
 	return (0);
+}
+
+/*
+ *	Vérifie si les 1er char sont clés d'option
+*/
+int	not_key(char *str)
+{
+	if (ft_strlen(str) > 2)
+	{
+		if (str[0] == 'F' || str[0] == 'C'
+			|| !ft_strncmp(str, "NO", 2) || !ft_strncmp(str, "SO", 2)
+			|| !ft_strncmp(str, "WE", 2) || !ft_strncmp(str, "EA", 2))
+			return (0);
+	}
+	return (1);
 }

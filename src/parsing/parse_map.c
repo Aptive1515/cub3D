@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 15:41:23 by aptive            #+#    #+#             */
-/*   Updated: 2022/10/06 17:39:42 by root             ###   ########.fr       */
+/*   Updated: 2022/10/07 19:48:10 by chaidel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,19 +50,22 @@ int	parsing_path_texture(t_data *data, char **tab_gnl)
 	while (++i < len)
 	{
 		if (!ft_strncmp("NO", tab_gnl[i], 2))
-			data->tex_NO->path = split_txt(tab_gnl[i]);
+			data->tex_no->path = split_txt(tab_gnl[i]);
 		else if (!ft_strncmp("SO", tab_gnl[i], 2))
-			data->tex_SO->path = split_txt(tab_gnl[i]);
+			data->tex_so->path = split_txt(tab_gnl[i]);
 		else if (!ft_strncmp("WE", tab_gnl[i], 2))
-			data->tex_WE->path = split_txt(tab_gnl[i]);
+			data->tex_we->path = split_txt(tab_gnl[i]);
 		else if (!ft_strncmp("EA", tab_gnl[i], 2))
-			data->tex_EA->path = split_txt(tab_gnl[i]);
+			data->tex_ea->path = split_txt(tab_gnl[i]);
 		else if (!ft_strncmp("F", tab_gnl[i], 1))
 			parsing_rgb(data, tab_gnl[i]);
 		else if (!ft_strncmp("C", tab_gnl[i], 1))
 			parsing_rgb(data, tab_gnl[i]);
 		else
+		{
+			printf("me\n");
 			return (0);
+		}
 	}
 	return (1);
 }

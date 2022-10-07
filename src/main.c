@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 14:32:44 by aptive            #+#    #+#             */
-/*   Updated: 2022/10/06 17:26:59 by root             ###   ########.fr       */
+/*   Updated: 2022/10/07 20:13:18 by chaidel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void affichage_data(t_data	*data)
 /*	DEBUG */
 void	debug(t_data *data)
 {
-	printf("NO %s\nSO %s\nWE %s\nEA %s\n", data->tex_NO->path,data->tex_SO->path,data->tex_WE->path,data->tex_EA->path);
+	// printf("NO %s\nSO %s\nWE %s\nEA %s\n", data->tex_no->path,data->tex_so->path,data->tex_WE->path,data->tex_EA->path);
 	printf("F ");
 	for (int i = 0; data->floor_rgb[i]; i++)
 		printf("%s,", data->floor_rgb[i]);
@@ -69,14 +69,15 @@ int	main(int argc, char **argv)
 		exit(free_struct_config(data) + 1);
 	init_player(data);
 
-	debug(data);
-	exit(0);
+	// debug(data);
+	// exit(0);
 
 
-	// data->mlx = mlx_init();
-	// data->img = mlx_new_image(data->mlx, data->map_w * SQUARE, data->map_h * SQUARE);
-	// data->addr = mlx_get_data_addr(data->img, &data->bits_per_pixel, &data->line_length, &data->endian);
-
+	data->mlx = mlx_init();
+	data->img = mlx_new_image(data->mlx, data->map_w * SQUARE,
+			data->map_h * SQUARE);
+	data->addr = mlx_get_data_addr(data->img, &data->bits_per_pixel,
+			&data->line_length, &data->endian);
 
 
 	data->mlx_3d = mlx_init();
@@ -87,8 +88,10 @@ int	main(int argc, char **argv)
 
 
 	data->img_3d = mlx_new_image(data->mlx_3d, data->screen_w, data->screen_h);
-	data->addr_3d = mlx_get_data_addr(data->img_3d, &data->bits_per_pixel_3d, &data->line_length_3d, &data->endian_3d);
-	data->mlx_win_3d = mlx_new_window(data->mlx_3d, data->screen_w, data->screen_h, "Cub3D");
+	data->addr3d = mlx_get_data_addr(data->img_3d, &data->bpp,
+			&data->length, &data->endian_3d);
+	data->mlx_win_3d = mlx_new_window(data->mlx_3d, data->screen_w,
+			data->screen_h, "Cub3D");
 	if (!check_texture_path(data))
 	{
 		config_err();
@@ -97,7 +100,6 @@ int	main(int argc, char **argv)
 
 	// affichage_data(data);
 
-	printf("data->screen_w / data->screen_h: %i / %i\n", data->screen_w, data->screen_h);
 	init_constante(data);
 
 	ft_affiche_map(data);

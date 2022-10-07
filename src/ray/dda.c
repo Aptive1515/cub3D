@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dda.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aptive <aptive@student.42.fr>              +#+  +:+       +#+        */
+/*   By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 17:40:28 by aptive            #+#    #+#             */
-/*   Updated: 2022/09/26 18:18:45 by aptive           ###   ########.fr       */
+/*   Updated: 2022/10/07 20:15:28 by chaidel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 void	dda(t_data *data, t_player *player, double angle_ray)
 {
-	calcul_tile_step_y_y(player, player->tile_step_Y);
-	calcul_tile_step_x_x(player, player->tile_step_X);
+	calcul_tile_step_y_y(player, player->tile_step_y);
+	calcul_tile_step_x_x(player, player->tile_step_x);
 	player->delta_x = SQUARE * player->tan_angle_ray;
 	player->delta_y = SQUARE / player->tan_angle_ray;
-	while (!check_intersection(data, player->tile_Y_x, player->tile_Y_y))
+	while (!check_intersection(data, player->tile_y_x, player->tile_y_y))
 		next_intercept_y(player);
-	while (!check_intersection(data, player->tile_X_x, player->tile_X_y))
+	while (!check_intersection(data, player->tile_x_x, player->tile_x_y))
 		next_intercept_x(player);
 }
 

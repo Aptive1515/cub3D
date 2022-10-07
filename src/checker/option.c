@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   option.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 17:32:52 by root              #+#    #+#             */
-/*   Updated: 2022/10/06 17:31:02 by root             ###   ########.fr       */
+/*   Updated: 2022/10/07 19:36:22 by chaidel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,39 +20,39 @@ int	check_texture_path(t_data *pth)
 	int	imgw;
 	int	imgh;
 
-	pth->tex_NO->ptr =
-		mlx_xpm_file_to_image(pth->mlx_3d, pth->tex_NO->path, &imgw, &imgh);
-	pth->tex_SO->ptr =
-		mlx_xpm_file_to_image(pth->mlx_3d, pth->tex_SO->path, &imgw, &imgh);
-	pth->tex_WE->ptr =
-		mlx_xpm_file_to_image(pth->mlx_3d, pth->tex_WE->path, &imgw, &imgh);
-	pth->tex_EA->ptr =
-		mlx_xpm_file_to_image(pth->mlx_3d, pth->tex_EA->path, &imgw, &imgh);
-	if (pth->tex_NO->ptr == NULL || pth->tex_SO->ptr == NULL
-		|| pth->tex_WE->ptr == NULL || pth->tex_EA->ptr == NULL)
+	pth->tex_no->ptr
+		= mlx_xpm_file_to_image(pth->mlx_3d, pth->tex_no->path, &imgw, &imgh);
+	pth->tex_so->ptr
+		= mlx_xpm_file_to_image(pth->mlx_3d, pth->tex_so->path, &imgw, &imgh);
+	pth->tex_we->ptr
+		= mlx_xpm_file_to_image(pth->mlx_3d, pth->tex_we->path, &imgw, &imgh);
+	pth->tex_ea->ptr
+		= mlx_xpm_file_to_image(pth->mlx_3d, pth->tex_ea->path, &imgw, &imgh);
+	if (pth->tex_no->ptr == NULL || pth->tex_so->ptr == NULL
+		|| pth->tex_we->ptr == NULL || pth->tex_ea->ptr == NULL)
 		return (0);
-	pth->tex_SO->addr = mlx_get_data_addr(pth->tex_SO->ptr,
-		&pth->tex_SO->bpp, &pth->tex_SO->length, &pth->tex_SO->end);
-	pth->tex_NO->addr = mlx_get_data_addr(pth->tex_NO->ptr, 
-		&pth->tex_NO->bpp, &pth->tex_NO->length, &pth->tex_NO->end);
-	pth->tex_WE->addr = mlx_get_data_addr(pth->tex_WE->ptr,
-		&pth->tex_WE->bpp, &pth->tex_WE->length, &pth->tex_WE->end);
-	pth->tex_EA->addr = mlx_get_data_addr(pth->tex_EA->ptr,
-		&pth->tex_EA->bpp, &pth->tex_EA->length, &pth->tex_EA->end);
+	pth->tex_so->addr = mlx_get_data_addr(pth->tex_so->ptr,
+			&pth->tex_so->bpp, &pth->tex_so->line, &pth->tex_so->end);
+	pth->tex_no->addr = mlx_get_data_addr(pth->tex_no->ptr,
+			&pth->tex_no->bpp, &pth->tex_no->line, &pth->tex_no->end);
+	pth->tex_we->addr = mlx_get_data_addr(pth->tex_we->ptr,
+			&pth->tex_we->bpp, &pth->tex_we->line, &pth->tex_we->end);
+	pth->tex_ea->addr = mlx_get_data_addr(pth->tex_ea->ptr,
+			&pth->tex_ea->bpp, &pth->tex_ea->line, &pth->tex_ea->end);
 	return (1);
 }
 
 int	xpm_err(t_data *pth)
 {
 	printf("text err\n");
-	if (pth->tex_NO)
-		mlx_destroy_image(pth->mlx_3d, pth->tex_NO);
-	if (pth->tex_SO)
-		mlx_destroy_image(pth->mlx_3d, pth->tex_SO);
-	if (pth->tex_WE)
-		mlx_destroy_image(pth->mlx_3d, pth->tex_WE);
-	if (pth->tex_EA)
-		mlx_destroy_image(pth->mlx_3d, pth->tex_EA);
+	if (pth->tex_no)
+		mlx_destroy_image(pth->mlx_3d, pth->tex_no);
+	if (pth->tex_so)
+		mlx_destroy_image(pth->mlx_3d, pth->tex_so);
+	if (pth->tex_we)
+		mlx_destroy_image(pth->mlx_3d, pth->tex_we);
+	if (pth->tex_ea)
+		mlx_destroy_image(pth->mlx_3d, pth->tex_ea);
 	return (0);
 }
 

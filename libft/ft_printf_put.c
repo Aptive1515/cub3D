@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf_put.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tdelauna <tdelauna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 14:02:09 by tdelauna          #+#    #+#             */
-/*   Updated: 2022/03/31 17:04:38 by tdelauna         ###   ########.fr       */
+/*   Updated: 2022/10/07 20:20:33 by chaidel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int	ft_putchar_fd_print(char c, int fd)
 {
 	return (write (fd, &c, 1));
 }
+
 /*
 char	*ft_strchr(char *s, int c)
 {
