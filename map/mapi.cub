@@ -1,9 +1,9 @@
-SO ./img/wolf/eagle.xpm
-F 0,0,0
-WE ./img/wolf/eagle.xpm
-NO ./img/wolf/eagle.xpm
-C 0,0,0
-EA ./img/wolf/eagle.xpm
+SO ./img/south_texture.xpm
+F 126,200,255
+WE ./img/west_texture.xpm
+NO ./img/north_texture.xpm
+C 100,100,100
+EA ./img/east_texture.xpm
 
 111111111111111111111111111111111111
 100000100000100101010000000000000001

@@ -6,7 +6,7 @@
 /*   By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 14:30:39 by aptive            #+#    #+#             */
-/*   Updated: 2022/10/05 16:46:36 by chaidel          ###   ########.fr       */
+/*   Updated: 2022/10/07 19:09:43 by chaidel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@
 # define CONVERT_RAD	PI / (double)180
 # define ONE_DEGRE 0.0174533
 
-
 # define WALL_N	1
 // RED
 # define WALL_S	3
@@ -49,13 +48,12 @@
 // WHITE
 
 typedef struct s_img {
-	void	*img_ptr;
-	char	*addr;				/*	tab de pixel*/
-	char	*path_tex;			/*	Path to xpm file*/
-
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
+	void	*ptr;
+	char	*addr;
+	char	*path;
+	int		bpp;
+	int		length;
+	int		end;
 }	t_img;
 
 typedef struct s_player {
@@ -63,13 +61,13 @@ typedef struct s_player {
 	int		y;
 	double	direction;
 
-	double	tile_Y_x;
-	double	tile_Y_y;
+	double	tile_y_x;
+	double	tile_y_y;
 
-	double	tile_X_x;
-	double	tile_X_y;
-	int		tile_step_X;
-	int		tile_step_Y;
+	double	tile_x_x;
+	double	tile_x_y;
+	int		tile_step_x;
+	int		tile_step_y;
 
 	float	delta_y;
 	float	delta_x;
@@ -77,8 +75,6 @@ typedef struct s_player {
 	double	distance_proj_plane;
 	double	ab_cos_angle_ray;
 	double	tan_angle_ray;
-
-
 
 }	t_player;
 
@@ -90,7 +86,6 @@ typedef struct s_data {
 	int			bits_per_pixel;
 	int			line_length;
 	int			endian;
-
 
 	void		*mlx_3d;
 	void		*mlx_win_3d;
@@ -104,10 +99,10 @@ typedef struct s_data {
 	int			screen_w;
 
 	char		*path_map;
-	t_img		*tex_NO;
-	t_img		*tex_SO;
-	t_img		*tex_WE;
-	t_img		*tex_EA;
+	t_img		*tex_no;
+	t_img		*tex_so;
+	t_img		*tex_we;
+	t_img		*tex_ea;
 	t_player	*player;
 	char		**floor_rgb;
 	char		**ceiling_rgb;
@@ -122,13 +117,13 @@ typedef struct s_data {
 	int			ray_y_before;
 	int			color_wall;
 
-	int	forward;
-	int	backward;
-	int	go_right;
-	int	go_left;
+	int			forward;
+	int			backward;
+	int			go_right;
+	int			go_left;
 
-	int	turn_right;
-	int turn_left;
+	int			turn_right;
+	int			 turn_left;
 
 }	t_data;
 
@@ -139,9 +134,11 @@ void	debug(t_data *data); //DEBUG
 
 /*	Parsing */
 t_data	*init_data(t_data *data, char *path_map);
+void	init_tex(t_data *data);
 void	init_img(t_data *data);
 char	*ft_map_read(char *path);
 int		parsing_map(t_data *data);
+int		parsing_map_sc(t_data *data, char **mapi, char **tex);
 int		copy_map(t_data *data, char **map);
 int		msg_error(char *str);
 int		verif_open_map(char *path_map);
@@ -165,6 +162,8 @@ int		solver_y(t_data *data);
 /*	Utils */
 int		free_struct(t_data *data);
 int		free_struct_config(t_data *data);
+void	freer(t_data *data);
+void	destroyer(t_data *data);
 int		ft_free_doubletab(char **tab);
 
 /*	Option */

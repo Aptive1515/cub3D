@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 15:41:23 by aptive            #+#    #+#             */
-/*   Updated: 2022/09/21 12:35:27 by chaidel          ###   ########.fr       */
+/*   Updated: 2022/10/06 17:39:42 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,13 @@ int	parsing_path_texture(t_data *data, char **tab_gnl)
 	while (++i < len)
 	{
 		if (!ft_strncmp("NO", tab_gnl[i], 2))
-			data->tex_NO->path_tex = split_txt(tab_gnl[i]);
+			data->tex_NO->path = split_txt(tab_gnl[i]);
 		else if (!ft_strncmp("SO", tab_gnl[i], 2))
-			data->tex_SO->path_tex = split_txt(tab_gnl[i]);
+			data->tex_SO->path = split_txt(tab_gnl[i]);
 		else if (!ft_strncmp("WE", tab_gnl[i], 2))
-			data->tex_WE->path_tex = split_txt(tab_gnl[i]);
+			data->tex_WE->path = split_txt(tab_gnl[i]);
 		else if (!ft_strncmp("EA", tab_gnl[i], 2))
-			data->tex_EA->path_tex = split_txt(tab_gnl[i]);
+			data->tex_EA->path = split_txt(tab_gnl[i]);
 		else if (!ft_strncmp("F", tab_gnl[i], 1))
 			parsing_rgb(data, tab_gnl[i]);
 		else if (!ft_strncmp("C", tab_gnl[i], 1))
@@ -70,13 +70,15 @@ int	parsing_path_texture(t_data *data, char **tab_gnl)
 int	parsing_rgb(t_data *data, char *str)
 {
 	char	**tmp_tab;
+	int		len;
 
 	tmp_tab = ft_split(str, ' ');
 	if (ft_doubletab_len(tmp_tab) > 2)
 		return (ft_free_doubletab(tmp_tab));
-	if (!ft_strcmp(tmp_tab[0], "F") && ((int)ft_strlen(tmp_tab[1])  >= 5 && (int)ft_strlen(tmp_tab[1]) <= 11))
+	len = (int)ft_strlen(tmp_tab[1]);
+	if (!ft_strcmp(tmp_tab[0], "F") && (len >= 5 && len <= 11))
 		data->floor_rgb = ft_split(tmp_tab[1], ',');
-	else if (!ft_strcmp(tmp_tab[0], "C") && ((int)ft_strlen(tmp_tab[1])  >= 5 && (int)ft_strlen(tmp_tab[1]) <= 11))
+	else if (!ft_strcmp(tmp_tab[0], "C") && (len >= 5 && len <= 11))
 		data->ceiling_rgb = ft_split(tmp_tab[1], ',');
 	else
 	{
@@ -99,24 +101,10 @@ int	parsing_map(t_data *data)
 	free(str);
 	texture = split_tab(map, split_at_key(map), &mapi);
 	ft_free_doubletab(map);
-	if (!texture)
-	{
-		printf("there1\n");
-		ft_free_doubletab(mapi);
+	if (!parsing_map_sc(data, mapi, texture))
 		return (free_struct_config(data));
-	}
-	if (!parsing_path_texture(data, texture)
-		|| !check_rgb(data))
-	{
-		printf("there2\n");
-		ft_free_doubletab(mapi);
-		ft_free_doubletab(texture);
-		return (free_struct_config(data));
-	}
-	ft_free_doubletab(texture);
 	if (!copy_map(data, mapi))
 	{
-		printf("there3\n");
 		ft_free_doubletab(mapi);
 		return (free_struct_config(data));
 	}
@@ -124,31 +112,19 @@ int	parsing_map(t_data *data)
 	return (1);
 }
 
-int	copy_map(t_data *data, char **map)
+int	parsing_map_sc(t_data *data, char **mapi, char **tex)
 {
-	int		i;
-	int		max;
-	char	*str_sp;
-	char	*new_line;
-
-	if (!get_max(data, map, &max))
-		return (0);
-	i = -1;
-	while (map[++i])
+	if (!tex)
 	{
-		if ((int)ft_strlen(map[i]) < max)
-		{
-			str_sp = malloc(sizeof(char) * ((max - ft_strlen(map[i])) + 1));
-			if (!str_sp)
-				return (0);
-			str_sp[max - ft_strlen(map[i])] = '\0';
-			ft_memset(str_sp, ' ', max - ft_strlen(map[i]));
-			new_line = ft_strdup(map[i]);
-			data->map[i] = ft_strjoin_gnl(new_line, str_sp);
-			free(str_sp);
-		}
-		else
-			data->map[i] = ft_strdup(map[i]);
+		ft_free_doubletab(mapi);
+		return (0);
 	}
+	if (!parsing_path_texture(data, tex) || !check_rgb(data))
+	{
+		ft_free_doubletab(mapi);
+		ft_free_doubletab(tex);
+		return (0);
+	}
+	ft_free_doubletab(tex);
 	return (1);
 }

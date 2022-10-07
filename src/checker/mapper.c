@@ -3,18 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   mapper.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 15:30:45 by chaidel           #+#    #+#             */
-/*   Updated: 2022/09/14 15:50:11 by chaidel          ###   ########.fr       */
+/*   Updated: 2022/10/06 17:02:17 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3D.h"
 
-/*
- *  
-*/
 int	check_map(t_data *data)
 {
 	int	x;
@@ -145,42 +142,3 @@ int	solver_x_open(t_data *data, int y, int x)
 	}
 	return (1);
 }
-
-
-
-	// if (y == 0 && x - 1 > 0 && x + 1 < data->map_w)
-	// {
-	// 	while (y < data->map_h - 1)
-	// 	{
-	// 		if (data->map[y][x] == ' ' && (data->map[y][x - 1] == '1' && data->map[y][x + 1] == '1'))
-	// 			y++;
-	// 		else if (data->map[y][x] == '1' && (data->map[y][x - 1] == '1' && data->map[y][x + 1] == '1'))
-	// 			return (1);
-	// 		else
-	// 		{
-	// 			printf("op1 not close\ny: %d |%s|\ny: %d |%s|\n", y-1, data->map[y-1], y, data->map[y]);
-	// 			return (0);
-	// 		}
-	// 	}
-	// }
-	// else if (y == data->map_h - 1 && x - 1 > 0 && x + 1 < data->map_w)
-	// {
-	// 	while (y >= 0)
-	// 	{
-	// 		if (data->map[y][x] == ' ' && (data->map[y][x - 1] == '1' && data->map[y][x + 1] == '1'))
-	// 			y--;
-	// 		else if (data->map[y][x] == '1' && (data->map[y][x - 1] == '1' && data->map[y][x + 1] == '1'))
-	// 			return (1);
-	// 		else
-	// 		{
-	// 			printf("op2 not close\ny: %d |%s|\ny: %d |%s|\n", y, data->map[y], y-1, data->map[y-1]);
-	// 			return (0);
-	// 		}
-	// 	}
-	// }
-	// else
-	// {
-	// 	printf("me3");
-	// 	return (0);
-	// }
-	
