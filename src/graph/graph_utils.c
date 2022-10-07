@@ -6,7 +6,7 @@
 /*   By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 13:45:13 by aptive            #+#    #+#             */
-/*   Updated: 2022/10/05 18:00:28 by chaidel          ###   ########.fr       */
+/*   Updated: 2022/10/05 19:17:57 by chaidel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,39 +56,44 @@ void	ft_lign_vertical_3d(t_data *data, int x, int y, int y_end, t_img *tex, int 
 {
 	int	tex_y;
 	int	tex_x;
-	int	step;
+	int	w_height;
 	int	d;
-	int	pos;
-	
+
 	// printf("texy: %d| da: %d\n", tex->line_length, data->line_length_3d);
 	// printf("x:%d | y: %d\n", data->ray_x, data->ray_y);
-	step = 1*128/tex->line_length;
-	pos = (y - HEIGHT/2 + data->line_length_3d/2)*step;
+	w_height = y_end - y;
 	while (y < y_end)
 	{
-		if (!(y > HEIGHT || y < 0 || x < 0 || x > WIDTH))
+		if (!(y > data->screen_h || y < 0 || x < 0 || x > data->screen_w ))
 		{
-			// d = y * tex->line_length - HEIGHT * tex->line_length / 2 + y_end * tex->line_length / 2;
+			// printf("%d\n", tex->line_length);
 			// tex_y = ((d * 128) / y_end) / tex->line_length;
-			// tex_x = x;
 			// printf("x:%d\n", tex_x);
-		// 	d = (y) * 256 - recup->ry * 128 + recup->s.spriteheight * 128;
-		// texy = ((d * recup->texture[4].height) / recup->s.spriteheight) / 256;
-			d = (y) * 512 - data->ray_y * 256 + tex->line_length * 256;
-			tex_y = ((d * 128) / tex->line_length) / 512;
-			// tex_y = pos;
-			tex_x = 128-tex_x-1;
-			if(side == 0 && data->player->tile_step_X > 0)
-				tex_x = 128 - tex_x - 1;
-    		if(side == 1 && data->player->tile_step_Y < 0)
-				tex_x = 128 - tex_x - 1;
-			data->addr_3d[y * data->line_length_3d + x * (data->bits_per_pixel / 8)] = 
-				tex->addr[tex_y * tex->line_length + tex_x * (data->bits_per_pixel / 8)];
+			// d = (y) * tex->line_length - HEIGHT * 128 + y_end * 128;
+			tex_y = (y - data->screen_h / 2 + w_height / 2) * 64 / w_height;
+			// printf("y: %d\n", tex_y);
+			// d = y * tex->line_length - HEIGHT * tex->line_length / 2 + y_end * tex->line_length / 2;
+			// tex_y = ((d * 64) / y_end) / tex->line_length;
+
+			// printf("x:%d\n", tex_x);
+			// printf ("tex_x : %d\n", tex_x);
+
+			if(side == 0)
+                tex_x = 64 - ((int)data->ray_x % 32)*2 - 1;
+            if(side == 1)
+                tex_x = 64 - ((int)data->ray_y % 32)*2 - 1;
 
 
-			// if (x == data->player->tile_X_x + data->player->tile_Y_x)
-			// 	my_mlx_pixel_put_3d(data, x, y, WHITE);
+			// if (data->ray_x % 32)
+			// 	tex_x = 0;
+
+
+
+			data->addr_3d[y * data->line_length_3d + x * (data->bits_per_pixel / 8)] = tex->addr[tex_y * tex->line_length + tex_x * (tex->bits_per_pixel / 8)];
+			data->addr_3d[y * data->line_length_3d + x * (data->bits_per_pixel / 8) + 1] = tex->addr[tex_y * tex->line_length + tex_x * (tex->bits_per_pixel / 8) + 1];
+			data->addr_3d[y * data->line_length_3d + x * (data->bits_per_pixel / 8) + 2] = tex->addr[tex_y * tex->line_length + tex_x * (tex->bits_per_pixel / 8) + 2];
 		}
 		y++;
 	}
 }
+

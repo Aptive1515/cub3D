@@ -6,7 +6,7 @@
 /*   By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 12:51:41 by chaidel           #+#    #+#             */
-/*   Updated: 2022/10/05 17:17:35 by chaidel          ###   ########.fr       */
+/*   Updated: 2022/10/05 18:02:24 by chaidel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,8 @@ int	free_struct(t_data *data)
 		mlx_destroy_image(data->mlx, data->tex_EA->img_ptr);
 	mlx_destroy_image(data->mlx, data->img);
 	mlx_destroy_image(data->mlx, data->img_3d);
-	if (data->mlx_win)
-		mlx_destroy_window(data->mlx, data->mlx_win);
+	// if (data->mlx_win)
+	// 	mlx_destroy_window(data->mlx, data->mlx_win);
 	if (data->mlx_win_3d)
 		mlx_destroy_window(data->mlx_3d, data->mlx_win_3d);
 	mlx_destroy_display(data->mlx);
