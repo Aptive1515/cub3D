@@ -6,7 +6,7 @@
 /*   By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 13:45:13 by aptive            #+#    #+#             */
-/*   Updated: 2022/10/07 19:56:12 by chaidel          ###   ########.fr       */
+/*   Updated: 2022/10/09 17:33:41 by chaidel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ void	my_mlx_pixel_put_3d(t_data *data, int x, int y, int color)
 
 	if (x > data->screen_w || x < 0 || y > data->screen_h || y < 0)
 		return ;
-	dst = data->addr_3d
-		+ (y * data->length_3d + x * (data->bpp_3d / 8));
+	dst = data->addr3d
+		+ (y * data->length + x * (data->bpp / 8));
 	*(unsigned int *)dst = color;
 }
 

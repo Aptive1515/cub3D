@@ -6,7 +6,7 @@
 /*   By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 14:30:39 by aptive            #+#    #+#             */
-/*   Updated: 2022/10/07 20:15:06 by chaidel          ###   ########.fr       */
+/*   Updated: 2022/10/09 18:00:13 by chaidel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,6 +162,7 @@ int		solver_x(t_data *data);
 int		solver_x_lim(t_data *data, int y);
 int		solver_x_open(t_data *data, int y, int x);
 int		solver_y(t_data *data);
+int		solver_y_open(t_data *data, int y, int x);
 /*	Utils */
 int		free_struct(t_data *data);
 int		free_struct_config(t_data *data);
@@ -196,7 +197,7 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 int		create_trgb(int t, int r, int g, int b);
 void	my_mlx_pixel_put_3d(t_data *data, int x, int y, int color);
 void	v_line_3d(t_data *data, int x, t_img *tex, int side);
-void	sides(t_data *data, int *tex_x, int *tex_y, int side);
+void	sides(t_data *data, int *tex_x, int side);
 
 /*
 GRAPH/MAP_C----------------------------------------------------------------------

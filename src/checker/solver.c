@@ -6,7 +6,7 @@
 /*   By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 15:46:26 by chaidel           #+#    #+#             */
-/*   Updated: 2022/10/07 21:13:37 by chaidel          ###   ########.fr       */
+/*   Updated: 2022/10/09 18:01:55 by chaidel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,12 @@ int	solver_y(t_data *data)
 				break ;
 			if (data->map[y][x] != ' ' && start)
 				end = 0;
-			if (data->map[y][x] == ' ')
+			if (data->map[y][x] == ' ' && start)
 			{
-				if (start && bt)
+				if (solver_y_open(data, y, x))
 				{
-					printf("me1\n");
-					return (0); // printf("opy1\ny: %d x: %d\n|%s|\n|%s|<=\n|%s|\n", y, x, data->map[y-1],data->map[y],data->map[y+1]);
+					printf("opy1\ny: %d x: %d, |%c|\n|%s|\n|%s|<=\n|%s|\n", y, x, data->map[y][x], data->map[y-1],data->map[y],data->map[y+1]);
+					return (0);
 				}
 			}
 			else if (data->map[y][x] == '1' && !start)
@@ -65,14 +65,37 @@ int	solver_y(t_data *data)
 		}
 		if (start && bt && !end)
 		{
-			printf("me2\n");
+			printf("opy2\ny: %d x: %d, |%c|\n|%s|\n|%s|<=\n|%s|\n", y, x, data->map[y][x], data->map[y-1],data->map[y],data->map[y+1]);
 			return (0); // printf("opy2\ny: %d x: %d, |%c|\n|%s|\n|%s|<=\n|%s|\n", y, x, data->map[y][x], data->map[y-1],data->map[y],data->map[y+1]);
 		}
 	}
 	return (1);
 }
+/*
+ *	S'il le checker trouve un espace, il vérifie tout autour (horizontalement) que le vide est bien fermé
+*/
+int	solver_y_open(t_data *data, int y, int x)
+{
+	int	i;
 
-// int	solver_y_sc(t_data *data)
-// {
-	
-// }
+	i = y;
+	while (data->map[i][x] == ' ')
+		if (data->map[i - 1][x] == ' ')
+			i--;
+		else if (data->map[i - 1][x] == '1')
+			break;
+		else
+			return (0);
+	i = y;
+	while (data->map[i][x] == ' ')
+	{
+		if (i == data->map_h - 1)
+			return (1);
+		if (data->map[i - 1][x] == '1')
+			return (1);
+		else if (!(data->map[i + 1][x] == '1' || data->map[i - 1][x] == ' '))
+			return (0);
+		i++;
+	}
+	return (1);
+}
