@@ -6,7 +6,7 @@
 /*   By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 15:41:23 by aptive            #+#    #+#             */
-/*   Updated: 2022/10/07 19:48:10 by chaidel          ###   ########.fr       */
+/*   Updated: 2022/10/11 12:37:03 by chaidel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,7 @@ int	parsing_path_texture(t_data *data, char **tab_gnl)
 		else if (!ft_strncmp("C", tab_gnl[i], 1))
 			parsing_rgb(data, tab_gnl[i]);
 		else
-		{
-			printf("me\n");
 			return (0);
-		}
 	}
 	return (1);
 }
@@ -86,7 +83,7 @@ int	parsing_rgb(t_data *data, char *str)
 	else
 	{
 		ft_free_doubletab(tmp_tab);
-		return (0);	
+		return (0);
 	}
 	ft_free_doubletab(tmp_tab);
 	return (1);

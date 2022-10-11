@@ -6,7 +6,7 @@
 /*   By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 12:51:41 by chaidel           #+#    #+#             */
-/*   Updated: 2022/10/07 19:26:33 by chaidel          ###   ########.fr       */
+/*   Updated: 2022/10/11 12:45:02 by chaidel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ int	free_struct(t_data *data)
 		free(data->tex_ea->path);
 	destroyer(data);
 	free(data->mlx_3d);
+	free(data->mlx);
 	free(data->player);
 	free(data->tex_no);
 	free(data->tex_so);
@@ -87,6 +88,7 @@ void	destroyer(t_data *data)
 	if (data->tex_ea->ptr)
 		mlx_destroy_image(data->mlx_3d, data->tex_ea->ptr);
 	mlx_destroy_image(data->mlx_3d, data->img_3d);
+	mlx_destroy_image(data->mlx, data->img);
 	if (data->mlx_win_3d)
 		mlx_destroy_window(data->mlx_3d, data->mlx_win_3d);
 	mlx_destroy_display(data->mlx_3d);

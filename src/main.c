@@ -6,7 +6,7 @@
 /*   By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 14:32:44 by aptive            #+#    #+#             */
-/*   Updated: 2022/10/09 17:49:47 by chaidel          ###   ########.fr       */
+/*   Updated: 2022/10/11 12:46:47 by chaidel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,8 @@ int	main(int argc, char **argv)
 		exit(free_struct_config(data) + 1);
 	init_player(data);
 
-	debug(data);
-	exit(0);
+	// debug(data);
+	// exit(0);
 
 
 	data->mlx = mlx_init();

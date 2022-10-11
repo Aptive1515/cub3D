@@ -6,7 +6,7 @@
 /*   By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 14:30:39 by aptive            #+#    #+#             */
-/*   Updated: 2022/10/09 18:00:13 by chaidel          ###   ########.fr       */
+/*   Updated: 2022/10/11 12:34:46 by chaidel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,9 +159,11 @@ int		get_max(t_data *data, char **map, int *max);
 /*	Checker */
 int		check_map(t_data *data);
 int		solver_x(t_data *data);
+int		solver_x_sc(t_data *data, int y, int x);
 int		solver_x_lim(t_data *data, int y);
 int		solver_x_open(t_data *data, int y, int x);
 int		solver_y(t_data *data);
+int		solver_y_sc(t_data *data, int x);
 int		solver_y_open(t_data *data, int y, int x);
 /*	Utils */
 int		free_struct(t_data *data);
