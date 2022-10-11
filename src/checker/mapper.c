@@ -6,12 +6,11 @@
 /*   By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 15:30:45 by chaidel           #+#    #+#             */
-/*   Updated: 2022/10/11 12:35:16 by chaidel          ###   ########.fr       */
+/*   Updated: 2022/10/11 14:58:27 by chaidel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3D.h"
-
 
 /*
  *	printf("y%d, x%d => |%c|\n", y, x, data->map[y][x]);
@@ -45,7 +44,6 @@ int	check_map(t_data *data)
 	return (1);
 }
 
-
 int	solver_x(t_data *data)
 {
 	int	y;
@@ -55,7 +53,6 @@ int	solver_x(t_data *data)
 	y = -1;
 	while (++y < data->map_h)
 	{
-
 		if (y == 0 || y == data->map_h - 1)
 		{
 			if (!solver_x_lim(data, y))

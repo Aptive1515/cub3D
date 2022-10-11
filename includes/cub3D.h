@@ -6,7 +6,7 @@
 /*   By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 14:30:39 by aptive            #+#    #+#             */
-/*   Updated: 2022/10/11 12:34:46 by chaidel          ###   ########.fr       */
+/*   Updated: 2022/10/11 15:08:48 by chaidel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,17 +25,9 @@
 # define WIDTH	1080
 # define HEIGHT	960
 # define SQUARE	32
-# define RED	0xCF2500
-# define RED_DARK	create_trgb(0, 102, 8, 1)
-# define WHITE	create_trgb(0, 255, 255, 255)
-# define BLUE	create_trgb(0, 54, 60, 2450)
-# define GREEN	create_trgb(0, 55, 255, 0)
-# define BLACK	create_trgb(0, 0, 0, 0)
-# define ROSE	create_trgb(0, 245, 66, 224)
-# define HORIZON	600
 # define WALL_H	32
 # define PI M_PI
-# define CONVERT_RAD	PI / (double)180
+# define CONVERT_RAD 0.01745329
 # define ONE_DEGRE 0.0174533
 
 # define WALL_N	1
@@ -79,14 +71,6 @@ typedef struct s_player {
 }	t_player;
 
 typedef struct s_data {
-	void		*mlx;
-	void		*mlx_win;
-	void		*img;
-	char		*addr;
-	int			bits_per_pixel;
-	int			line_length;
-	int			endian;
-
 	void		*mlx_3d;
 	void		*mlx_win_3d;
 	void		*img_3d;
@@ -178,24 +162,8 @@ int		check_rgb(t_data *data);
 int		xpm_err(t_data *pth);
 
 /*
-GRAPH/FIRGURE_C------------------------------------------------------------------
-*/
-
-void	do_circle(t_data *data, int r, int x_centre, int y_centre, int color);
-void	full_circle(t_data *data, int r, int x_centre, int y_centre, int color);
-void	draw_lign(t_data *data, int x1, int y1, int x2, int y2, int color);
-
-/*
 GRAPH/GRAPH_UTILS_C--------------------------------------------------------------
 */
-// int		verif_wall(t_data *data, int x, int y);
-void	my_mlx_pixel_put_limit_wall(t_data *data, int x, int y, int color);
-void	ft_lign_vertical(t_data *data, int x, int y, int y_end, int color);
-void	ft_lign_horizontal(t_data *data, int x, int x_end, int y,int color);
-void	ft_grille(t_data *data);
-void	ft_full(t_data *data, int x_beg, int y_beg, int color);
-void	my_mlx_pixel_put_limit(t_data *data, int x, int y, int color);
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 int		create_trgb(int t, int r, int g, int b);
 void	my_mlx_pixel_put_3d(t_data *data, int x, int y, int color);
 void	v_line_3d(t_data *data, int x, t_img *tex, int side);
@@ -214,21 +182,13 @@ void	find_player_position(t_data *data);
 void	affichage_player(t_data *data);
 void	ft_move_fov(t_data *data, char c);
 void	ft_move_player(t_data *data, char c);
-int 	find_x(double angle, int distance, int origin_x);
-int 	find_y(double angle, int distance, int origin_y);
+int		find_x(double angle, int distance, int origin_x);
+int		find_y(double angle, int distance, int origin_y);
 
 /*
 PLAYER/PLAYER_SUPP_C-------------------------------------------------------------
 */
 void	init_player(t_data *data);
-
-
-/*
-PLAYER/PLAYER_SUPP_C-------------------------------------------------------------
-*/
-void	affichage_direction(t_data *data);
-void	affichage_player(t_data *data);
-
 
 /*
 HOOK/HOOK_C----------------------------------------------------------------------
@@ -241,7 +201,7 @@ int		ft_release(int keycode, t_data *data);
 /*
 RAY/DDA_C------------------------------------------------------------------------
 */
-void	dda(t_data *data, t_player *player, double angle_ray);
+void	dda(t_data *data, t_player *player);
 double	calcul_delta(t_player *player, char c);
 int		check_intersection(t_data *data, int x, int y);
 /*
@@ -255,7 +215,6 @@ void	next_intercept_x(t_player *player);
 RAY/RAY_TRAICING_C---------------------------------------------------------------
 */
 void	ray_traicing(t_data *data);
-void	ray_way(t_data *data, int x1, int y1, int x2, int y2);
 void	witch_ray(t_data *data, t_player *player);
 
 /*

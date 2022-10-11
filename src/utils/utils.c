@@ -6,7 +6,7 @@
 /*   By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 12:51:41 by chaidel           #+#    #+#             */
-/*   Updated: 2022/10/11 12:45:02 by chaidel          ###   ########.fr       */
+/*   Updated: 2022/10/11 15:26:25 by chaidel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ int	free_struct(t_data *data)
 		free(data->tex_ea->path);
 	destroyer(data);
 	free(data->mlx_3d);
-	free(data->mlx);
 	free(data->player);
 	free(data->tex_no);
 	free(data->tex_so);
@@ -88,7 +87,6 @@ void	destroyer(t_data *data)
 	if (data->tex_ea->ptr)
 		mlx_destroy_image(data->mlx_3d, data->tex_ea->ptr);
 	mlx_destroy_image(data->mlx_3d, data->img_3d);
-	mlx_destroy_image(data->mlx, data->img);
 	if (data->mlx_win_3d)
 		mlx_destroy_window(data->mlx_3d, data->mlx_win_3d);
 	mlx_destroy_display(data->mlx_3d);
@@ -99,6 +97,8 @@ int	ft_free_doubletab(char **tab)
 	int	i;
 
 	i = 0;
+	if (!tab)
+		return (0);
 	while (tab[i])
 		i++;
 	while (i >= 0)
@@ -106,6 +106,8 @@ int	ft_free_doubletab(char **tab)
 		free(tab[i]);
 		i--;
 	}
-	free(tab);
+	printf("%p\n", tab);
+	if (tab)
+		free(tab);
 	return (0);
 }

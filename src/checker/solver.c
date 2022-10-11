@@ -6,12 +6,11 @@
 /*   By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 15:46:26 by chaidel           #+#    #+#             */
-/*   Updated: 2022/10/11 12:26:54 by chaidel          ###   ########.fr       */
+/*   Updated: 2022/10/11 14:56:54 by chaidel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3D.h"
-
 
 /*
  *	le solver verif de colonne en colonne
@@ -47,7 +46,6 @@ int	solver_y_sc(t_data *data, int x)
 	y = -1;
 	start = 0;
 	end = 0;
-
 	while (++y < data->map_h)
 	{
 		if (y == data->map_h)

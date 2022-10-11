@@ -6,7 +6,7 @@
 /*   By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 16:26:50 by aptive            #+#    #+#             */
-/*   Updated: 2022/10/07 20:16:53 by chaidel          ###   ########.fr       */
+/*   Updated: 2022/10/11 14:56:37 by chaidel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 double	calcul_angle_ray(t_data *data, int wall_x)
 {
-	return ((atan((wall_x - data->screen_h / 2 )
+	return ((atan((wall_x - data->screen_h / 2)
 				/ data->player->distance_proj_plane)));
 }
 
@@ -52,7 +52,7 @@ void	ray_traicing(t_data *data)
 		player->ab_cos_angle_ray = absolu_double(cos(angle_ray));
 		calcul_tile_step_y(player, angle_ray);
 		calcul_tile_step_x(player, angle_ray);
-		dda(data, player, angle_ray);
+		dda(data, player);
 		witch_ray(data, player);
 		dis_ray = ray_distance(player->x, player->y, data->ray_x, data->ray_y);
 		dis_ray = delete_fish_eye(dis_ray, fov);

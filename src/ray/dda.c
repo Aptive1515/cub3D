@@ -6,13 +6,13 @@
 /*   By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 17:40:28 by aptive            #+#    #+#             */
-/*   Updated: 2022/10/07 20:15:28 by chaidel          ###   ########.fr       */
+/*   Updated: 2022/10/11 14:42:30 by chaidel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3D.h"
 
-void	dda(t_data *data, t_player *player, double angle_ray)
+void	dda(t_data *data, t_player *player)
 {
 	calcul_tile_step_y_y(player, player->tile_step_y);
 	calcul_tile_step_x_x(player, player->tile_step_x);
@@ -41,10 +41,7 @@ int	check_intersection(t_data *data, int x, int y)
 	x_map = x / SQUARE;
 	if (x_map > data->map_w - 1 || x_map <= 0
 		|| y_map > data->map_h - 1 || y_map <= 0)
-	{
-		ft_full(data, (x * SQUARE), (y * SQUARE), RED);
 		return (1);
-	}
 	if (data->map[y_map][x_map] == '1')
 		return (1);
 	return (0);

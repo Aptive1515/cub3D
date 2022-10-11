@@ -6,7 +6,7 @@
 /*   By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 11:20:21 by chaidel           #+#    #+#             */
-/*   Updated: 2022/10/07 19:48:24 by chaidel          ###   ########.fr       */
+/*   Updated: 2022/10/11 15:25:26 by chaidel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,12 @@ char	**split_tab(char **tab, int len, char *(**rest))
 
 	len++;
 	max = ft_doubletab_len(tab);
+	// printf("max: %d. len: %d\n", max, len);
 	if (len >= max)
+	{
+		*(rest) = NULL;
 		return (NULL);
+	}
 	opt = (char **)malloc(sizeof(char *) * (len + 1));
 	if (!opt)
 		return (NULL);
