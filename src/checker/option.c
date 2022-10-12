@@ -6,7 +6,7 @@
 /*   By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 17:32:52 by root              #+#    #+#             */
-/*   Updated: 2022/10/09 17:48:12 by chaidel          ###   ########.fr       */
+/*   Updated: 2022/10/12 15:27:26 by chaidel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ int	check_texture_path(t_data *pth)
 	int	imgw;
 	int	imgh;
 
+	if (!check_path(pth))
+		return (0);
 	pth->tex_no->ptr
 		= mlx_xpm_file_to_image(pth->mlx_3d, pth->tex_no->path, &imgw, &imgh);
 	pth->tex_so->ptr
@@ -42,9 +44,16 @@ int	check_texture_path(t_data *pth)
 	return (1);
 }
 
+int	check_path(t_data *pth)
+{
+	if (!pth->tex_no->path || !pth->tex_so->path || !pth->tex_we->path
+		|| !pth->tex_ea->path)
+		return (0);
+	return (1);
+}
+
 int	xpm_err(t_data *pth)
 {
-	printf("text err\n");
 	if (pth->tex_no)
 		mlx_destroy_image(pth->mlx_3d, pth->tex_no);
 	if (pth->tex_so)

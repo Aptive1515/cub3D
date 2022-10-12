@@ -6,7 +6,7 @@
 /*   By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 15:41:23 by aptive            #+#    #+#             */
-/*   Updated: 2022/10/12 09:46:28 by chaidel          ###   ########.fr       */
+/*   Updated: 2022/10/12 15:18:01 by chaidel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,11 @@ int	parsing_rgb(t_data *data, char *str)
 	int		len;
 
 	tmp_tab = ft_split(str, ' ');
+	if (!tmp_tab[0] || !tmp_tab[1])
+	{
+		ft_free_doubletab(tmp_tab);
+		return (0);
+	}
 	if (ft_doubletab_len(tmp_tab) > 2)
 		return (ft_free_doubletab(tmp_tab));
 	len = (int)ft_strlen(tmp_tab[1]);

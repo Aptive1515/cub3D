@@ -6,7 +6,7 @@
 /*   By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 14:30:39 by aptive            #+#    #+#             */
-/*   Updated: 2022/10/11 15:08:48 by chaidel          ###   ########.fr       */
+/*   Updated: 2022/10/12 15:24:17 by chaidel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,6 +158,7 @@ int		ft_free_doubletab(char **tab);
 
 /*	Option */
 int		check_texture_path(t_data *pth);
+int		check_path(t_data *pth);
 int		check_rgb(t_data *data);
 int		xpm_err(t_data *pth);
 

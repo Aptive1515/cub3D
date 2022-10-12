@@ -6,7 +6,7 @@
 #    By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/02/22 23:12:10 by pbondoer          #+#    #+#              #
-#    Updated: 2022/10/12 09:53:56 by chaidel          ###   ########.fr        #
+#    Updated: 2022/10/12 13:29:01 by chaidel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,6 @@ SRC		=	main.c\
 			parsing/verif_arg.c\
 			parsing/parse_map.c\
 			parsing/parse_utils.c\
-			graph/figure.c\
 			graph/graph_utils.c\
 			graph/map.c\
 			graph/texturing.c\

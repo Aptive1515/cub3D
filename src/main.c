@@ -6,29 +6,11 @@
 /*   By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 14:32:44 by aptive            #+#    #+#             */
-/*   Updated: 2022/10/12 10:12:10 by chaidel          ###   ########.fr       */
+/*   Updated: 2022/10/12 13:17:41 by chaidel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3D.h"
-
-/*	DEBUG
-void	debug(t_data *data)
-{
-	// printf("NO %s\nSO %s\nWE %s\nEA %s\n",
-	data->tex_no->path,data->tex_so->path,data->tex_WE->path,data->tex_EA->path);
-	printf("F ");
-	for (int i = 0; data->floor_rgb[i]; i++)
-		printf("%s,", data->floor_rgb[i]);
-	printf("\n");
-	printf("C ");
-	for (int i = 0; data->ceiling_rgb[i]; i++)
-		printf("%s,", data->ceiling_rgb[i]);
-	printf("\n\n");
-	for (int i = 0; data->map[i]; i++)
-		printf("|%s|\n", data->map[i]);
-}
-*/
 
 t_data	*init_all(t_data *data, int argc, char **argv)
 {

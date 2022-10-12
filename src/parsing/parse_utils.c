@@ -6,7 +6,7 @@
 /*   By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 11:20:21 by chaidel           #+#    #+#             */
-/*   Updated: 2022/10/12 10:01:40 by chaidel          ###   ########.fr       */
+/*   Updated: 2022/10/12 15:12:03 by chaidel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,11 @@ char	*split_txt(char *str)
 	char	**tab;
 
 	tab = ft_split(str, ' ');
+	if (ft_doubletab_len(tab) != 2)
+	{
+		ft_free_doubletab(tab);
+		return (NULL);
+	}
 	path = ft_strdup(tab[1]);
 	ft_free_doubletab(tab);
 	return (path);
