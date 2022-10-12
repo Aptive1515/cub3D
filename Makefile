@@ -6,7 +6,7 @@
 #    By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/02/22 23:12:10 by pbondoer          #+#    #+#              #
-#    Updated: 2022/10/11 15:13:45 by chaidel          ###   ########.fr        #
+#    Updated: 2022/10/12 09:53:56 by chaidel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,7 +46,7 @@ OBJ		= $(addprefix $(OBJDIR)/,$(SRC:.c=.o))
 
 # compiler
 CC		= clang
-CFLAGS	= -Wall -Wextra -Werror -g3 -fsanitize=address
+CFLAGS	= -Wall -Wextra -Werror -g3 #-fsanitize=address
 
 
 # mlx library

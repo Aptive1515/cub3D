@@ -6,7 +6,7 @@
 /*   By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 15:41:23 by aptive            #+#    #+#             */
-/*   Updated: 2022/10/11 15:25:42 by chaidel          ###   ########.fr       */
+/*   Updated: 2022/10/12 09:46:28 by chaidel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,8 @@ int	parsing_map_sc(t_data *data, char **mapi, char **tex)
 {
 	if (!tex)
 	{
-		ft_free_doubletab(mapi);
+		if (mapi)
+			ft_free_doubletab(mapi);
 		return (0);
 	}
 	if (!parsing_path_texture(data, tex) || !check_rgb(data))

@@ -6,7 +6,7 @@
 /*   By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 12:51:41 by chaidel           #+#    #+#             */
-/*   Updated: 2022/10/11 15:26:25 by chaidel          ###   ########.fr       */
+/*   Updated: 2022/10/12 09:49:09 by chaidel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,10 @@ void	init_tex(t_data *data)
 	data->tex_we->ptr = NULL;
 	data->tex_ea->ptr = NULL;
 	data->mlx_3d = NULL;
+	data->tex_no->path = NULL;
+	data->tex_so->path = NULL;
+	data->tex_we->path = NULL;
+	data->tex_ea->path = NULL;
 }
 
 int	free_struct(t_data *data)
@@ -97,8 +101,6 @@ int	ft_free_doubletab(char **tab)
 	int	i;
 
 	i = 0;
-	if (!tab)
-		return (0);
 	while (tab[i])
 		i++;
 	while (i >= 0)
@@ -106,8 +108,6 @@ int	ft_free_doubletab(char **tab)
 		free(tab[i]);
 		i--;
 	}
-	printf("%p\n", tab);
-	if (tab)
-		free(tab);
+	free(tab);
 	return (0);
 }
