@@ -6,7 +6,7 @@
 /*   By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 14:30:39 by aptive            #+#    #+#             */
-/*   Updated: 2022/10/12 15:24:17 by chaidel          ###   ########.fr       */
+/*   Updated: 2022/10/13 12:09:44 by chaidel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,7 @@ int		parsing_map_sc(t_data *data, char **mapi, char **tex);
 int		copy_map(t_data *data, char **map);
 int		msg_error(char *str);
 int		verif_open_map(char *path_map);
+int		check_filetype(char *file);
 int		verif_arg(int argc, char **argv);
 int		parsing_rgb(t_data *data, char *str);
 int		parsing_path_texture(t_data *data, char **tab_gnl);
@@ -149,6 +150,7 @@ int		solver_x_open(t_data *data, int y, int x);
 int		solver_y(t_data *data);
 int		solver_y_sc(t_data *data, int x);
 int		solver_y_open(t_data *data, int y, int x);
+
 /*	Utils */
 int		free_struct(t_data *data);
 int		free_struct_config(t_data *data);

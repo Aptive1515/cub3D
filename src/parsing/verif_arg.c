@@ -6,7 +6,7 @@
 /*   By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 14:46:14 by aptive            #+#    #+#             */
-/*   Updated: 2022/10/12 10:12:25 by chaidel          ###   ########.fr       */
+/*   Updated: 2022/10/13 12:58:51 by chaidel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,22 @@ int	verif_open_map(char *path_map)
 	return (0);
 }
 
+int	check_filetype(char *file)
+{
+	if (!ft_strrncmp(file, ".cub", ft_strlen(".cub")))
+		return (0);
+	ft_putstr_fd("Error\n", STDERR_FILENO);
+	ft_putstr_fd("Invalid map file\n", STDERR_FILENO);
+	return (1);
+}
+
 int	verif_arg(int argc, char **argv)
 {
 	if (argc < 2)
 		return (msg_error("too few arguments"));
 	else if (argc > 2)
 		return (msg_error("too much arguments"));
-	else if (verif_open_map(argv[1]))
+	else if (check_filetype(argv[1]) || verif_open_map(argv[1]))
 		return (1);
 	return (0);
 }

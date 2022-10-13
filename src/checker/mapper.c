@@ -6,7 +6,7 @@
 /*   By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 15:30:45 by chaidel           #+#    #+#             */
-/*   Updated: 2022/10/11 14:58:27 by chaidel          ###   ########.fr       */
+/*   Updated: 2022/10/13 11:52:38 by chaidel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,19 +74,19 @@ int	solver_x_sc(t_data *data, int y, int x)
 	end = 0;
 	while (++x < data->map_w)
 	{
+		if (x == 0 && (data->map[y][x] != '1' || data->map[y][x] != '1'))
+			return (0);
 		while (!start && data->map[y][x] == ' ')
 			x++;
 		if (data->map[y][x] != ' ' && start)
 			end = 0;
-		if (data->map[y][x] == ' ')
-		{
-			if (!solver_x_open(data, y, x))
-				return (0);
-		}
-		else if (data->map[y][x] == '1' && !start)
+		if (data->map[y][x] == '1' && !start)
 			start = 1;
 		else if (data->map[y][x] == '1' && start)
 			end = 1;
+		else if (data->map[y][x] == ' ')
+			if (!solver_x_open(data, y, x))
+				return (0);
 	}
 	if (!start || !end)
 		return (0);
