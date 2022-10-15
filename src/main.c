@@ -6,7 +6,7 @@
 /*   By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 14:32:44 by aptive            #+#    #+#             */
-/*   Updated: 2022/10/13 12:59:10 by chaidel          ###   ########.fr       */
+/*   Updated: 2022/10/15 18:05:13 by chaidel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,15 @@ t_data	*init_all(t_data *data, int argc, char **argv)
 		exit(EXIT_FAILURE);
 	data = init_data(data, argv[1]);
 	if (!parsing_map(data))
+	{
+		printf("here1\n");
 		exit(EXIT_FAILURE);
+	}
 	if (!check_map(data) || !solver_x(data) || !solver_y(data))
+	{
+		printf("here1\n");
 		exit(free_struct_config(data) + 1);
+	}
 	init_player(data);
 	return (data);
 }

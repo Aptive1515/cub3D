@@ -6,7 +6,7 @@
 /*   By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 15:41:23 by aptive            #+#    #+#             */
-/*   Updated: 2022/10/15 16:58:00 by chaidel          ###   ########.fr       */
+/*   Updated: 2022/10/15 18:16:09 by chaidel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,17 +41,15 @@ char	*ft_map_read(char *path)
 int	parsing_path_texture(t_data *data, char **tab_gnl)
 {
 	int		i;
-	int		len;
 
 	i = -1;
-	len = ft_doubletab_len(tab_gnl);
-	printf("len: %d\n", len);
-	if (len < 5)
+	if (!check_len(tab_gnl))
 		return (0);
-	while (++i < len)
+	while (tab_gnl[++i])
 	{
-		printf("tmp[%d]: |%s|\n", i, tab_gnl[i]);
-		if (!ft_strncmp("NO", tab_gnl[i], 2))
+		if (tab_gnl[i][0] == 13)
+			continue ;
+		else if (!ft_strncmp("NO", tab_gnl[i], 2))
 			data->tex_no->path = split_txt(tab_gnl[i]);
 		else if (!ft_strncmp("SO", tab_gnl[i], 2))
 			data->tex_so->path = split_txt(tab_gnl[i]);
@@ -63,17 +61,9 @@ int	parsing_path_texture(t_data *data, char **tab_gnl)
 			parsing_rgb(data, tab_gnl[i]);
 		else if (!ft_strncmp("C", tab_gnl[i], 1))
 			parsing_rgb(data, tab_gnl[i]);
-		else if (tab_gnl[i][0] == '\n')
-		{
-			printf("ok\n");
-		}
 		else
-		{
-			printf("err parsing2\n=>%s\n", tab_gnl[i]);
 			return (0);
-		}
 	}
-	printf("done parsing\n");
 	return (1);
 }
 
@@ -83,10 +73,6 @@ int	parsing_rgb(t_data *data, char *str)
 	int		len;
 
 	tmp_tab = ft_split(str, ' ');
-	printf("--\n%s_%s\n---\n", tmp_tab[0], tmp_tab[1]);
-	char **sad = ft_split(tmp_tab[1], ',');
-	for (int i = 0; sad[i];i++)
-		printf("%d:%s\n", i, sad[i]);
 	if (!tmp_tab[0] || !tmp_tab[1])
 	{
 		ft_free_doubletab(tmp_tab);
@@ -116,21 +102,14 @@ int	parsing_map(t_data *data)
 	char	*str;
 
 	str = ft_map_read(data->path_map);
-	// printf("---\n");
-	// printf("%s", str);
-	// printf("\n---\n");
 	map = ft_split(str, '\n');
 	free(str);
 	texture = split_tab(map, split_at_key(map), &mapi);
 	ft_free_doubletab(map);
 	if (!parsing_map_sc(data, mapi, texture))
-	{
-		printf("there0\n");
 		return (free_struct_config(data));
-	}
 	if (!copy_map(data, mapi))
 	{
-		printf("there1\n");
 		ft_free_doubletab(mapi);
 		return (free_struct_config(data));
 	}
@@ -142,14 +121,12 @@ int	parsing_map_sc(t_data *data, char **mapi, char **tex)
 {
 	if (!tex)
 	{
-		printf("there3\n");
 		if (mapi)
 			ft_free_doubletab(mapi);
 		return (0);
 	}
 	if (!parsing_path_texture(data, tex) || !check_rgb(data))
 	{
-		printf("there4\n");
 		ft_free_doubletab(mapi);
 		ft_free_doubletab(tex);
 		return (0);

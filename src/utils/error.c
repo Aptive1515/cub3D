@@ -6,7 +6,7 @@
 /*   By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 11:21:15 by chaidel           #+#    #+#             */
-/*   Updated: 2022/10/12 09:44:26 by chaidel          ###   ########.fr       */
+/*   Updated: 2022/10/15 18:16:16 by chaidel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,14 @@ void	freer(t_data *data)
 	free(data->tex_we);
 	free(data->tex_ea);
 	free(data);
+}
+
+int	check_len(char **tab)
+{
+	int	len;
+
+	len = ft_doubletab_len(tab);
+	if (len < 5)
+		return (0);
+	return (1);
 }

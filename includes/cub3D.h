@@ -6,7 +6,7 @@
 /*   By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 14:30:39 by aptive            #+#    #+#             */
-/*   Updated: 2022/10/13 12:09:44 by chaidel          ###   ########.fr       */
+/*   Updated: 2022/10/15 18:15:40 by chaidel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,7 @@ int		check_filetype(char *file);
 int		verif_arg(int argc, char **argv);
 int		parsing_rgb(t_data *data, char *str);
 int		parsing_path_texture(t_data *data, char **tab_gnl);
+int		check_len(char **tab);
 int		config_err(void);
 int		strs_are_num(char **av);
 int		not_key(char *str);
