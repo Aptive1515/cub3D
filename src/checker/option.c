@@ -6,7 +6,7 @@
 /*   By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 17:32:52 by root              #+#    #+#             */
-/*   Updated: 2022/10/12 15:27:26 by chaidel          ###   ########.fr       */
+/*   Updated: 2022/10/15 16:17:30 by chaidel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,26 +70,46 @@ int	check_rgb(t_data *data)
 	int	i;
 	int	value;
 
+	// for (int s=0; data->floor_rgb[s];s++)
+	// 	printf("%s,",data->floor_rgb[s]);
+	// printf("\n");
 	i = -1;
 	if (!data->floor_rgb || !data->ceiling_rgb)
+	{
+		printf("me1\n");
 		return (0);
+	}
 	if (ft_doubletab_len(data->floor_rgb) != 3
 		|| ft_doubletab_len(data->ceiling_rgb) != 3)
+	{
+		printf("me2\n");
 		return (0);
+	}
 	if (!strs_are_num(data->floor_rgb) || !strs_are_num(data->ceiling_rgb))
+	{
+		// for (int j=0; j<3;j++)
+		// 	printf("%d:%s\n",);
+		printf("me3\n");
 		return (0);
+	}
 	while (++i < 3)
 	{
 		value = ft_atoi(data->floor_rgb[i]);
 		if (value < 0 || value > 255)
+		{
+		printf("me4\n");
 			return (0);
+		}
 	}
 	i = -1;
 	while (++i < 3)
 	{
 		value = ft_atoi(data->ceiling_rgb[i]);
 		if (value < 0 || value > 255)
+		{
+			printf("me5\n");
 			return (0);
+		}
 	}
 	return (1);
 }
